@@ -1,8 +1,32 @@
 import './login.css';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../header/header';
 
 function Login() {
+
+    // Test api
+    useEffect(() => {
+        fetch('/api/User/register',{
+            method: 'POST',
+            body: JSON.stringify({
+                userName: "Jeanbon",
+                email: "Jeanbon@mail.com",
+                password: "ThomasEstGros"
+            }),
+            headers:{
+                'accept': 'text/plain',
+                'Content-Type': 'application/json'
+            }
+        })
+          .then(resp => {
+            console.log(resp);
+            console.log('======success=======');
+          })
+          .catch(err => {
+            console.log('======failure=======');
+            console.log(err);
+          });
+      }, [])
 
     const [mailAddress, setMailAddress] = useState();
     const [password, setPassword] = useState();
