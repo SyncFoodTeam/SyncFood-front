@@ -1,0 +1,47 @@
+.registerForm {
+    margin-top: 50%;
+}
+
+.registerButton {
+    border-radius: 30px;
+    background: #2FA688;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 237px;
+    height: 50px;
+    border: none;
+    margin-top: 15%;
+}
+
+.registerFormInput {
+    border: solid 1px #27D4A9;
+    width: 263px;
+    height: 31px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.label {
+    color: #000;
+    text-align: center;
+    font-size: 17px;
+    font-family: 'MuseoModerno';
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.noAccount{
+    color: #27D4A9;
+    text-align: center;
+    font-size: 17px;
+    font-family: 'MuseoModerno';
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
