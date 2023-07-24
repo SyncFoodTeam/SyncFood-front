@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import LoginPage from './auth/login/loginPage';
-import Home from './home/home';
 import RegisterPage from './auth/register/registerPage';
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LunchPage from './lunchPage/lunchPage';
+import Home from './pages/home/home';
+import LunchPage from './pages/lunchPage/lunchPage';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,7 +1,7 @@
 import './header.css';
 import React from 'react'
-import barCodeScanner from '../assets/barCodeScanner.svg'
-import logo from '../assets/logo.svg'
+import barCodeScanner from '../../assets/barCodeScanner.svg'
+import logo from '../../assets/logo.svg'
 
 function Header({ barCodeScannerIsTrue }) {
 

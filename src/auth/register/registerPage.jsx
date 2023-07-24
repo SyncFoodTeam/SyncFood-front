@@ -1,9 +1,9 @@
 import './registerPage.css';
 import '../../theme/theme.css';
 import React, { useState } from 'react'
-import Header from '../../header/header';
 import { RegisterService } from '../../service/auth.service';
 import { useNavigate } from "react-router-dom";
+import Header from '../../component/header/header';
 
 function RegisterPage() {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
-import Header from '../header/header';
 import './lunchPage.css';
 import React from 'react'
-import lunchPageImage from '../assets/lunchPageImage.svg'
+import lunchPageImage from '../../assets/lunchPageImage.svg'
 import { useNavigate } from "react-router-dom";
+import Header from '../../component/header/header';
 
 
 function LunchPage() {
