@@ -19,13 +19,10 @@ function LoginPage() {
 
         console.log(event);
 
-
         let body = {
             email: mailAddress,
             password: password
         };
-
-        // try catch pour tester la route de connexion
 
         console.log("J'envoie mes données à la route adéquat");
         let loginSuccess = await LoginService(body);
