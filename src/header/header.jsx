@@ -8,7 +8,7 @@ function Header({ barCodeScannerIsTrue }) {
 
 
     return (
-        <header className="App-header">
+        <header>
             {barCodeScannerIsTrue &&
                 <div>
                     <img src={barCodeScanner} className="App-logo" alt="logo" />

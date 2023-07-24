@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+export async function LoginDao(body) {
+    console.log("LoginDao()");
+    console.log("Route de login des utilisateurs");
 
-export async function Login(body) {
-    console.log("Login()");
-    console.log("Route de le login des utilisateurs");
-
-    fetch('/api/User/login', {
+    const data = await fetch('/api/User/login', {
         method: 'POST',
         body: JSON.stringify({
             email: body.email,
@@ -15,21 +13,20 @@ export async function Login(body) {
             'Content-Type': 'application/json'
         }
     })
-        .then(resp => {
-            console.log(resp);
-            console.log('======success=======');
-        })
-        .catch(err => {
-            console.log('======failure=======');
-            console.log(err);
-        });
+    if (data.ok) {
+        console.log('======success=======');
+        return data.json();
+    } else {
+        console.log('======failure=======');
+        return undefined;
+    }
 };
 
-export async function Register(body) {
-    console.log("Register()");
+export async function RegisterDao(body) {
+    console.log("RegisterDao()");
     console.log("Route de register des utilisateurs");
 
-    fetch('/api/User/register', {
+    const data = await fetch('/api/User/register', {
         method: 'POST',
         body: JSON.stringify({
             userName: body.username,
@@ -41,13 +38,15 @@ export async function Register(body) {
             'Content-Type': 'application/json'
         }
     })
-        .then(resp => {
-            console.log(resp);
-            console.log('======success=======');
-        })
-        .catch(err => {
-            console.log('======failure=======');
-            console.log(err);
-        });
+
+    console.log(data);
+
+    if (data.ok) {
+        console.log('======success=======');
+        return data.json();
+    } else {
+        console.log('======failure=======');
+        return undefined;
+    }
 };
 

@@ -1,19 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+
 
 function App() {
-  // useEffect(() => {
-  //   fetch('/api/Weatherforecast')
-  //     .then(resp => {
-  //       console.log(resp);
-  //       console.log('======success=======');
-  //     })
-  //     .catch(err => {
-  //       console.log('======failure=======');
-  //       console.log(err);
-  //     });
-  // }, [])
   return (
     <div className="App">
       <header className="App-header">
