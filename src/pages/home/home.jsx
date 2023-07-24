@@ -23,7 +23,7 @@ function Home() {
 
             <Header barCodeScannerIsTrue={true} />
 
-            <h2>Bonjour {informationMe.userName}</h2>
+            <h2>Bonjour {informationMe?.userName}</h2>
 
             <Menu />
         </div>

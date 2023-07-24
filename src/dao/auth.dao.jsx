@@ -70,3 +70,28 @@ export async function InformationMeDao(token) {
     }
 };
 
+export async function UpdateInformation(token, body) {
+    console.log("UpdateInformation()");
+
+    const data = await fetch('/api/user/update/me', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            userName: body.userName,
+            email: body.email,
+            password: body.password
+        }),
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + token
+        }
+    })
+    if (data.ok) {
+        console.log('======success=======');
+        return data.json();
+    } else {
+        console.log('======failure=======');
+        return undefined;
+    }
+};
+
