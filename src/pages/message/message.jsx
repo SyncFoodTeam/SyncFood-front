@@ -1,18 +1,18 @@
 import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
-import './settings.css';
+import './message.css';
 import React, { useState, useEffect } from 'react'
 
 
-function Settings() {
+function Messages() {
 
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header barCodeScannerIsTrue={true} />
 
 
-            <h1>Settings Page</h1>
+            <h1>Message Pages</h1>
 
             <Menu />
         </div>
@@ -21,4 +21,4 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default Messages;

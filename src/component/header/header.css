@@ -1,3 +1,9 @@
+.codeScanner {
+
+    display: flex;
+
+}
+
 .logo {
     display: flex;
     align-items: center;

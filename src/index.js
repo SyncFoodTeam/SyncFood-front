@@ -8,6 +8,9 @@ import RegisterPage from './auth/register/registerPage';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './pages/home/home';
 import LunchPage from './pages/lunchPage/lunchPage';
+import Settings from './pages/settings/settings';
+import GroupsList from './pages/groups/list/groupsList';
+import Messages from './pages/message/message';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +21,9 @@ root.render(
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="/" element={<Home />} />
+        <Route path="groupes" element={<GroupsList />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

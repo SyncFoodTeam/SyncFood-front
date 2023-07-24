@@ -1,6 +1,7 @@
-import Header from '../header/header';
-import './home.css';
-import React, { useState, useEffect } from 'react'
+import Header from '../../../component/header/header';
+import Menu from '../../../component/menu/menu';
+import './groupsList.css';
+import React from 'react'
 
 
 function GroupsList() {
@@ -12,6 +13,8 @@ function GroupsList() {
 
 
             <h1>Groups Page List</h1>
+
+            <Menu />
         </div>
 
 

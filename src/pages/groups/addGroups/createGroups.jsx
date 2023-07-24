@@ -1,5 +1,5 @@
-import Header from '../header/header';
-import './home.css';
+import Header from '../../header/header';
+import './createGroups.css';
 import React, { useState, useEffect } from 'react'
 
 

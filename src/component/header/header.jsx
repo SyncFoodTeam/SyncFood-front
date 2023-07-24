@@ -9,13 +9,16 @@ function Header({ barCodeScannerIsTrue }) {
 
     return (
         <header>
-            {barCodeScannerIsTrue &&
-                <div>
-                    <img src={barCodeScanner} className="App-logo" alt="logo" />
-                </div>
-            }
+
             <div>
-                <img src={logo} className="logo" alt="logo" />
+                {barCodeScannerIsTrue &&
+                    <div className='codeScanner'>
+                        <img src={barCodeScanner} />
+                    </div>
+                }
+                <div>
+                    <img src={logo} className="logo" />
+                </div>
             </div>
 
         </header>
