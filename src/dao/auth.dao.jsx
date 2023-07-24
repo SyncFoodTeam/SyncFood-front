@@ -2,7 +2,7 @@ export async function LoginDao(body) {
     console.log("LoginDao()");
     console.log("Route de login des utilisateurs");
 
-    const data = await fetch('/api/User/login', {
+    const data = await fetch('/api/user/login', {
         method: 'POST',
         body: JSON.stringify({
             email: body.email,
@@ -26,7 +26,7 @@ export async function RegisterDao(body) {
     console.log("RegisterDao()");
     console.log("Route de register des utilisateurs");
 
-    const data = await fetch('/api/User/register', {
+    const data = await fetch('/api/user/register', {
         method: 'POST',
         body: JSON.stringify({
             userName: body.username,
