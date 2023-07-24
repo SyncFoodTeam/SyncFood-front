@@ -1,7 +1,7 @@
 import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
 import './message.css';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 
 function Messages() {

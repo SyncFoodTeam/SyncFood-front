@@ -50,3 +50,23 @@ export async function RegisterDao(body) {
     }
 };
 
+export async function InformationMeDao(token) {
+    console.log("InformationMeDao()");
+
+    const data = await fetch('/api/user/info/me', {
+        method: 'GET',
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + token
+        }
+    })
+    if (data.ok) {
+        console.log('======success=======');
+        return data.json();
+    } else {
+        console.log('======failure=======');
+        return undefined;
+    }
+};
+

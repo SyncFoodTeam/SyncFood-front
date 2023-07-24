@@ -1,20 +1,31 @@
 import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
+import { InformationMe } from '../../service/auth.service';
 import './home.css';
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 function Home() {
+    const [informationMe, setInformationMe] = useState({});
+
+
+    useEffect(() => {
+        getInfo();
+    }, []);
+
+    async function getInfo() {
+        let user = await InformationMe();
+        setInformationMe(user);
+    }
 
     return (
         <div className="App">
 
             <Header barCodeScannerIsTrue={true} />
 
+            <h2>Bonjour {informationMe.userName}</h2>
 
-            <h1>Home Page</h1>
-
-            <Menu/>
+            <Menu />
         </div>
 
 
