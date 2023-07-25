@@ -11,6 +11,8 @@ import LunchPage from './pages/lunchPage/lunchPage';
 import Settings from './pages/settings/settings';
 import GroupsList from './pages/groups/list/groupsList';
 import Messages from './pages/message/message';
+import AddProduct from './pages/product/addProduct/addProduct';
+import CreateGroups from './pages/groups/addGroups/createGroups';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,6 +26,8 @@ root.render(
         <Route path="groupes" element={<GroupsList />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="createGroups" element={<CreateGroups />} />
+        <Route path="addProduct" element={<AddProduct />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

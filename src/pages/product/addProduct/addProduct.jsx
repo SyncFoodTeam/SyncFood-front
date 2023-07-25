@@ -1,5 +1,5 @@
-import Header from '../header/header';
-import './home.css';
+import Header from '../../../component/header/header';
+import './addProduct.css';
 import React, { useState, useEffect } from 'react'
 
 
