@@ -1,3 +1,5 @@
+import { routeService } from "../service/route.service";
+
 export async function LoginDao(body) {
     console.log("LoginDao()");
     console.log("Route de login des utilisateurs");
@@ -13,12 +15,15 @@ export async function LoginDao(body) {
             'Content-Type': 'application/json'
         }
     })
-    if (data.ok) {
-        console.log('======success=======');
-        return data.json();
-    } else {
-        console.log('======failure=======');
-        return undefined;
+
+    if (data) {
+        const responseCode = await routeService(data.status);
+
+        if(responseCode == 200){
+            return data.json();
+        }else{
+            return undefined;
+        }
     }
 };
 
