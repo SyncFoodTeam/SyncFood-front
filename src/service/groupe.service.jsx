@@ -1,4 +1,4 @@
-import { CreateGroupDao } from "../dao/groupe.dao";
+import { CreateGroupDao, GetGroupDao } from "../dao/groupe.dao";
 
 
 export async function CreateGroupService(body) {
@@ -15,6 +15,20 @@ export async function CreateGroupService(body) {
 
         return false;
     }
+}
 
+export async function GetGroupService() {
+    console.log("GetGroupService()");
 
+    try {
+        const token = JSON.parse(localStorage.getItem('bearer'));
+        console.log("Mon Bearer token :", token);
+        const resp = await GetGroupDao(token);
+
+        return resp;
+    } catch (e) {
+        console.log("Erreur", e);
+
+        return false;
+    }
 }

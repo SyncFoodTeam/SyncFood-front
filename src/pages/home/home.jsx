@@ -1,6 +1,7 @@
 import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
 import { InformationMe } from '../../service/auth.service';
+import GroupsMainview from '../groups/mainview/groupsMainview';
 import './home.css';
 import React, { useEffect, useState } from 'react'
 
@@ -24,6 +25,8 @@ function Home() {
             <Header barCodeScannerIsTrue={true} />
 
             <h2>Bonjour {informationMe?.userName}</h2>
+
+            <GroupsMainview />
 
             <Menu />
         </div>
