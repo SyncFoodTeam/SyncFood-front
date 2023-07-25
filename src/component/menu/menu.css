@@ -1,4 +1,12 @@
 .menu{
-    position: fixed;
     bottom: 0;
+    display: flex;
+    position: fixed;
+    padding: 5%;
+    text-align: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.divIcon{
 }
