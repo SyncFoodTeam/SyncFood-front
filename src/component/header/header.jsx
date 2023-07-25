@@ -10,14 +10,14 @@ function Header({ barCodeScannerIsTrue }) {
     return (
         <header>
 
-            <div>
+            <div className='headerMenu'>
                 {barCodeScannerIsTrue &&
                     <div className='codeScanner'>
-                        <img src={barCodeScanner} />
+                        <img src={barCodeScanner} alt='barCode' />
                     </div>
                 }
-                <div>
-                    <img src={logo} className="logo" />
+                <div className="logo">
+                    <img src={logo} alt='logo'/>
                 </div>
             </div>
 

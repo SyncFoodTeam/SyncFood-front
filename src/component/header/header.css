@@ -1,15 +1,22 @@
-.codeScanner {
-
+.headerMenu {
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.codeScanner {
+    display: flex;
+    position: absolute;
+    top: 1%;
+    left: 2%;
+    
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 25%;
-    padding: 5%;
+    
+}
+
+.logo img {
+    max-width: 100%;
+    max-height: 100%;
 }
