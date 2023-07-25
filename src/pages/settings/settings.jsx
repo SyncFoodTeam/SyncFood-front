@@ -34,7 +34,7 @@ function Settings() {
         let body = {
             userName: userName || informationMe.userName,
             email: mailAddress || informationMe.mailAddress,
-            password: password
+            password: password || informationMe.password
         };
 
         console.log("J'envoie mes données à la route adéquat");
@@ -70,7 +70,7 @@ function Settings() {
                     <div>
                         <label className="label">UserName :</label>
                         <br />
-                        <input type="text" name="text" required
+                        <input type="text" name="text"
                             defaultValue={informationMe.userName}
                             onChange={(e) => setUserName(e.target.value)}
                             className="settingsFormInput"></input>
@@ -78,7 +78,7 @@ function Settings() {
                     <div>
                         <label className="label">Adresse Mail :</label>
                         <br />
-                        <input type="text" name="mailAddress" required
+                        <input type="text" name="mailAddress"
                             defaultValue={informationMe.email}
                             onChange={(e) => setMailAddress(e.target.value)}
                             className="settingsFormInput"></input>
@@ -87,7 +87,7 @@ function Settings() {
                     <div>
                         <label className="label">Mot de passe :</label>
                         <br />
-                        <input type="password" name="password" required
+                        <input type="password" name="password"
                             defaultValue={'**********'}
                             onChange={(e) => setPassword(e.target.value)}
                             className="settingsFormInput"></input>

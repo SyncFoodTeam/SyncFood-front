@@ -63,7 +63,7 @@ function CreateGroups() {
                     <div>
                         <label>Description :</label>
                         <br />
-                        <input type="text" name="text" required onChange={(e) => setGroupDescription(e.target.value)}></input>
+                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
                     </div>
                     {/* <div>
                         <label>Ajout de membres :</label>
