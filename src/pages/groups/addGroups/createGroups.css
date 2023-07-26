@@ -1,0 +1,20 @@
+.returnToLastPage {
+    position: absolute;
+    border: none;
+    background: #ffffff;
+    left: 3%;
+    top: 8%;
+}
+
+.ajoutGroupe {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #F8E7AF;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    width: auto;
+    margin-left: 20%;
+    margin-right: 20%;
+}

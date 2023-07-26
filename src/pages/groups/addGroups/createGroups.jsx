@@ -4,6 +4,7 @@ import { CreateGroupService } from '../../../service/groupe.service';
 import './createGroups.css';
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import goBackArrow from '../../../assets/goBackArrow.svg'
 
 
 
@@ -42,14 +43,9 @@ function CreateGroups() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header barCodeScannerIsTrue={true} />
 
-            <div>
-                <button onClick={goBack}>Go back</button>
-                <div>
-                    Ajout de groupe
-                </div>
-            </div>
+            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière'/></button>
 
 
             <div>
