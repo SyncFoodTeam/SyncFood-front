@@ -1,9 +1,9 @@
-import Header from '../header/header';
+import Header from '../../../component/header/header';
 import './home.css';
 import React, { useState, useEffect } from 'react'
 
 
-function ProductList() {
+function ContainerMainview() {
 
     return (
         <div className="App">
@@ -11,11 +11,11 @@ function ProductList() {
             <Header barCodeScannerIsTrue={false} />
 
 
-            <h1>Product Page List</h1>
+            <h1>Container Page Mainview</h1>
         </div>
 
 
     );
 }
 
-export default ProductList;
+export default ContainerMainview;

@@ -1,4 +1,4 @@
-import Header from '../header/header';
+import Header from '../../../component/header/header';
 import './home.css';
 import React, { useState, useEffect } from 'react'
 
@@ -8,7 +8,7 @@ function ContainerList() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header barCodeScannerIsTrue={true} />
 
 
             <h1>Container Page List</h1>

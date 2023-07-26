@@ -1,4 +1,4 @@
-import Header from '../header/header';
+import Header from '../../../component/header/header';
 import './home.css';
 import React, { useState, useEffect } from 'react'
 
@@ -8,7 +8,7 @@ function GroupsDetails() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header />
 
 
             <h1>Groups Page Details</h1>

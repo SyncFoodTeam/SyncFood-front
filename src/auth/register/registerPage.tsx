@@ -11,11 +11,13 @@ function RegisterPage() {
     const [mailAddress, setMailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [wrongPassword, setWrongPassword] = useState(false);
+
     const [username, setUsername] = useState('');
     const [registerError, setRegisterError] = useState(false);
 
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(event);
 
@@ -29,20 +31,27 @@ function RegisterPage() {
             console.log("J'envoie mes données à la route adéquat");
             let registerSuccess = await RegisterService(body);
             console.log(registerSuccess);
-            if (registerSuccess) {
+
+            if (registerSuccess?.code === 200) {
+                console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
                 setRegisterError(false);
                 navigate('/login');
             } else {
                 setRegisterError(true);
-                console.log("Erreur lors de l'inscription");
+                console.log("Erreur lors de la connexion");
             }
+
+            setWrongPassword(false);
+
+
         } else {
             console.log("Le mot de passe n'est pas le même");
+            setWrongPassword(true);
         }
 
     };
 
-    const goToLogin = async (event) => {
+    const goToLogin = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/login');
@@ -77,6 +86,11 @@ function RegisterPage() {
                         <br />
                         <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
                     </div>
+
+                    {wrongPassword &&
+                        <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
+
+                    }
                     <div className="centerDiv">
                         <button className="registerButton" type="submit">Inscription</button>
                     </div>

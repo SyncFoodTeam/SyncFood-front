@@ -8,7 +8,7 @@ function AddProduct() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header />
 
 
             <h1>Add Product Page</h1>

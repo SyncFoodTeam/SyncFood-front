@@ -1,33 +1,34 @@
 import './menu.css';
-import React from 'react'
-import home from '../../assets/home.svg'
-import groups from '../../assets/groups.svg'
-import messages from '../../assets/message.svg'
-import account from '../../assets/account.svg'
+import React from 'react';
+
+import home from '../../assets/home.svg';
+import groups from '../../assets/groups.svg';
+import messages from '../../assets/message.svg';
+import account from '../../assets/account.svg';
 import { useNavigate } from "react-router-dom";
 
 function Menu() {
     const navigate = useNavigate();
 
-    const redirectTo = async (event) => {
+    const redirectTo = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/');
     };
 
-    const redirectToGroupes = async (event) => {
+    const redirectToGroupes = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/groupes');
     };
 
-    const redirectToMessages = async (event) => {
+    const redirectToMessages = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/messages');
     };
 
-    const redirectToSettings = async (event) => {
+    const redirectToSettings = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/settings');

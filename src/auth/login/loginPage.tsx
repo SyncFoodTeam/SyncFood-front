@@ -1,9 +1,9 @@
 import './loginPage.css';
 import '../../theme/theme.css';
-import React, { useState } from 'react'
-import { LoginService } from '../../service/auth.service';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../../component/header/header';
+import { LoginService } from '../../service/auth.service';
 
 
 function LoginPage() {
@@ -15,7 +15,7 @@ function LoginPage() {
 
 
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         console.log(event);
@@ -29,7 +29,7 @@ function LoginPage() {
         let loginCode = await LoginService(body);
         
         console.log("Résultat de mon login service", loginCode)
-        if (loginCode.code === 200) {
+        if (loginCode?.code === 200) {
             console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
             setloginError(false);
             navigate('/');
@@ -39,7 +39,7 @@ function LoginPage() {
         }
     };
 
-    const goToRegister = async (event) => {
+    const goToRegister = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/register');

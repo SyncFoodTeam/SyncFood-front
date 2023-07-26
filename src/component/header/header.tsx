@@ -1,11 +1,15 @@
 import './header.css';
-import React from 'react'
-import barCodeScanner from '../../assets/barCodeScanner.svg'
-import logo from '../../assets/logo.svg'
+import React from 'react';
+import barCodeScanner from '../../assets/barCodeScanner.svg';
+import logo from '../../assets/logo.svg';
 
-function Header({ barCodeScannerIsTrue }) {
+interface barCodeScannerIsTrueProps {
+    barCodeScannerIsTrue?: boolean;
+}
 
-
+const Header: React.FC<barCodeScannerIsTrueProps> = ({
+    barCodeScannerIsTrue = false
+}) => {
 
     return (
         <header>
@@ -17,7 +21,7 @@ function Header({ barCodeScannerIsTrue }) {
                     </div>
                 }
                 <div className="logo">
-                    <img src={logo} alt='logo'/>
+                    <img src={logo} alt='logo' />
                 </div>
             </div>
 
