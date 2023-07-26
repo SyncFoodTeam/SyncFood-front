@@ -15,7 +15,7 @@ function RegisterPage() {
     const [registerError, setRegisterError] = useState(false);
 
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(event);
 
@@ -42,7 +42,7 @@ function RegisterPage() {
 
     };
 
-    const goToLogin = async (event) => {
+    const goToLogin = async (event: any) => {
         event.preventDefault();
 
         navigate('/login');

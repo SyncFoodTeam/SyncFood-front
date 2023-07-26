@@ -1,8 +1,10 @@
 import { InformationMeDao, LoginDao, UpdateInformation } from '../dao/auth.dao';
 import { RegisterDao } from '../dao/auth.dao';
-import ICommonUser from '../interface/common.interface';
+import IUserLogin from '../interface/auth.interface';
+import IUserRegister from '../interface/auth.interface';
+import IUserUpdateInformation from '../interface/auth.interface';
 
-export async function LoginService(body: any){
+export async function LoginService(body: IUserLogin) {
     console.log("LoginService()", body);
 
     try {
@@ -29,28 +31,28 @@ export async function LoginService(body: any){
 
 }
 
-export async function RegisterService(body: any) {
+export async function RegisterService(body: IUserRegister) {
     console.log("RegisterService()", body);
 
     try {
 
-        const resp = await RegisterDao(body);
+        let resp = await RegisterDao(body);
         console.log(resp);
         console.log("Je vérifie si j'ai bien les infos du User");
 
-        if (resp) {
-            return true;
+        if (resp.code === 200 && resp?.data?.token) {
+            console.log("Je stocks les infos du User");
+
+            return resp;
         } else {
-            return false;
+            console.log("J'ai un code erreur");
+            return resp;
         }
 
 
     } catch (e) {
         console.log("Erreur", e);
-
-        return false;
     }
-
 
 }
 
@@ -58,29 +60,50 @@ export async function InformationMe() {
     console.log("InformationMe()");
 
     try {
-        const items = JSON.parse(localStorage.getItem('token'));
-        console.log("Mon Bearer token :", items);
-        const resp = await InformationMeDao(items);
 
-        return resp;
+        let token = localStorage.getItem('token');
+        console.log("Mon Bearer token :", token);
+
+        if (token) {
+            const resp = await InformationMeDao(token);
+
+            if (resp.code === 200) {
+                return resp;
+            } else {
+                console.log("J'ai un code erreur");
+                return resp;
+            }
+        } else {
+            console.log("Je n'ai pas de token");
+        }
+
+
     } catch (e) {
         console.log("Erreur", e);
-
-        return false;
     }
 
 
 }
 
-export async function UpdateInformationMe(body: any) {
+export async function UpdateInformationMe(body: IUserUpdateInformation) {
     console.log("UpdateInformationMe(" + body + ")");
 
     try {
-        const items = JSON.parse(localStorage.getItem('token'));
-        console.log("Mon Bearer token :", items);
-        const resp = await UpdateInformation(items, body);
+        let token = localStorage.getItem('token');
+        console.log("Mon Bearer token :", token);
+        if (token) {
+            const resp = await UpdateInformation(token, body);
 
-        return resp;
+            if (resp.code === 200) {
+                return resp;
+            } else {
+                console.log("J'ai un code erreur");
+                return resp;
+            }
+        } else {
+            console.log("Je n'ai pas de token");
+        }
+
     } catch (e) {
         console.log("Erreur", e);
 

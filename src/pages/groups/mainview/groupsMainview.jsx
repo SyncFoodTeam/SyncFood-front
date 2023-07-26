@@ -9,7 +9,7 @@ function GroupsMainview() {
 
 
     useEffect(() => {
-        getGroup();
+        // getGroup();
     }, []);
 
     async function getGroup() {

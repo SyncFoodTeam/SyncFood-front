@@ -9,3 +9,20 @@ export default interface IUser {
     creationDate?: string,
     updatedDate?: string,
 }
+
+export default interface IUserRegister {
+    userName?: string,
+    email?: string,
+    password?: string,
+}
+
+export default interface IUserLogin {
+    email?: string,
+    password?: string,
+}
+
+export default interface IUserUpdateInformation {
+    userName?: string,
+    email?: string,
+    password?: string,
+}

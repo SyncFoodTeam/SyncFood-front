@@ -1,5 +1,7 @@
 import { routeService } from "../service/route.service";
 import ICommonUser from "../interface/common.interface";
+import IUserUpdateInformation from "../interface/auth.interface";
+import IUserRegister from "../interface/auth.interface";
 
 export async function LoginDao(body: any): Promise<ICommonUser> {
     console.log("LoginDao()");
@@ -27,17 +29,12 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
             code: responseCode
         }
 
-        if (loginData.data) {
-            console.log('======success=======');
-            return loginData;
-        } else {
-            console.log('======failure=======');
-            return loginData;
-        }
-
+        console.log('======success=======');
+        return loginData;
 
     } catch (error) {
 
+        console.error('======failure=======');
         console.error(error);
 
         throw new Error("Erreur");
@@ -46,76 +43,121 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
 
 };
 
-export async function RegisterDao(body: any) {
+export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
     console.log("RegisterDao()");
-    console.log("Route de register des utilisateurs");
 
-    const data = await fetch('/api/user/register', {
-        method: 'POST',
-        body: JSON.stringify({
-            userName: body.username,
-            email: body.email,
-            password: body.password
-        }),
-        headers: {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json'
+    try {
+        let data = await fetch('/api/user/register', {
+
+            method: 'POST',
+            body: JSON.stringify({
+                userName: body.userName,
+                email: body.email,
+                password: body.password
+            }),
+
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json'
+            },
+        })
+
+        const responseCode = await routeService(data.status);
+        const realData = await data.json();
+
+        let loginData = {
+            data: realData,
+            code: responseCode
         }
-    })
 
-
-
-    if (data.ok) {
         console.log('======success=======');
-        return data.json();
-    } else {
-        console.log('======failure=======');
-        return undefined;
+        return loginData;
+
+    } catch (error) {
+
+        console.error('======failure=======');
+        console.error(error);
+
+        throw new Error("Erreur");
+
     }
 };
 
-export async function InformationMeDao(token: string) {
+export async function InformationMeDao(token: string): Promise<ICommonUser> {
     console.log("InformationMeDao()");
+    console.log(token);
 
-    const data = await fetch('/api/user/info/me', {
-        method: 'GET',
-        headers: {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + token
+    try {
+        let data = await fetch('/api/user/info/me', {
+            method: 'GET',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + JSON.parse(token)
+            },
+        })
+
+        const responseCode = await routeService(data.status);
+        const realData = await data.json();
+
+        let informationData = {
+            data: realData,
+            code: responseCode
         }
-    })
-    if (data.ok) {
+
         console.log('======success=======');
-        return data.json();
-    } else {
-        console.log('======failure=======');
-        return undefined;
+        return informationData;
+
+    } catch (error) {
+
+        console.error('======failure=======');
+        console.error(JSON.stringify(error));
+
+        throw new Error("Erreur");
+
     }
+
 };
 
-export async function UpdateInformation(token: string, body: any) {
+export async function UpdateInformation(token: string, body: IUserUpdateInformation): Promise<ICommonUser> {
     console.log("UpdateInformation()");
 
-    const data = await fetch('/api/user/update/me', {
-        method: 'PATCH',
-        body: JSON.stringify({
-            userName: body.userName,
-            email: body.email,
-            password: body.password
-        }),
-        headers: {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + token
+    try {
+        let data = await fetch('/api/user/update/me', {
+
+            method: 'PATCH',
+            body: JSON.stringify({
+                userName: body.userName,
+                email: body.email,
+                password: body.password
+            }),
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + JSON.parse(token)
+            },
+        })
+
+        const responseCode = await routeService(data.status);
+        const realData = await data.json();
+
+        let informationData = {
+            data: realData,
+            code: responseCode
         }
-    })
-    if (data.ok) {
+
         console.log('======success=======');
-        return data.json();
-    } else {
-        console.log('======failure=======');
-        return undefined;
+        return informationData;
+
+    } catch (error) {
+
+        console.error('======failure=======');
+        console.error(error);
+
+        throw new Error("Erreur");
+
     }
+
+    
 };
 
