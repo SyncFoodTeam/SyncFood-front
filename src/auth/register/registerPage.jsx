@@ -85,7 +85,7 @@ function RegisterPage() {
             <br />
             <br />
             <div className="centerDiv noAccount">
-                <p>Déjà un compte ? </p><button onClick={goToLogin}><strong> Connecter vous ici</strong></button>
+                <p>Déjà un compte ? </p><span onClick={goToLogin}><strong> Connecter vous ici</strong></span>
             </div>
 
         </div>

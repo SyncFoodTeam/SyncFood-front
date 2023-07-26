@@ -1,6 +1,6 @@
 import Header from '../../../component/header/header';
 import './addProduct.css';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 
 function AddProduct() {

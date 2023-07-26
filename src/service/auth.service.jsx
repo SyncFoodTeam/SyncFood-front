@@ -7,17 +7,17 @@ export async function LoginService(body) {
     try {
 
         const resp = await LoginDao(body);
-        console.log(resp);
+        console.log("Résultat de ce que me renvoie ma route :",resp);
         console.log("Je vérifie si j'ai bien les infos du User");
 
-        if (resp) {
+        if (resp.code === 200) {
             console.log("Je stocks les infos du User");
-            localStorage.setItem('bearer', JSON.stringify(resp?.token));
+            localStorage.setItem('token', JSON.stringify(resp.data.token));
 
-            return true;
+            return resp;
         } else {
-            console.log("Je n'ai aucune infos du User");
-            return false;
+            console.log("J'ai un code erreur");
+            return resp;
         }
 
 
@@ -59,7 +59,7 @@ export async function InformationMe() {
     console.log("InformationMe()");
 
     try {
-        const items = JSON.parse(localStorage.getItem('bearer'));
+        const items = JSON.parse(localStorage.getItem('token'));
         console.log("Mon Bearer token :", items);
         const resp = await InformationMeDao(items);
 
@@ -77,7 +77,7 @@ export async function UpdateInformationMe(body) {
     console.log("UpdateInformationMe(" + body + ")");
 
     try {
-        const items = JSON.parse(localStorage.getItem('bearer'));
+        const items = JSON.parse(localStorage.getItem('token'));
         console.log("Mon Bearer token :", items);
         const resp = await UpdateInformation(items, body);
 

@@ -2,7 +2,7 @@ import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
 import { CreateGroupService } from '../../../service/groupe.service';
 import './createGroups.css';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
 
@@ -12,7 +12,6 @@ function CreateGroups() {
 
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
-    // const [groupMember, setGroupMember] = useState('');
 
     const submitGroupe = async (event) => {
         event.preventDefault();

@@ -5,7 +5,7 @@ export async function CreateGroupService(body) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
 
     try {
-        const items = JSON.parse(localStorage.getItem('bearer'));
+        const items = JSON.parse(localStorage.getItem('token'));
         console.log("Mon Bearer token :", items);
         const resp = await CreateGroupDao(body, items);
 
@@ -21,7 +21,7 @@ export async function GetGroupService() {
     console.log("GetGroupService()");
 
     try {
-        const token = JSON.parse(localStorage.getItem('bearer'));
+        const token = JSON.parse(localStorage.getItem('token'));
         console.log("Mon Bearer token :", token);
         const resp = await GetGroupDao(token);
 
