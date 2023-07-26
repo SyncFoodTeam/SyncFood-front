@@ -35,15 +35,18 @@ function GroupsList() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header barCodeScannerIsTrue={true} />
 
             <h1>Groups Page List</h1>
 
             <div>
                 {groups.map((group) => (
-                    <div>
-                        <h5>Nom : {group.name} </h5>
-                        <h5>Description : {group.description} </h5>
+                    <div className='groupe'>
+                        <div className='image'> IMAGE</div>
+                        <div className='descriptif'> 
+                            <h3>{group.name} </h3>
+                            <h5>{group.description} </h5>
+                        </div>
                     </div>
                 ))}
                 
