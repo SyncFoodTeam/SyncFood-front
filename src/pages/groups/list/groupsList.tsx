@@ -18,7 +18,7 @@ function GroupsList() {
     useEffect(() => {
         getGroup();
     }, []);
-    
+
     const createGroup = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
@@ -54,11 +54,12 @@ function GroupsList() {
                 <div>
                     {groups.map((group: IGroups, index: number) => (
                         <div key={index}>
-                            <div>
-                                <div>
-                                    <h5>Nom : {group.name} </h5>
-                                    <h5>Description : {group.description} </h5>
-                                    <h5>Date de Création : {moment(group.creationDate).format("YYYY/MM/DD kk:mm:ss")} </h5>
+
+                            <div className='groupe'>
+                                <div className='image'> IMAGE</div>
+                                <div className='descriptif'>
+                                    <h3>{group.name} </h3>
+                                    <h5>{group.description} </h5>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +69,7 @@ function GroupsList() {
             {noData &&
                 <NoDataComponent />
             }
-            <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe'/></button>
+            <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
 
 
 
