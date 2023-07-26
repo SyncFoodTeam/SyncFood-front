@@ -1,18 +1,19 @@
 import { InformationMeDao, LoginDao, UpdateInformation } from '../dao/auth.dao';
 import { RegisterDao } from '../dao/auth.dao';
+import ICommonUser from '../interface/common.interface';
 
-export async function LoginService(body) {
+export async function LoginService(body: any){
     console.log("LoginService()", body);
 
     try {
 
-        const resp = await LoginDao(body);
-        console.log("Résultat de ce que me renvoie ma route :",resp);
+        let resp = await LoginDao(body);
+        console.log("Résultat de ce que me renvoie ma route :", resp);
         console.log("Je vérifie si j'ai bien les infos du User");
 
-        if (resp.code === 200) {
+        if (resp.code === 200 && resp?.data?.token) {
             console.log("Je stocks les infos du User");
-            localStorage.setItem('token', JSON.stringify(resp.data.token));
+            localStorage.setItem('token', JSON.stringify(resp?.data?.token));
 
             return resp;
         } else {
@@ -23,14 +24,12 @@ export async function LoginService(body) {
 
     } catch (e) {
         console.log("Erreur", e);
-
-        return false;
     }
 
 
 }
 
-export async function RegisterService(body) {
+export async function RegisterService(body: any) {
     console.log("RegisterService()", body);
 
     try {
@@ -73,7 +72,7 @@ export async function InformationMe() {
 
 }
 
-export async function UpdateInformationMe(body) {
+export async function UpdateInformationMe(body: any) {
     console.log("UpdateInformationMe(" + body + ")");
 
     try {

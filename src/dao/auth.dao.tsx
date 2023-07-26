@@ -1,39 +1,52 @@
 import { routeService } from "../service/route.service";
+import ICommonUser from "../interface/common.interface";
 
-export async function LoginDao(body) {
+export async function LoginDao(body: any): Promise<ICommonUser> {
     console.log("LoginDao()");
-    console.log("Route de login des utilisateurs");
 
-    const data = await fetch('/api/user/login', {
-        method: 'POST',
-        body: JSON.stringify({
-            email: body.email,
-            password: body.password
-        }),
-        headers: {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json'
-        }
-    })
+    try {
+        let data = await fetch('/api/user/login', {
 
-    if (data) {
-        console.log('======success=======');
+            method: 'POST',
+            body: JSON.stringify({
+                email: body.email,
+                password: body.password
+            }),
+
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json'
+            },
+        })
+
         const responseCode = await routeService(data.status);
-        const realData = await data.json();   
+        const realData = await data.json();
 
         let loginData = {
             data: realData,
             code: responseCode
         }
-        
-        return loginData;
-    } else {
-        console.log('======failure=======');
-        return undefined;
+
+        if (loginData.data) {
+            console.log('======success=======');
+            return loginData;
+        } else {
+            console.log('======failure=======');
+            return loginData;
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        throw new Error("Erreur");
+
     }
+
 };
 
-export async function RegisterDao(body) {
+export async function RegisterDao(body: any) {
     console.log("RegisterDao()");
     console.log("Route de register des utilisateurs");
 
@@ -50,7 +63,7 @@ export async function RegisterDao(body) {
         }
     })
 
-    console.log(data);
+
 
     if (data.ok) {
         console.log('======success=======');
@@ -61,7 +74,7 @@ export async function RegisterDao(body) {
     }
 };
 
-export async function InformationMeDao(token) {
+export async function InformationMeDao(token: string) {
     console.log("InformationMeDao()");
 
     const data = await fetch('/api/user/info/me', {
@@ -81,7 +94,7 @@ export async function InformationMeDao(token) {
     }
 };
 
-export async function UpdateInformation(token, body) {
+export async function UpdateInformation(token: string, body: any) {
     console.log("UpdateInformation()");
 
     const data = await fetch('/api/user/update/me', {
