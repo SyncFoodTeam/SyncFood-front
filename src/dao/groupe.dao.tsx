@@ -1,4 +1,7 @@
-export async function CreateGroupDao(body, token) {
+import ICreateGroups from "../interface/groups.interface";
+
+
+export async function CreateGroupDao(body: ICreateGroups, token: string) {
     console.log("CreateGroupDao(body, token");
 
     console.log(body);
@@ -13,7 +16,7 @@ export async function CreateGroupDao(body, token) {
         headers: {
             'accept': 'text/plain',
             'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + token
+            'Authorization': 'bearer ' + JSON.parse(token)
         }
     })
 
@@ -28,7 +31,7 @@ export async function CreateGroupDao(body, token) {
     }
 };
 
-export async function GetGroupDao(token) {
+export async function GetGroupDao(token: string) {
     console.log("GetGroupDao(token");
 
     const data = await fetch('/api/groups/mine', {
@@ -36,7 +39,7 @@ export async function GetGroupDao(token) {
         headers: {
             'accept': 'text/plain',
             'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + token
+            'Authorization': 'bearer ' + JSON.parse(token)
         }
     })
 
