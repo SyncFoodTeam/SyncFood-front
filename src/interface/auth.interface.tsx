@@ -22,7 +22,7 @@ export default interface IUserLogin {
 }
 
 export default interface IUserUpdateInformation {
-    userName?: string,
+    username?: string,
     email?: string,
     password?: string,
 }

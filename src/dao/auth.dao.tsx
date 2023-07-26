@@ -45,15 +45,16 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
 
 export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
     console.log("RegisterDao()");
-
+    console.log({ body });
+    
     try {
         let data = await fetch('/api/user/register', {
 
             method: 'POST',
             body: JSON.stringify({
-                userName: body.userName,
+                userName: body.username,
                 email: body.email,
-                password: body.password
+                password: body.password,
             }),
 
             headers: {
@@ -61,6 +62,8 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
                 'Content-Type': 'application/json'
             },
         })
+
+        console.log({data});
 
         const responseCode = await routeService(data.status);
         const realData = await data.json();
@@ -158,6 +161,6 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
 
     }
 
-    
+
 };
 
