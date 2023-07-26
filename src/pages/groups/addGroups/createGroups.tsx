@@ -13,7 +13,7 @@ function CreateGroups() {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
 
-    const submitGroupe = async (event) => {
+    const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         console.log(event);
@@ -30,7 +30,7 @@ function CreateGroups() {
 
     };
 
-    const goBack = async (event) => {
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         console.log(event);

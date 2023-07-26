@@ -51,7 +51,7 @@ function RegisterPage() {
 
     };
 
-    const goToLogin = async (event: any) => {
+    const goToLogin = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         navigate('/login');

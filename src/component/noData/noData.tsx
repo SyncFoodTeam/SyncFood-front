@@ -1,11 +1,11 @@
-import './error.css';
-import React, { useEffect, useState } from 'react';
+import './noData.css';
+import React from 'react';
 
 
 function NoDataComponent() {
 
     return (
-        <div>
+        <div className='errorMessage'>
            Pas de données !
         </div>
     );

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ajout from '../../../assets/add.svg'
 import IGroups from '../../../interface/groups.interface';
 import moment from 'moment';
+import NoDataComponent from '../../../component/noData/noData';
 
 
 function GroupsList() {
@@ -45,7 +46,7 @@ function GroupsList() {
     return (
         <div className="App">
 
-            <Header barCodeScannerIsTrue={false} />
+            <Header />
 
             <h1>Groups Page List</h1>
 
@@ -65,9 +66,7 @@ function GroupsList() {
                 </div>
             }
             {noData &&
-                <h4 className='errorMessage'>
-                    Erreur
-                </h4>
+                <NoDataComponent />
             }
             <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe'/></button>
 

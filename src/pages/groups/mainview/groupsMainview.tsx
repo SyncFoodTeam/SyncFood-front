@@ -3,6 +3,7 @@ import './groupsMainview.css';
 import React, { useState, useEffect } from 'react'
 import moment from 'moment';
 import IGroups from '../../../interface/groups.interface';
+import NoDataComponent from '../../../component/noData/noData';
 
 function GroupsMainview() {
 
@@ -54,9 +55,7 @@ function GroupsMainview() {
                 </div>
             }
             {noData &&
-                <h4 className='errorMessage'>
-                    Erreur
-                </h4>
+                <NoDataComponent />
             }
         </div>
 

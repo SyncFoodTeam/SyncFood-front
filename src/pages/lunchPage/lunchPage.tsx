@@ -8,13 +8,13 @@ import Header from '../../component/header/header';
 function LunchPage() {
     const navigate = useNavigate();
 
-    const handleSubmitLogin = async (event) => {
+    const handleSubmitLogin = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         console.log(event);
         navigate('/login');
     }
 
-    const handleSubmitRegister = async (event) => {
+    const handleSubmitRegister = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         console.log(event);
         navigate('/register');
