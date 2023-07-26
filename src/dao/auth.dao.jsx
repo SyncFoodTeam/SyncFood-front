@@ -17,13 +17,19 @@ export async function LoginDao(body) {
     })
 
     if (data) {
+        console.log('======success=======');
         const responseCode = await routeService(data.status);
+        const realData = await data.json();   
 
-        if(responseCode == 200){
-            return data.json();
-        }else{
-            return undefined;
+        let loginData = {
+            data: realData,
+            code: responseCode
         }
+        
+        return loginData;
+    } else {
+        console.log('======failure=======');
+        return undefined;
     }
 };
 

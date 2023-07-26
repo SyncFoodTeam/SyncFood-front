@@ -14,6 +14,7 @@ function LoginPage() {
 
 
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -25,14 +26,16 @@ function LoginPage() {
         };
 
         console.log("J'envoie mes données à la route adéquat");
-        let loginSuccess = await LoginService(body);
-        console.log(loginSuccess);
-        if (loginSuccess) {
+        let loginCode = await LoginService(body);
+        
+        console.log("Résultat de mon login service", loginCode)
+        if (loginCode.code === 200) {
+            console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
             setloginError(false);
             navigate('/');
         } else {
-            setloginError(true);
             console.log("Erreur lors de la connexion");
+            setloginError(true);
         }
     };
 
@@ -68,11 +71,11 @@ function LoginPage() {
                 </form>
             </div>
             {loginError &&
-                <h2>Adresse Mail ou Mot De Passe Incorrect</h2>
+                <h4 className='errorMessage'>Mauvaise adresse mail ou mot de passe</h4>
             }
             <br />
             <div className="centerDiv noAccount">
-                <p>Pas de compte ? </p><button onClick={goToRegister}><strong> Créez en un ici</strong></button>
+                <p>Pas de compte ? </p><span onClick={goToRegister}><strong> Créez en un ici</strong></span>
             </div>
 
 

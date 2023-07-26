@@ -15,7 +15,11 @@ function GroupsMainview() {
     async function getGroup() {
         console.log("getGroup()");
         let myGroups = await GetGroupService();
-        setGroups(myGroups);
+        if(myGroups){
+            setGroups(myGroups);
+        }else{
+            setGroups([]);
+        }
     }
 
 
@@ -26,7 +30,7 @@ function GroupsMainview() {
             <h3>Mes groupes :</h3>
 
             <div>
-                {groups.map((group, index) => (
+                {groups?.map((group, index) => (
                     <div key={index}>
                         <div>
                             <div>

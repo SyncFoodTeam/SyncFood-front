@@ -41,3 +41,9 @@
     border: none;
     margin-top: 15%;
 }
+
+.errorMessage{
+    font-family: 'Poppins';
+    font-size: 16px;
+    color: red;
+}
