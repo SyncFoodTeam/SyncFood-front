@@ -4,6 +4,7 @@ import Menu from '../../../component/menu/menu';
 import './groupsList.css';
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import ajout from '../../../assets/add.svg'
 
 
 function GroupsList() {
@@ -38,18 +39,17 @@ function GroupsList() {
 
             <h1>Groups Page List</h1>
 
-            <button onClick={createGroup}>Créer un Groupe</button>
-
             <div>
-                <ul>
-                    {groups.map((objet) => (
-                    <li key={objet.id}>
-                        <h3>{objet.name}</h3>
-                        <p>{objet.description}</p>
-                    </li>
-                    ))}
-                </ul>
+                {groups.map((group) => (
+                    <div>
+                        <h5>Nom : {group.name} </h5>
+                        <h5>Description : {group.description} </h5>
+                    </div>
+                ))}
+                
             </div>
+            <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe'/></button>
+
 
 
             <Menu />
