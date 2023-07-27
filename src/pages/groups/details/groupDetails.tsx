@@ -4,13 +4,16 @@ import './groupDetails.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
 import IGroup from '../../../interface/groups/group.interface';
-import { GetGroupService } from '../../../service/groupe.service';
+import { DeleteGroupService, GetGroupService } from '../../../service/groupe.service';
 import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
 import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
+import { useNavigate } from "react-router-dom";
 
 
 function GroupDetails() {
+    const navigate = useNavigate();
+
     const [group, setGroup] = useState<IGroup>({});
     const [noData, setNoData] = useState(false);
 
@@ -42,6 +45,15 @@ function GroupDetails() {
         }
     }
 
+    const deleteGroup = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        let groupDeleted = await DeleteGroupService(id);
+
+        if(groupDeleted.code === 200){
+            navigate('/');
+        }
+    }
 
     return (
         <div className="App">
@@ -50,7 +62,7 @@ function GroupDetails() {
 
 
             <h1>Groups Page Details</h1>
-            
+
             <div>{group.name}</div>
             <div>{group.description}</div>
             <div>{group.budget}</div>
@@ -95,6 +107,10 @@ function GroupDetails() {
 
             <div>{group.creationDate}</div>
 
+            <div>
+                <button onClick={deleteGroup}>Supprimer</button>
+                
+            </div>
 
             <Menu />
         </div>

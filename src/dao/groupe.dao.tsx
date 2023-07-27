@@ -91,3 +91,32 @@ export async function GetGroupDao(token: string, groupId: number): Promise<IComm
     }
 };
 
+
+export async function DeleteGroupDao(token: string, groupId: number): Promise<ICommonGroup | undefined> {
+    console.log("DeleteGroupDao(token, groupId)");
+
+    const data = await fetch(`/api/groups/delete/${groupId}`, {
+        method: 'DELETE',
+
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + JSON.parse(token)
+        }
+    })
+
+    const realData = await data.json();
+    if (data.status === 200) {
+
+        let groupData: ICommonGroup = {
+            dataGroup: realData,
+            code: data.status
+        }
+        console.log('======success=======');
+        return groupData;
+    } else {
+        await routeService(data.status);
+        return undefined
+    }
+};
+
