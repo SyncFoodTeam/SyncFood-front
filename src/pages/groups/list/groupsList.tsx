@@ -6,7 +6,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import ajout from '../../../assets/add.svg'
 import IGroups from '../../../interface/groups.interface';
-import moment from 'moment';
 import NoDataComponent from '../../../component/noData/noData';
 
 

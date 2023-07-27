@@ -1,3 +1,5 @@
+import RedirectService from "./redirect.service";
+
 export async function routeService(code: number) {
     console.log("routeService(" + code + ")");
 
@@ -20,7 +22,7 @@ export async function routeService(code: number) {
             console.log("Conflit dans la BDD");
             return code;
         case 404:
-            console.log("Page non trouvée");
+            RedirectService("notFound")
             return code;
         case 500 || 502 || 503 || 504:
             console.log("Erreur serveur");

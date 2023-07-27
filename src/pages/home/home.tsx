@@ -24,7 +24,7 @@ function Home() {
     async function getInfo() {
         let user = await InformationMe();
 
-        if (user?.code == 200 && user?.data) {
+        if (user?.code === 200 && user?.data) {
             setError(false);
             setInformationMe(user.data);
         } else {

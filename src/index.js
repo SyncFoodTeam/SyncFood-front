@@ -13,6 +13,7 @@ import GroupsList from './pages/groups/list/groupsList';
 import Messages from './pages/message/message';
 import AddProduct from './pages/product/addProduct/addProduct';
 import CreateGroups from './pages/groups/addGroups/createGroups';
+import NotFound from './pages/notFound/notFound';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -28,6 +29,8 @@ root.render(
         <Route path="settings" element={<Settings />} />
         <Route path="createGroups" element={<CreateGroups />} />
         <Route path="addProduct" element={<AddProduct />} />
+        <Route path="notFound" element={<NotFound />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
