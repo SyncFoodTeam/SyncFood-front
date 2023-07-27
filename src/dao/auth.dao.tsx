@@ -3,7 +3,7 @@ import IUserUpdateInformation from "../interface/auth.interface";
 import IUserRegister from "../interface/auth.interface";
 import ICommonUser from "../interface/common/commonUser.interface";
 
-export async function LoginDao(body: any): Promise<ICommonUser | undefined> {
+export async function LoginDao(body: any): Promise<ICommonUser> {
     console.log("LoginDao()");
 
     try {
@@ -22,6 +22,7 @@ export async function LoginDao(body: any): Promise<ICommonUser | undefined> {
         })
 
         const realData = await data.json();
+        console.log({realData})
         if (data.status === 200 && realData) {
 
             let loginData: ICommonUser = {
@@ -41,7 +42,7 @@ export async function LoginDao(body: any): Promise<ICommonUser | undefined> {
 
         console.error('======failure=======');
         console.error(error);
-
+        routeService(500);
         throw new Error("Erreur");
 
     }

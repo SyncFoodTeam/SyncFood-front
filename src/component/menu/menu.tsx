@@ -8,8 +8,6 @@ import account from '../../assets/account.svg';
 import { useNavigate } from "react-router-dom";
 
 function Menu() {
-    console.log("MenuComponent");
-
     const navigate = useNavigate();
 
     const redirectTo = async (event: React.MouseEvent<HTMLElement>) => {

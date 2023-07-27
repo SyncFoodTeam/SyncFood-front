@@ -11,8 +11,6 @@ interface barCodeScannerIsTrueProps {
 const Header: React.FC<barCodeScannerIsTrueProps> = ({
     barCodeScannerIsTrue = false
 }) => {
-    console.log("HeaderComponent");
-
     const navigate = useNavigate();
 
     const goToHome = async (event: React.MouseEvent<HTMLElement>) => {

@@ -3,7 +3,6 @@ import React from 'react';
 
 
 function NoDataComponent() {
-    console.log("NoDataComponentComponent");
 
     return (
         <div className='errorMessage'>

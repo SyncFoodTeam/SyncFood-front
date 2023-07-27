@@ -1,4 +1,4 @@
-import { GetGroupService } from '../../../service/groupe.service';
+import { GetGroupsService } from '../../../service/groupe.service';
 import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
 import './groupsList.css';
@@ -15,7 +15,7 @@ function GroupsList() {
     const [noData, setNoData] = useState(false);
 
     useEffect(() => {
-        getGroup();
+        getGroups();
     }, []);
 
     const createGroup = async (event: React.MouseEvent<HTMLElement>) => {
@@ -24,18 +24,24 @@ function GroupsList() {
         navigate('/createGroups');
     }
 
-    async function getGroup() {
-        console.log("getGroup()");
-        let myGroups = await GetGroupService();
-
-        setGroups(myGroups);
-
-        if (groups && groups.length > 0) {
+    async function getGroups() {
+        console.log("getGroups()");
+        let myGroups = await GetGroupsService();
+        
+        if (myGroups && myGroups.length > 0) {
             console.log("j'ai des data:")
+            setGroups(myGroups);
             setNoData(false);
         } else {
             setNoData(true);
         }
+    }
+
+    const goToGroup = async (id: number) => {
+        // event.preventDefault();
+
+        console.log(id);
+        navigate('/groupDetails/', { state: { id } });
     }
 
 
@@ -57,6 +63,10 @@ function GroupsList() {
                                     <h3>{group.name} </h3>
                                     <h5>{group.description} </h5>
                                 </div>
+                            </div>
+
+                            <div onClick={() => goToGroup(group.id)}>
+                                Voir plus
                             </div>
                         </div>
                     ))}

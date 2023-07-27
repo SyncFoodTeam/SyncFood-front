@@ -1,4 +1,4 @@
-import { GetGroupService } from '../../../service/groupe.service';
+import { GetGroupsService } from '../../../service/groupe.service';
 import './groupsMainview.css';
 import React, { useState, useEffect } from 'react'
 import moment from 'moment';
@@ -12,19 +12,17 @@ function GroupsMainview() {
 
 
     useEffect(() => {
-        getGroup();
+        getGroups();
     }, []);
 
-    async function getGroup() {
-        console.log("getGroup()");
-        let myGroups = await GetGroupService();
-        setGroups(myGroups);
-
-        if (groups.length > 0) {
+    async function getGroups() {
+        console.log("getGroups()");
+        let myGroups = await GetGroupsService();
+        
+        if (myGroups && myGroups.length > 0) {
             console.log("j'ai des data:")
+            setGroups(myGroups);
             setNoData(false);
-
-            console.log({ groups });
         } else {
             setNoData(true);
         }

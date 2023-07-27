@@ -15,6 +15,7 @@ import AddProduct from './pages/product/addProduct/addProduct';
 import CreateGroups from './pages/groups/addGroups/createGroups';
 import NotFound from './pages/notFound/notFound';
 import ServerError from './pages/serverError/serverError';
+import GroupDetails from './pages/groups/details/groupDetails';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,11 +25,12 @@ root.render(
         <Route element={<LunchPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="groupes" element={<GroupsList />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings" element={<Settings />} />
         <Route path="createGroups" element={<CreateGroups />} />
+        <Route path="groupDetails" element={<GroupDetails />} />
         <Route path="addProduct" element={<AddProduct />} />
         <Route path="notFound" element={<NotFound />} />
         <Route path="serverError" element={<ServerError />} />

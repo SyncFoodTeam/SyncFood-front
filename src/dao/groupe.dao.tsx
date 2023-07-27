@@ -1,3 +1,4 @@
+import ICommonGroup from "../interface/common/commonGroup.interface";
 import ICommonGroups from "../interface/common/commonGroups.interface";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 
@@ -34,7 +35,7 @@ export async function CreateGroupDao(body: ICreateGroups, token: string) {
     }
 };
 
-export async function GetGroupDao(token: string): Promise<ICommonGroups | undefined> {
+export async function GetGroupsDao(token: string): Promise<ICommonGroups | undefined> {
     console.log("GetGroupDao(token");
 
     const data = await fetch('/api/groups/mine', {
@@ -54,6 +55,34 @@ export async function GetGroupDao(token: string): Promise<ICommonGroups | undefi
             code: data.status
         }
 
+        console.log('======success=======');
+        return groupData;
+    } else {
+        await routeService(data.status);
+        return undefined
+    }
+};
+
+export async function GetGroupDao(token: string, groupId: number): Promise<ICommonGroup | undefined> {
+    console.log("GetGroupDao(token, groupId)");
+
+    const data = await fetch(`/api/groups/get/${groupId}`, {
+        method: 'GET',
+
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + JSON.parse(token)
+        }
+    })
+
+    const realData = await data.json();
+    if (data.status === 200) {
+
+        let groupData: ICommonGroup = {
+            dataGroup: realData,
+            code: data.status
+        }
         console.log('======success=======');
         return groupData;
     } else {
