@@ -22,11 +22,11 @@ export async function routeService(code: number) {
             console.log("Conflit dans la BDD");
             return code;
         case 404:
-            RedirectService("notFound")
-            return code;
+            RedirectService("notFound");
+            break;
         case 500 || 502 || 503 || 504:
-            console.log("Erreur serveur");
-            return code;
+            RedirectService("serverError");
+            break;
         default:
             console.warn("Je ne passe dans aucun des cas traité");
             console.warn(code);
