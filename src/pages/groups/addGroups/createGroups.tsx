@@ -48,17 +48,17 @@ function CreateGroups() {
             <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière'/></button>
 
 
-            <div>
+            <div className='formulaire'>
                 <form onSubmit={submitGroupe}>
-                    <div>
+                    <div className='libelleForm'>
                         <label>Nom du groupe :</label>
                         <br />
-                        <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)}></input>
+                        <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)} className='inputs'></input>
                     </div>
-                    <div>
+                    <div className='libelleForm'>
                         <label>Description :</label>
                         <br />
-                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
+                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)} className='inputs'></input>
                     </div>
                     {/* <div>
                         <label>Ajout de membres :</label>
@@ -68,7 +68,7 @@ function CreateGroups() {
 
                     <br />
                     <div>
-                        <button type="submit">Créer</button>
+                        <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                     </div>
                 </form>
             </div>

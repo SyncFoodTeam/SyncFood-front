@@ -6,15 +6,35 @@
     top: 8%;
 }
 
-.ajoutGroupe {
+.formulaire {
+    margin-top: 10%;
     display: flex;
     text-align: center;
-    justify-content: center;
     align-items: center;
     border: 2px solid #F8E7AF;
     border-radius: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     width: auto;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 12%;
+    margin-right: 12%;
+
+}
+
+.formulaire input {
+    border-radius: 30px;
+    text-align: center;
+}
+
+.libelleForm {
+    padding-left: 10%;
+}
+
+.boutonAjoutGroupe {
+    position: absolute;
+    bottom: 12%;
+    right: 8%;
+    background: #27D4A9;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
 }
