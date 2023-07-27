@@ -1,5 +1,5 @@
 import ICommonGroups from "../interface/common/commonGroups.interface";
-import ICreateGroups from "../interface/groups/groups.interface";
+import ICreateGroups from "../interface/groups/groupsCreate.interface";
 
 import { routeService } from "../service/route.service";
 
@@ -13,7 +13,7 @@ export async function CreateGroupDao(body: ICreateGroups, token: string) {
         method: 'POST',
         body: JSON.stringify({
             Name: body.Name,
-            description: body.description,
+            description: body.Description,
             // budget: body.budget
         }),
         headers: {
@@ -49,7 +49,7 @@ export async function GetGroupDao(token: string): Promise<ICommonGroups | undefi
     const realData = await data.json();
     if (data.status === 200 && realData) {
 
-        let groupData = {
+        let groupData: ICommonGroups = {
             dataGroups: realData,
             code: data.status
         }

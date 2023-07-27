@@ -18,13 +18,11 @@ function GroupsMainview() {
     async function getGroup() {
         console.log("getGroup()");
         let myGroups = await GetGroupService();
+        setGroups(myGroups);
 
-        console.log(myGroups);
-
-        if (myGroups.length > 0) {
+        if (groups.length > 0) {
             console.log("j'ai des data:")
             setNoData(false);
-            setGroups(myGroups);
 
             console.log({ groups });
         } else {

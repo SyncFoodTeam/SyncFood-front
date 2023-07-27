@@ -24,8 +24,8 @@ export async function LoginDao(body: any): Promise<ICommonUser | undefined> {
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData = {
-                data: realData,
+            let loginData: ICommonUser = {
+                dataUser: realData,
                 code: data.status
             }
 
@@ -71,8 +71,8 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser | un
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData = {
-                data: realData,
+            let loginData: ICommonUser = {
+                dataUser: realData,
                 code: data.status
             }
 
@@ -110,7 +110,7 @@ export async function InformationMeDao(token: string): Promise<ICommonUser | und
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData = {
+            let loginData: ICommonUser = {
                 dataUser: realData,
                 code: data.status
             }
@@ -155,8 +155,8 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData = {
-                data: realData,
+            let loginData: ICommonUser = {
+                dataUser: realData,
                 code: data.status
             }
 

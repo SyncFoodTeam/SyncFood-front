@@ -28,14 +28,11 @@ function GroupsList() {
         console.log("getGroup()");
         let myGroups = await GetGroupService();
 
-        console.log(myGroups);
+        setGroups(myGroups);
 
-        if (myGroups.length > 0) {
+        if (groups && groups.length > 0) {
             console.log("j'ai des data:")
             setNoData(false);
-            setGroups(myGroups);
-
-            console.log({ groups });
         } else {
             setNoData(true);
         }

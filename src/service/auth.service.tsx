@@ -57,7 +57,7 @@ export async function RegisterService(body: IUserRegister) {
 
 }
 
-export async function InformationMe(): Promise<ICommonUser | undefined>{
+export async function InformationMe(): Promise<ICommonUser | undefined> {
     console.log("InformationMe()");
 
     try {
@@ -67,7 +67,6 @@ export async function InformationMe(): Promise<ICommonUser | undefined>{
 
         if (token) {
             const resp = await InformationMeDao(token);
-            console.log({resp})
             if (resp?.code === 200) {
                 return resp;
             } else {

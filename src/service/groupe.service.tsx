@@ -1,6 +1,6 @@
 import { CreateGroupDao, GetGroupDao } from "../dao/groupe.dao";
-import ICreateGroups from "../interface/groups.interface";
-import IGroups from "../interface/groups.interface";
+import ICreateGroups from "../interface/groups/groupsCreate.interface";
+import IGroups from "../interface/groups/groups.interface";
 
 export async function CreateGroupService(body: ICreateGroups) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
@@ -29,7 +29,7 @@ export async function CreateGroupService(body: ICreateGroups) {
 
 }
 
-export async function GetGroupService(): Promise<IGroups> {
+export async function GetGroupService(): Promise<IGroups[]> {
     console.log("GetGroupService()");
 
     try {
@@ -42,7 +42,6 @@ export async function GetGroupService(): Promise<IGroups> {
                 return resp.dataGroups;
             } else {
                 console.log("J'ai un code erreur");
-                return resp;
             }
         } else {
             console.log("Je n'ai pas de token");
@@ -51,7 +50,7 @@ export async function GetGroupService(): Promise<IGroups> {
     } catch (e) {
         console.log("Erreur", e);
 
-        return false;
+        return undefined;
     }
 
 }

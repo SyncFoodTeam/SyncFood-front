@@ -1,6 +1,6 @@
 import IGroups from "../groups/groups.interface";
 
 export default interface ICommonGroup {
-    dataGroups?: IGroups;
+    dataGroups?: IGroups[];
     code?: number;
 }
