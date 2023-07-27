@@ -2,8 +2,8 @@ import { GetGroupService } from '../../../service/groupe.service';
 import './groupsMainview.css';
 import React, { useState, useEffect } from 'react'
 import moment from 'moment';
-import IGroups from '../../../interface/groups.interface';
 import NoDataComponent from '../../../component/noData/noData';
+import IGroups from '../../../interface/groups/groups.interface';
 
 function GroupsMainview() {
 

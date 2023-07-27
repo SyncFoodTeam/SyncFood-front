@@ -1,6 +1,6 @@
 import { CreateGroupDao, GetGroupDao } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups.interface";
-
+import IGroups from "../interface/groups.interface";
 
 export async function CreateGroupService(body: ICreateGroups) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
@@ -29,7 +29,7 @@ export async function CreateGroupService(body: ICreateGroups) {
 
 }
 
-export async function GetGroupService() {
+export async function GetGroupService(): Promise<IGroups> {
     console.log("GetGroupService()");
 
     try {
@@ -38,8 +38,8 @@ export async function GetGroupService() {
         if (token) {
             const resp = await GetGroupDao(token);
 
-            if (resp.code === 200) {
-                return resp;
+            if (resp?.code === 200) {
+                return resp.dataGroups;
             } else {
                 console.log("J'ai un code erreur");
                 return resp;

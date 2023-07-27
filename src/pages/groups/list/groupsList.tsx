@@ -5,8 +5,8 @@ import './groupsList.css';
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import ajout from '../../../assets/add.svg'
-import IGroups from '../../../interface/groups.interface';
 import NoDataComponent from '../../../component/noData/noData';
+import IGroups from '../../../interface/groups/groups.interface';
 
 
 function GroupsList() {

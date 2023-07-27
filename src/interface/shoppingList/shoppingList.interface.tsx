@@ -1,5 +1,6 @@
-import IGroups from "./groups.interface"
-import IProducts from "./products.interface"
+import IGroups from "../groups/groups.interface";
+import IProducts from "../product/products.interface";
+
 
 export default interface IShoppingLists {
     id?: number,
@@ -8,5 +9,5 @@ export default interface IShoppingLists {
     creationDate?: string,
     updatedDate?: string,
     groupId?: number,
-    group?: IGroups
+    group?: IGroups,
 }

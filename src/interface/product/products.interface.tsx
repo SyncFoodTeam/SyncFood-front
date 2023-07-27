@@ -1,4 +1,4 @@
-import IFoodContainers from "./foodContainer.interface";
+import IFoodContainers from "../container/foodContainer.interface";
 
 export default interface IProducts {
     id?: number,

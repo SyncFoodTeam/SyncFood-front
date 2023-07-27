@@ -1,9 +1,9 @@
 import { routeService } from "../service/route.service";
-import ICommonUser from "../interface/common.interface";
 import IUserUpdateInformation from "../interface/auth.interface";
 import IUserRegister from "../interface/auth.interface";
+import ICommonUser from "../interface/common/commonUser.interface";
 
-export async function LoginDao(body: any): Promise<ICommonUser> {
+export async function LoginDao(body: any): Promise<ICommonUser | undefined> {
     console.log("LoginDao()");
 
     try {
@@ -21,16 +21,21 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
             },
         })
 
-        const responseCode = await routeService(data.status);
         const realData = await data.json();
+        if (data.status === 200 && realData) {
 
-        let loginData = {
-            data: realData,
-            code: responseCode
+            let loginData = {
+                data: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return loginData;
+        } else {
+            await routeService(data.status);
+            return undefined
         }
 
-        console.log('======success=======');
-        return loginData;
 
     } catch (error) {
 
@@ -43,10 +48,10 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
 
 };
 
-export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
+export async function RegisterDao(body: IUserRegister): Promise<ICommonUser | undefined> {
     console.log("RegisterDao()");
     console.log({ body });
-    
+
     try {
         let data = await fetch('/api/user/register', {
 
@@ -63,18 +68,20 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
             },
         })
 
-        console.log({data});
-
-        const responseCode = await routeService(data.status);
         const realData = await data.json();
+        if (data.status === 200 && realData) {
 
-        let loginData = {
-            data: realData,
-            code: responseCode
+            let loginData = {
+                data: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return loginData;
+        } else {
+            await routeService(data.status);
+            return undefined
         }
-
-        console.log('======success=======');
-        return loginData;
 
     } catch (error) {
 
@@ -86,7 +93,7 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser> {
     }
 };
 
-export async function InformationMeDao(token: string): Promise<ICommonUser> {
+export async function InformationMeDao(token: string): Promise<ICommonUser | undefined> {
     console.log("InformationMeDao()");
     console.log(token);
 
@@ -100,16 +107,20 @@ export async function InformationMeDao(token: string): Promise<ICommonUser> {
             },
         })
 
-        const responseCode = await routeService(data.status);
         const realData = await data.json();
+        if (data.status === 200 && realData) {
 
-        let informationData = {
-            data: realData,
-            code: responseCode
+            let loginData = {
+                dataUser: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return loginData;
+        } else {
+            await routeService(data.status);
+            return undefined
         }
-
-        console.log('======success=======');
-        return informationData;
 
     } catch (error) {
 
@@ -122,7 +133,7 @@ export async function InformationMeDao(token: string): Promise<ICommonUser> {
 
 };
 
-export async function UpdateInformation(token: string, body: IUserUpdateInformation): Promise<ICommonUser> {
+export async function UpdateInformation(token: string, body: IUserUpdateInformation): Promise<ICommonUser | undefined> {
     console.log("UpdateInformation()");
 
     try {
@@ -141,16 +152,20 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
             },
         })
 
-        const responseCode = await routeService(data.status);
         const realData = await data.json();
+        if (data.status === 200 && realData) {
 
-        let informationData = {
-            data: realData,
-            code: responseCode
+            let loginData = {
+                data: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return loginData;
+        } else {
+            await routeService(data.status);
+            return undefined
         }
-
-        console.log('======success=======');
-        return informationData;
 
     } catch (error) {
 
