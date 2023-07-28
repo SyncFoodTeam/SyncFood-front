@@ -29,7 +29,7 @@ function LoginPage() {
         if (loginCode?.code === 200) {
             console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
             setloginError(false);
-            navigate('/');
+            navigate('/home');
         } else {
             console.log("Erreur lors de la connexion");
             setloginError(true);

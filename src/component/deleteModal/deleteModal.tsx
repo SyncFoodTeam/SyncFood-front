@@ -38,7 +38,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
             let groupDeleted = await DeleteGroupService(index);
     
             if (groupDeleted.code === 200) {
-                navigate('/');
+                navigate('/home');
             }
         }
 

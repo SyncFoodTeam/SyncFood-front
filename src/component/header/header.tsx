@@ -16,7 +16,7 @@ const Header: React.FC<barCodeScannerIsTrueProps> = ({
     const goToHome = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        navigate('/');
+        navigate('/home');
     }
 
     return (

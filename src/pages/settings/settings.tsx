@@ -48,7 +48,7 @@ function Settings() {
         let loginSuccess = await UpdateInformationMe(body);
         console.log(loginSuccess);
         if (loginSuccess) {
-            navigate('/');
+            navigate('/home');
         } else {
             console.log("Erreur lors de la connexion");
         }
