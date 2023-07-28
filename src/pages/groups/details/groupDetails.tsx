@@ -9,6 +9,7 @@ import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
 import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { useNavigate } from "react-router-dom";
+import DeleteModal from '../../../component/deleteModal/deleteModal';
 
 
 function GroupDetails() {
@@ -38,23 +39,14 @@ function GroupDetails() {
         if (myGroups) {
             console.log("j'ai des data:")
             setGroup(myGroups);
-            console.log({group});
+            console.log({ group });
             setNoData(false);
         } else {
             setNoData(true);
         }
     }
 
-    const deleteGroup = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        let groupDeleted = await DeleteGroupService(id);
-
-        if(groupDeleted.code === 200){
-            navigate('/');
-        }
-    }
-
+    
     return (
         <div className="App">
 
@@ -107,10 +99,7 @@ function GroupDetails() {
 
             <div>{group.creationDate}</div>
 
-            <div>
-                <button onClick={deleteGroup}>Supprimer</button>
-                
-            </div>
+            <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
 
             <Menu />
         </div>
