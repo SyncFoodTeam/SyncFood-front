@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Header from '../../component/header/header';
 import Loader from '../../component/loader/loader';
 import Menu from '../../component/menu/menu';
@@ -9,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 
 
 function Home() {
-
+    const navigate = useNavigate()
     const [informationMe, setInformationMe] = useState<IUser>({});
     const [error, setError] = useState(false);
     const [isReady, setIsReady] = useState(false);
@@ -17,9 +18,21 @@ function Home() {
 
     useEffect(() => {
         setIsReady(false);
-        getInfo();
+        Init()
         setIsReady(true);
     }, []);
+
+    async function Init() {
+    
+        let token = localStorage.getItem('token');
+
+        if(token){
+            await getInfo();
+        }else{
+            console.log("Il n'y a pas de token donc je redirige vers la lunchPage");
+            navigate('/lunchPage');
+        }
+    }
 
     async function getInfo() {
         let user = await InformationMe();
