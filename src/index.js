@@ -22,10 +22,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route element={<LunchPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/home" element={<Home />} />
         <Route path="groupes" element={<GroupsList />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings" element={<Settings />} />
@@ -34,6 +33,7 @@ root.render(
         <Route path="addProduct" element={<AddProduct />} />
         <Route path="notFound" element={<NotFound />} />
         <Route path="serverError" element={<ServerError />} />
+        <Route path="lunchPage" element={<LunchPage />} />
 
       </Routes>
     </BrowserRouter>

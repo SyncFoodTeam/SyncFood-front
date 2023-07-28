@@ -13,6 +13,7 @@ function CreateGroups() {
 
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
+    const [createError, setCreateError] = useState(false);
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -26,8 +27,15 @@ function CreateGroups() {
 
         console.log("body", body);
 
-        let loginSuccess = await CreateGroupService(body);
-        console.log(loginSuccess);
+        if (body.Name !== '') {
+            let loginSuccess = await CreateGroupService(body);
+            console.log(loginSuccess);
+            setCreateError(false);
+            navigate(-1);
+        } else {
+            setCreateError(true);
+        }
+
 
     };
 
@@ -45,7 +53,7 @@ function CreateGroups() {
 
             <Header barCodeScannerIsTrue={true} />
 
-            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière'/></button>
+            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
 
 
             <div className='formulaire'>
@@ -68,9 +76,13 @@ function CreateGroups() {
                     <div>
                         <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                     </div>
+
+
                 </form>
             </div>
-
+            {createError &&
+                <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
+            }
             <Menu />
         </div>
 
