@@ -1,5 +1,7 @@
 import ICommonGroup from "../interface/common/commonGroup.interface";
 import ICommonGroups from "../interface/common/commonGroups.interface";
+import ICommonUser from "../interface/common/commonUser.interface";
+import IError from "../interface/error.interface";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 
 import { routeService } from "../service/route.service";
@@ -15,7 +17,6 @@ export async function CreateGroupDao(body: ICreateGroups, token: string) {
         body: JSON.stringify({
             Name: body.Name,
             description: body.Description,
-            // budget: body.budget
         }),
         headers: {
             'accept': 'text/plain',
@@ -35,7 +36,7 @@ export async function CreateGroupDao(body: ICreateGroups, token: string) {
     }
 };
 
-export async function GetGroupsDao(token: string): Promise<ICommonGroups | undefined> {
+export async function GetGroupsDao(token: string) {
     console.log("GetGroupDao(token");
 
     const data = await fetch('/api/groups/mine', {
@@ -48,18 +49,18 @@ export async function GetGroupsDao(token: string): Promise<ICommonGroups | undef
     })
 
     const realData = await data.json();
+    let groupData = {
+        dataGroups: realData,
+        code: data.status
+    }
     if (data.status === 200 && realData) {
 
-        let groupData: ICommonGroups = {
-            dataGroups: realData,
-            code: data.status
-        }
 
         console.log('======success=======');
         return groupData;
     } else {
         await routeService(data.status);
-        return undefined
+        return groupData;
     }
 };
 
@@ -92,7 +93,7 @@ export async function GetGroupDao(token: string, groupId: number): Promise<IComm
 };
 
 
-export async function DeleteGroupDao(token: string, groupId: number): Promise<ICommonGroup | undefined> {
+export async function DeleteGroupDao(token: string, groupId: number) {
     console.log("DeleteGroupDao(token, groupId)");
 
     const data = await fetch(`/api/groups/delete/${groupId}`, {
@@ -106,12 +107,40 @@ export async function DeleteGroupDao(token: string, groupId: number): Promise<IC
     })
 
     const realData = await data.json();
+    let groupData = {
+        dataGroup: realData,
+        code: data.status
+    }
     if (data.status === 200) {
 
-        let groupData: ICommonGroup = {
-            dataGroup: realData,
+        console.log('======success=======');
+        return groupData;
+    } else {
+        await routeService(data.status);
+        return groupData
+    }
+};
+
+export async function searchUserAddToGroup(token: string, username: string): Promise<ICommonGroups | undefined> {
+    console.log("searchUserAddToGroup(token, username)");
+    console.log(username)
+    const data = await fetch(`/api/user/info/username/Admin0000`, {
+        method: 'GET',
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + token
+        }
+    })
+
+    const realData = await data.json();
+    if (data.status === 200 && realData) {
+
+        let groupData: ICommonUser = {
+            dataUser: realData,
             code: data.status
         }
+
         console.log('======success=======');
         return groupData;
     } else {
@@ -119,4 +148,3 @@ export async function DeleteGroupDao(token: string, groupId: number): Promise<IC
         return undefined
     }
 };
-

@@ -7,6 +7,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DeleteGroupService } from '../../service/groupe.service';
 import { useNavigate } from 'react-router-dom';
+import IError from '../../interface/error.interface';
+import ErrorComponent from '../error/errorComponent';
 
 interface deleteModalProps {
     index: number;
@@ -19,6 +21,9 @@ const DeleteModal: React.FC<deleteModalProps> = ({
 }) => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [error, setError] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState<IError>({});
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -34,11 +39,15 @@ const DeleteModal: React.FC<deleteModalProps> = ({
         console.warn(index);
         console.warn(whatIs);
 
-        if(whatIs === 'groups'){
+        if (whatIs === 'groups') {
             let groupDeleted = await DeleteGroupService(index);
-    
+
             if (groupDeleted.code === 200) {
+                setError(false);
                 navigate('/home');
+            } else {
+                setError(true);
+                setErrorMessage(groupDeleted.dataGroup);
             }
         }
 
@@ -57,6 +66,9 @@ const DeleteModal: React.FC<deleteModalProps> = ({
             >
                 <DialogTitle id="alert-dialog-title">
                     {"Etes-vous sure de vouloir supprimer ce dernier ?"}
+                    {error &&
+                        <ErrorComponent name={errorMessage.name} value={errorMessage.value} resourceNotFound={errorMessage.resourceNotFound} searchedLocation={errorMessage.searchedLocation} />
+                    }
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">

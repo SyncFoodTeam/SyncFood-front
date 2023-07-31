@@ -1,6 +1,6 @@
 import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
-import { CreateGroupService } from '../../../service/groupe.service';
+import { CreateGroupService, searchUserForAddGroupeService } from '../../../service/groupe.service';
 import './createGroups.css';
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ function CreateGroups() {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
     const [createError, setCreateError] = useState(false);
+    const [user, setUser] = useState('');
+
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -47,6 +49,20 @@ function CreateGroups() {
         navigate(-1);
     }
 
+    const handleChange = async (event) => {
+        // 👇 Get input value from "event"
+        setUser(event.target.value);
+        console.log(user)
+        let token = JSON.parse(localStorage.getItem('token'));
+
+        console.log(token)
+        if(user !== ''){
+            let users = await searchUserForAddGroupeService(token, 'Admin');
+        }else{
+            console.log("user non trouvé");
+        }
+      };
+
 
     return (
         <div className="App">
@@ -73,6 +89,12 @@ function CreateGroups() {
                         <br />
                         <input type="text" name="text" required onChange={(e) => setGroupMembre(e.target.value)}></input>
                     </div> */}
+
+                    <div>
+                        <input type="text" name="addUser" onChange={handleChange} className='inputs'></input>
+
+                        {/* <h2>Message: {user}</h2> */}
+                    </div>
 
                     <br />
                     <div>

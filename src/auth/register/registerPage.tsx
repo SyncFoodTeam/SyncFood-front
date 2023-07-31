@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { RegisterService } from '../../service/auth.service';
 import { useNavigate } from "react-router-dom";
 import Header from '../../component/header/header';
+import ErrorComponent from '../../component/error/errorComponent';
+import IError from '../../interface/error.interface';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -15,6 +17,7 @@ function RegisterPage() {
 
     const [username, setUsername] = useState('');
     const [registerError, setRegisterError] = useState(false);
+    const [error, setError] = useState<IError>({});
 
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +42,8 @@ function RegisterPage() {
             } else {
                 setRegisterError(true);
                 console.log("Erreur lors de la connexion");
+                console.warn({registerSuccess})
+                setError(registerSuccess.dataUser);
             }
 
             setWrongPassword(false);
@@ -87,9 +92,12 @@ function RegisterPage() {
                         <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
                     </div>
 
+                    {error &&
+                        <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+                    }
+
                     {wrongPassword &&
                         <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
-
                     }
                     <div className="centerDiv">
                         <button className="registerButton" type="submit">Inscription</button>

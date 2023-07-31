@@ -4,12 +4,15 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment';
 import NoDataComponent from '../../../component/noData/noData';
 import IGroups from '../../../interface/groups/groups.interface';
+import IError from '../../../interface/error.interface';
+import ErrorComponent from '../../../component/error/errorComponent';
 
 function GroupsMainview() {
 
     const [groups, setGroups] = useState<IGroups[]>([]);
     const [noData, setNoData] = useState(false);
-
+    const [groupsError, setGroupsError] = useState(false);
+    const [error, setError] = useState<IError>({});
 
     useEffect(() => {
         getGroups();
@@ -18,13 +21,18 @@ function GroupsMainview() {
     async function getGroups() {
         console.log("getGroups()");
         let myGroups = await GetGroupsService();
-        
+
         if (myGroups && myGroups.length > 0) {
             console.log("j'ai des data:")
             setGroups(myGroups);
             setNoData(false);
-        } else {
+            setGroupsError(false);
+        } if (myGroups.length === 0) {
             setNoData(true);
+            setGroupsError(false);
+        } else {
+            setGroupsError(true);
+            setError(myGroups)
         }
     }
 
@@ -52,6 +60,11 @@ function GroupsMainview() {
             }
             {noData &&
                 <NoDataComponent />
+            }
+
+            {error &&
+                <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+
             }
         </div>
 

@@ -3,7 +3,7 @@ import IUserUpdateInformation from "../interface/auth.interface";
 import IUserRegister from "../interface/auth.interface";
 import ICommonUser from "../interface/common/commonUser.interface";
 
-export async function LoginDao(body: any): Promise<ICommonUser> {
+export async function LoginDao(body: any) {
     console.log("LoginDao()");
 
     try {
@@ -22,19 +22,19 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
         })
 
         const realData = await data.json();
-        console.log({realData})
+        console.log({realData});
+
+        let loginData = {
+            dataUser: realData,
+            code: data.status
+        }
+
         if (data.status === 200 && realData) {
-
-            let loginData: ICommonUser = {
-                dataUser: realData,
-                code: data.status
-            }
-
             console.log('======success=======');
             return loginData;
         } else {
             await routeService(data.status);
-            return undefined
+            return loginData
         }
 
 
@@ -49,7 +49,7 @@ export async function LoginDao(body: any): Promise<ICommonUser> {
 
 };
 
-export async function RegisterDao(body: IUserRegister): Promise<ICommonUser | undefined> {
+export async function RegisterDao(body: IUserRegister) {
     console.log("RegisterDao()");
     console.log({ body });
 
@@ -70,18 +70,18 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser | un
         })
 
         const realData = await data.json();
-        if (data.status === 200 && realData) {
 
-            let loginData: ICommonUser = {
-                dataUser: realData,
-                code: data.status
-            }
+        let registerData = {
+            dataUser: realData,
+            code: data.status
+        }
 
+        if (data.status === 200 && registerData.dataUser) {
             console.log('======success=======');
-            return loginData;
+            return registerData;
         } else {
             await routeService(data.status);
-            return undefined
+            return registerData
         }
 
     } catch (error) {
@@ -94,7 +94,7 @@ export async function RegisterDao(body: IUserRegister): Promise<ICommonUser | un
     }
 };
 
-export async function InformationMeDao(token: string): Promise<ICommonUser | undefined> {
+export async function InformationMeDao(token: string) {
     console.log("InformationMeDao()");
     console.log(token);
 
@@ -111,7 +111,7 @@ export async function InformationMeDao(token: string): Promise<ICommonUser | und
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData: ICommonUser = {
+            let loginData = {
                 dataUser: realData,
                 code: data.status
             }
@@ -134,7 +134,7 @@ export async function InformationMeDao(token: string): Promise<ICommonUser | und
 
 };
 
-export async function UpdateInformation(token: string, body: IUserUpdateInformation): Promise<ICommonUser | undefined> {
+export async function UpdateInformation(token: string, body: IUserUpdateInformation) {
     console.log("UpdateInformation()");
 
     try {
@@ -156,7 +156,7 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
         const realData = await data.json();
         if (data.status === 200 && realData) {
 
-            let loginData: ICommonUser = {
+            let loginData = {
                 dataUser: realData,
                 code: data.status
             }

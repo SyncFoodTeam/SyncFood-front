@@ -1,8 +1,9 @@
-import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao } from "../dao/groupe.dao";
+import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 import IGroups from "../interface/groups/groups.interface";
 import IGroup from "../interface/groups/group.interface";
 import ICommonGroup from "../interface/common/commonGroup.interface";
+import IUserPublic from "../interface/auth.interface";
 
 export async function CreateGroupService(body: ICreateGroups) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
@@ -31,22 +32,19 @@ export async function CreateGroupService(body: ICreateGroups) {
 
 }
 
-export async function GetGroupsService(): Promise<IGroups[]> {
+export async function GetGroupsService() {
     console.log("GetGroupService()");
 
     try {
         let token = localStorage.getItem('token');
-        if (token) {
-            const resp = await GetGroupsDao(token);
+        const resp = await GetGroupsDao(token);
 
-            if (resp?.code === 200) {
-                console.log({resp})
-                return resp.dataGroups;
-            } else {
-                console.log("J'ai un code erreur");
-            }
+        if (resp?.code === 200) {
+            console.log({ resp })
+            return resp.dataGroups;
         } else {
-            console.log("Je n'ai pas de token");
+            console.log("J'ai un code erreur");
+            return resp.dataGroups;
         }
 
     } catch (e) {
@@ -82,16 +80,38 @@ export async function GetGroupService(groupId: number): Promise<IGroup> {
 
 }
 
-export async function DeleteGroupService(groupId: number): Promise<ICommonGroup> {
+export async function DeleteGroupService(groupId: number) {
     console.log("DeleteGroupService(groupId)");
     console.log(groupId)
 
     try {
         let token = localStorage.getItem('token');
+        const resp = await DeleteGroupDao(token, groupId);
+        if (resp?.code === 200) {
+            return resp;
+        } else {
+            console.log("J'ai un code erreur");
+            return resp;
+        }
+
+    } catch (e) {
+        console.log("Erreur", e);
+
+        return undefined;
+    }
+
+}
+
+export async function searchUserForAddGroupeService(token: string, username: string) {
+    console.log("searchUserForAddGroupeService()");
+
+    try {
         if (token) {
-            const resp = await DeleteGroupDao(token, groupId);
+            const resp = await searchUserAddToGroup(token, username);
+
             if (resp?.code === 200) {
-                return resp;
+                console.log({ resp })
+                return resp.dataGroups;
             } else {
                 console.log("J'ai un code erreur");
             }

@@ -26,3 +26,11 @@ export default interface IUserUpdateInformation {
     email?: string,
     password?: string,
 }
+
+export default interface IUserPublic {
+    id?: number,
+    userName?: string,
+    discriminator?: string,
+    role?: number,
+    creationDate?: string,
+}
