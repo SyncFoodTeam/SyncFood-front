@@ -76,13 +76,11 @@ function CreateGroups() {
                 <form onSubmit={submitGroupe}>
                     <div className='libelleForm'>
                         <label>Nom du groupe :</label>
-                        <br />
-                        <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)} className='inputs'></input>
+                        <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)}></input>
                     </div>
                     <div className='libelleForm'>
                         <label>Description :</label>
-                        <br />
-                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)} className='inputs'></input>
+                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
                     </div>
                     {/* <div>
                         <label>Ajout de membres :</label>
