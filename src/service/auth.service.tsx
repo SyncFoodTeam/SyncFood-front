@@ -4,7 +4,6 @@ import IUserLogin from '../interface/auth.interface';
 import IUserRegister from '../interface/auth.interface';
 import IUserUpdateInformation from '../interface/auth.interface';
 import ICommonUser from '../interface/common/commonUser.interface';
-import IError from '../interface/error.interface';
 
 export async function LoginService(body: IUserLogin) {
     console.log("LoginService()", body);

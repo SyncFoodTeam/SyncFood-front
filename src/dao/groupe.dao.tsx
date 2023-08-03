@@ -121,10 +121,9 @@ export async function DeleteGroupDao(token: string, groupId: number) {
     }
 };
 
-export async function searchUserAddToGroup(token: string, username: string): Promise<ICommonGroups | undefined> {
+export async function searchUserAddToGroup(token: string, username: string, discriminator: string) {
     console.log("searchUserAddToGroup(token, username)");
-    console.log(username)
-    const data = await fetch(`/api/user/info/username/Admin0000`, {
+    const data = await fetch(`/api/user/info/username/${username}/%23${discriminator}`, {
         method: 'GET',
         headers: {
             'accept': 'text/plain',
@@ -134,17 +133,14 @@ export async function searchUserAddToGroup(token: string, username: string): Pro
     })
 
     const realData = await data.json();
+    let groupData = {
+        dataUser: realData,
+        code: data.status
+    }
     if (data.status === 200 && realData) {
-
-        let groupData: ICommonUser = {
-            dataUser: realData,
-            code: data.status
-        }
-
         console.log('======success=======');
         return groupData;
     } else {
-        await routeService(data.status);
-        return undefined
+        return groupData;
     }
 };

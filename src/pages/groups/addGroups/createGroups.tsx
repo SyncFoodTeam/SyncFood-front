@@ -5,6 +5,7 @@ import './createGroups.css';
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
+import AddUser from '../addUser/addUser';
 
 
 
@@ -49,19 +50,6 @@ function CreateGroups() {
         navigate(-1);
     }
 
-    const handleChange = async (event) => {
-        // 👇 Get input value from "event"
-        setUser(event.target.value);
-        console.log(user)
-        let token = JSON.parse(localStorage.getItem('token'));
-
-        console.log(token)
-        if(user !== ''){
-            let users = await searchUserForAddGroupeService(token, 'Admin');
-        }else{
-            console.log("user non trouvé");
-        }
-      };
 
 
     return (
@@ -82,23 +70,14 @@ function CreateGroups() {
                         <label>Description :</label>
                         <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
                     </div>
-                    {/* <div>
-                        <label>Ajout de membres :</label>
-                        <br />
-                        <input type="text" name="text" required onChange={(e) => setGroupMembre(e.target.value)}></input>
-                    </div> */}
-
-                    <div>
-                        <input type="text" name="addUser" onChange={handleChange} className='inputs'></input>
-
-                        {/* <h2>Message: {user}</h2> */}
-                    </div>
 
                     <br />
                     <div>
                         <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                     </div>
 
+
+                    <AddUser />
 
                 </form>
             </div>

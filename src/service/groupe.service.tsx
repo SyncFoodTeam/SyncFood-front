@@ -1,9 +1,6 @@
 import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
-import IGroups from "../interface/groups/groups.interface";
 import IGroup from "../interface/groups/group.interface";
-import ICommonGroup from "../interface/common/commonGroup.interface";
-import IUserPublic from "../interface/auth.interface";
 
 export async function CreateGroupService(body: ICreateGroups) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
@@ -102,27 +99,32 @@ export async function DeleteGroupService(groupId: number) {
 
 }
 
-export async function searchUserForAddGroupeService(token: string, username: string) {
+export async function searchUserForAddGroupeService(token: string, user: string) {
     console.log("searchUserForAddGroupeService()");
+    const resultUserWithDiscriminator = user.split('#');
 
-    try {
-        if (token) {
-            const resp = await searchUserAddToGroup(token, username);
+    const username = resultUserWithDiscriminator[0];
+    const discriminator = resultUserWithDiscriminator[1];
+
+    if (token) {
+        try {
+            const resp = await searchUserAddToGroup(token, username, discriminator);
 
             if (resp?.code === 200) {
                 console.log({ resp })
-                return resp.dataGroups;
+                return resp;
             } else {
                 console.log("J'ai un code erreur");
+                return resp;
             }
-        } else {
-            console.log("Je n'ai pas de token");
+
+        } catch (e) {
+            console.log("Erreur", e);
+
+            return undefined;
         }
-
-    } catch (e) {
-        console.log("Erreur", e);
-
-        return undefined;
+    } else {
+        console.log("Je n'ai pas de token");
     }
 
 }
