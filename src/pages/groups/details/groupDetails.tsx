@@ -10,6 +10,7 @@ import IShoppingLists from '../../../interface/shoppingList/shoppingList.interfa
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
+import ajout from '../../../assets/add.svg'
 
 
 function GroupDetails() {
@@ -46,12 +47,17 @@ function GroupDetails() {
         }
     }
 
+    const addFoodContainer = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        navigate('/addFoodContainer');
+    }
+
     
     return (
         <div className="App">
 
             <Header />
-
 
             <h1>Groups Page Details</h1>
 
@@ -95,7 +101,11 @@ function GroupDetails() {
                         </div>
                     </div>
                 ))}
+
+
             </div>
+
+            <button onClick={addFoodContainer} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
 
             <div>{group.creationDate}</div>
 
