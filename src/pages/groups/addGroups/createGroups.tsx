@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import AddUser from '../addUser/addUser';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 
 
@@ -84,6 +85,8 @@ function CreateGroups() {
             {createError &&
                 <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
             }
+
+            <BounceLoader color="#36d7b7" /> 
             <Menu />
         </div>
 

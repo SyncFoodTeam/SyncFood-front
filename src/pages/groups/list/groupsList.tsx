@@ -7,15 +7,22 @@ import { useNavigate } from "react-router-dom";
 import ajout from '../../../assets/add.svg'
 import NoDataComponent from '../../../component/noData/noData';
 import IGroups from '../../../interface/groups/groups.interface';
+import { BounceLoader } from 'react-spinners';
 
 
 function GroupsList() {
     const navigate = useNavigate();
     const [groups, setGroups] = useState<IGroups[]>([]);
     const [noData, setNoData] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getGroups();
+        if (noData == true) {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
     }, []);
 
     const createGroup = async (event: React.MouseEvent<HTMLElement>) => {
@@ -27,7 +34,6 @@ function GroupsList() {
     async function getGroups() {
         console.log("getGroups()");
         let myGroups = await GetGroupsService();
-        
         if (myGroups && myGroups.length > 0) {
             console.log("j'ai des data:")
             setGroups(myGroups);
@@ -49,35 +55,41 @@ function GroupsList() {
         <div className="App">
 
             <Header />
+            <div>
+                {loading ? (
+                    <BounceLoader color="#36d7b7" className='loadingScreen'/>
+                ) : (
 
-            <h1>Groups Page List</h1>
-
-            {!noData &&
-                <div>
-                    {groups.map((group: IGroups, index: number) => (
-                        <div key={index}>
-
-                            <div className='groupe'>
-                                <div className='image'> IMAGE</div>
-                                <div className='descriptif'>
-                                    <h3>{group.name} </h3>
-                                    <h5>{group.description} </h5>
+                    <div>
+                        <h1>Groupes</h1>
+                        {!noData &&
+                        <div>
+                            {groups.map((group: IGroups, index: number) => (
+                                <div key={index}>
+    
+                                    <div className='groupe'>
+                                        <div className='image'> IMAGE</div>
+                                        <div className='descriptif'>
+                                            <h3>{group.name} </h3>
+                                            <h5>{group.description} </h5>
+                                        </div>
+                                    </div>
+    
+                                    <div onClick={() => goToGroup(group.id)}>
+                                        Voir plus
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div onClick={() => goToGroup(group.id)}>
-                                Voir plus
-                            </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            }
-            {noData &&
-                <NoDataComponent />
-            }
-            <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
-
-
+                    }
+                    {noData &&
+                        <NoDataComponent />
+                    }
+                    <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button></div>
+                
+                    
+                    )}
+            </div>
 
             <Menu />
         </div>
