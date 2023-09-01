@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
 import ajout from '../../../assets/add.svg'
 import AddUser from '../addUser/addUser';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 
 function GroupDetails() {
