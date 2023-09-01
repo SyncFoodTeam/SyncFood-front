@@ -11,6 +11,7 @@ import IFoodContainers from '../../../interface/container/foodContainer.interfac
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
 import ajout from '../../../assets/add.svg'
+import AddUser from '../addUser/addUser';
 
 
 function GroupDetails() {
@@ -22,7 +23,7 @@ function GroupDetails() {
 
 
     const location = useLocation();
-    // Vérifiez si l'objet state contient l'ID
+
     const id = location.state?.id;
 
     useEffect(() => {
@@ -64,13 +65,15 @@ function GroupDetails() {
             <div>{group.name}</div>
             <div>{group.description}</div>
             <div>{group.budget}</div>
+            
             <div>
+                <label>Listes des membres du groupes: </label>
                 {group?.members?.map((members: IGroupsMembers, index: number) => (
                     <div key={index}>
 
                         <div className='groupe'>
                             <div className='descriptif'>
-                                <h3>{members.userName} </h3>
+                                <h3>{members.userName}#{members.discriminator} </h3>
                             </div>
                         </div>
                     </div>
@@ -108,6 +111,8 @@ function GroupDetails() {
             <button onClick={addFoodContainer} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
 
             <div>{group.creationDate}</div>
+
+            <AddUser idGroup={group.id}/>  
 
             <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
 

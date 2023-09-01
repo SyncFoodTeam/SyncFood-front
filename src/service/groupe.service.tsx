@@ -1,4 +1,4 @@
-import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup } from "../dao/groupe.dao";
+import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 import IGroup from "../interface/groups/group.interface";
 
@@ -109,6 +109,34 @@ export async function searchUserForAddGroupeService(token: string, user: string)
     if (token) {
         try {
             const resp = await searchUserAddToGroup(token, username, discriminator);
+
+            if (resp?.code === 200) {
+                console.log({ resp })
+                return resp;
+            } else {
+                console.log("J'ai un code erreur");
+                return resp;
+            }
+
+        } catch (e) {
+            console.log("Erreur", e);
+
+            return undefined;
+        }
+    } else {
+        console.log("Je n'ai pas de token");
+    }
+
+}
+
+export async function addUserToGroupService(token: string, groupId: number, userId: number) {
+    console.log("addUserToGroupService()");
+    console.log("groupId", groupId);
+    console.log("userId", userId);
+    
+    if (token) {
+        try {
+            const resp = await addUserToGroup(token, groupId, userId);
 
             if (resp?.code === 200) {
                 console.log({ resp })

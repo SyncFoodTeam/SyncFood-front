@@ -75,10 +75,6 @@ function CreateGroups() {
                     <div>
                         <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                     </div>
-
-
-                    <AddUser />
-
                 </form>
             </div>
             {createError &&

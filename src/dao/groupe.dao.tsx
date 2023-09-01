@@ -123,7 +123,7 @@ export async function DeleteGroupDao(token: string, groupId: number) {
 
 export async function searchUserAddToGroup(token: string, username: string, discriminator: string) {
     console.log("searchUserAddToGroup(token, username)");
-    const data = await fetch(`/api/user/info/username/${username}/%23${discriminator}`, {
+    const data = await fetch(`/api/user/info/username/${username}/${discriminator}`, {
         method: 'GET',
         headers: {
             'accept': 'text/plain',
@@ -135,6 +135,30 @@ export async function searchUserAddToGroup(token: string, username: string, disc
     const realData = await data.json();
     let groupData = {
         dataUser: realData,
+        code: data.status
+    }
+    if (data.status === 200 && realData) {
+        console.log('======success=======');
+        return groupData;
+    } else {
+        return groupData;
+    }
+};
+
+export async function addUserToGroup(token: string, groupId: number, userId: number) {
+    console.log("addUserToGroup(token,groupId, userId)");
+    const data = await fetch(`/api/groups/members/add/${groupId}/${userId}`, {
+        method: 'PATCH',
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + token
+        }
+    })
+
+    const realData = await data.json();
+    let groupData = {
+        groupData: realData,
         code: data.status
     }
     if (data.status === 200 && realData) {
