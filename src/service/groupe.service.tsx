@@ -1,4 +1,4 @@
-import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup } from "../dao/groupe.dao";
+import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup, RemoveSomeoneDao } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 import IGroup from "../interface/groups/group.interface";
 
@@ -99,6 +99,29 @@ export async function DeleteGroupService(groupId: number) {
 
 }
 
+export async function RemoveSomeoneService(groupId: number, userId: number) {
+    console.log("RemoveSomeoneService(groupId, userId)");
+    console.log(groupId);
+    console.log(userId);
+
+    try {
+        let token = localStorage.getItem('token');
+        const resp = await RemoveSomeoneDao(token, groupId, userId);
+        if (resp?.code === 200) {
+            return resp;
+        } else {
+            console.log("J'ai un code erreur");
+            return resp;
+        }
+
+    } catch (e) {
+        console.log("Erreur", e);
+
+        return undefined;
+    }
+
+}
+
 export async function searchUserForAddGroupeService(token: string, user: string) {
     console.log("searchUserForAddGroupeService()");
     const resultUserWithDiscriminator = user.split('#');
@@ -133,7 +156,7 @@ export async function addUserToGroupService(token: string, groupId: number, user
     console.log("addUserToGroupService()");
     console.log("groupId", groupId);
     console.log("userId", userId);
-    
+
     if (token) {
         try {
             const resp = await addUserToGroup(token, groupId, userId);

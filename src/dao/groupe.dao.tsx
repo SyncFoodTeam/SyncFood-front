@@ -121,6 +121,35 @@ export async function DeleteGroupDao(token: string, groupId: number) {
     }
 };
 
+export async function RemoveSomeoneDao(token: string, groupId: number, userId: number) {
+    console.log("RemoveSomeoneDao(token, groupId, userId)");
+
+    const data = await fetch(`/api/groups/members/remove/${groupId}/${userId}`, {
+        method: 'PATCH',
+
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + JSON.parse(token)
+        }
+    })
+
+    const realData = await data.json();
+    let groupData = {
+        dataGroup: realData,
+        code: data.status
+    }
+
+    if (data.status === 200) {
+
+        console.log('======success=======');
+        return groupData;
+    } else {
+        await routeService(data.status);
+        return groupData
+    }
+};
+
 export async function searchUserAddToGroup(token: string, username: string, discriminator: string) {
     console.log("searchUserAddToGroup(token, username)");
     const data = await fetch(`/api/user/info/username/${username}/${discriminator}`, {

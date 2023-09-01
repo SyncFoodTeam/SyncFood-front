@@ -5,19 +5,23 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DeleteGroupService } from '../../service/groupe.service';
+import { DeleteGroupService, RemoveSomeoneService } from '../../service/groupe.service';
 import { useNavigate } from 'react-router-dom';
 import IError from '../../interface/error.interface';
 import ErrorComponent from '../error/errorComponent';
 
 interface deleteModalProps {
-    index: number;
-    whatIs: string
+    index?: number;
+    whatIs: string;
+    userId?: number;
+    groupId?: number;
 }
 
 const DeleteModal: React.FC<deleteModalProps> = ({
     index = 0,
-    whatIs = ''
+    whatIs = '',
+    userId = 0,
+    groupId = 0,
 }) => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -49,15 +53,33 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 setError(true);
                 setErrorMessage(groupDeleted.dataGroup);
             }
+        }else if (whatIs === 'removeSomeone') {
+            console.log("removeSomeone");
+            let removeSomeone = await RemoveSomeoneService(groupId, userId);
+            
+            if (removeSomeone.code === 200) {
+                setError(false);
+                // navigate('/home');
+            } else {
+                setError(true);
+                setErrorMessage(removeSomeone.dataGroup);
+            }
         }
 
     };
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Supprimer
-            </Button>
+            {(whatIs === 'groups') && 
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    Supprimer
+                </Button>
+            }
+            {(whatIs === 'removeSomeone') && 
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    Enlever du groupe
+                </Button>
+            }
             <Dialog
                 open={open}
                 onClose={handleClose}

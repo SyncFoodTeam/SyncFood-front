@@ -55,6 +55,11 @@ function GroupDetails() {
         navigate('/addFoodContainer');
     }
 
+    const removeSomeone = async (idUser: number) => {
+        console.log("idUser", idUser);
+
+    }
+
     
     return (
         <div className="App">
@@ -74,7 +79,11 @@ function GroupDetails() {
 
                         <div className='groupe'>
                             <div className='descriptif'>
-                                <h3>{members.userName}#{members.discriminator} </h3>
+                                <div>
+                                    <h3>{members.userName}#{members.discriminator}</h3>
+                                    <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
+                                    {/* <button onClick={() => removeSomeone(members.id)}>Enlever</button> */}
+                                </div>
                             </div>
                         </div>
                     </div>
