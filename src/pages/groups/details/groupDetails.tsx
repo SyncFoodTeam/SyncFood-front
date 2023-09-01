@@ -13,6 +13,8 @@ import DeleteModal from '../../../component/deleteModal/deleteModal';
 import ajout from '../../../assets/add.svg'
 import AddUser from '../addUser/addUser';
 import BounceLoader from 'react-spinners/BounceLoader';
+import { InformationMe } from '../../../service/auth.service';
+import IUserPublic from '../../../interface/auth.interface';
 
 
 function GroupDetails() {
@@ -20,7 +22,7 @@ function GroupDetails() {
 
     const [group, setGroup] = useState<IGroup>({});
     const [noData, setNoData] = useState(false);
-
+    const [user, setUser] = useState<IUserPublic>({});
 
 
     const location = useLocation();
@@ -28,11 +30,17 @@ function GroupDetails() {
     const id = location.state?.id;
 
     useEffect(() => {
-        if (id) {
-            getGroup(id);
-        } else {
-            console.log("je n'ai pas d'id")
-        }
+        const fetchData = async () => {
+            if (id) {
+                await getGroup(id);
+                const userData = await InformationMe();
+                setUser(userData.dataUser);
+            } else {
+                console.log("Je n'ai pas d'id");
+            }
+        };
+
+        fetchData();
     }, []);
 
     async function getGroup(groupId: number) {
@@ -49,18 +57,12 @@ function GroupDetails() {
         }
     }
 
-    const addFoodContainer = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
+    const modifyGroups = async (id: number) => {
 
-        navigate('/addFoodContainer');
+        navigate('/modifyGroups', { state: { id } });
     }
 
-    const removeSomeone = async (idUser: number) => {
-        console.log("idUser", idUser);
 
-    }
-
-    
     return (
         <div className="App">
 
@@ -68,64 +70,13 @@ function GroupDetails() {
 
             <h1>Groups Page Details</h1>
 
-            <div>{group.name}</div>
-            <div>{group.description}</div>
-            <div>{group.budget}</div>
-            
-            <div>
-                <label>Listes des membres du groupes: </label>
-                {group?.members?.map((members: IGroupsMembers, index: number) => (
-                    <div key={index}>
+            <div>Nom: {group.name}</div>
+            <div>Description: {group.description}</div>
+            <div>Budget: {group.budget}</div>
 
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <div>
-                                    <h3>{members.userName}#{members.discriminator}</h3>
-                                    <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
-                                    {/* <button onClick={() => removeSomeone(members.id)}>Enlever</button> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div>
-                {group?.shoppingList?.map((shoppingList: IShoppingLists, index: number) => (
-                    <div key={index}>
-
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <h3>{shoppingList.nom} </h3>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div>
-                {group?.foodContainers?.map((foodContainers: IFoodContainers, index: number) => (
-                    <div key={index}>
-
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <h3>{foodContainers.name} </h3>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-
-
-            </div>
-
-            <button onClick={addFoodContainer} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
-
-            <div>{group.creationDate}</div>
-
-            <AddUser idGroup={group.id}/>  
-
-            <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
-
+            {(group?.owner?.id === user?.id) &&
+                <button onClick={() => modifyGroups(group.id)}>Modifier</button>
+            }
             <Menu />
         </div>
 

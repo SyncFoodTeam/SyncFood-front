@@ -16,6 +16,7 @@ import CreateGroups from './pages/groups/addGroups/createGroups';
 import NotFound from './pages/notFound/notFound';
 import ServerError from './pages/serverError/serverError';
 import GroupDetails from './pages/groups/details/groupDetails';
+import ModifyGroups from './pages/groups/modifyGroups/modifyGroups';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -34,6 +35,7 @@ root.render(
         <Route path="notFound" element={<NotFound />} />
         <Route path="serverError" element={<ServerError />} />
         <Route path="lunchPage" element={<LunchPage />} />
+        <Route path="modifyGroups" element={<ModifyGroups />} />
 
       </Routes>
     </BrowserRouter>
