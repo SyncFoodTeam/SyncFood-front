@@ -96,7 +96,7 @@ export async function RegisterDao(body: IUserRegister) {
 
 export async function InformationMeDao(token: string) {
     console.log("InformationMeDao()");
-    console.log(token);
+    // console.log(token);
 
     try {
         let data = await fetch('/api/user/info/me', {

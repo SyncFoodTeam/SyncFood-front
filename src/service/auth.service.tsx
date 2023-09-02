@@ -63,7 +63,7 @@ export async function InformationMe(): Promise<ICommonUser | undefined> {
     try {
 
         let token = localStorage.getItem('token');
-        console.log("Mon Bearer token :", token);
+        // console.log("Mon Bearer token :", token);
 
         if (token) {
             const resp = await InformationMeDao(token);

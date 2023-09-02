@@ -17,6 +17,8 @@ import NotFound from './pages/notFound/notFound';
 import ServerError from './pages/serverError/serverError';
 import GroupDetails from './pages/groups/details/groupDetails';
 import ModifyGroups from './pages/groups/modifyGroups/modifyGroups';
+import CreateContainer from './pages/container/createContainer/createContainer';
+import ContainerDetails from './pages/container/details/containerDetails';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -36,7 +38,11 @@ root.render(
         <Route path="serverError" element={<ServerError />} />
         <Route path="lunchPage" element={<LunchPage />} />
         <Route path="modifyGroups" element={<ModifyGroups />} />
+        <Route path="createContainer" element={<CreateContainer />} />
+        <Route path="containerDetails" element={<ContainerDetails />} />
 
+
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

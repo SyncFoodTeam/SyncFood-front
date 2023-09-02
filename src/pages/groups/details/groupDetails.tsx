@@ -62,6 +62,14 @@ function GroupDetails() {
         navigate('/modifyGroups', { state: { id } });
     }
 
+    const createFoodContainer = async (id: number) => {
+        navigate('/createContainer', { state: { id } });
+    }
+
+    const goToContainer = async (id: number) => {
+        navigate('/containerDetails', { state: { id } });
+    }
+
 
     return (
         <div className="App">
@@ -73,6 +81,37 @@ function GroupDetails() {
             <div>Nom: {group.name}</div>
             <div>Description: {group.description}</div>
             <div>Budget: {group.budget}</div>
+            <div>Membres du groupe: </div>
+            <ul>
+                {group?.members?.map((member, index) => (
+                    <li key={index}>{member.userName}#{member.discriminator}</li>
+                ))}
+            </ul>
+            <div>
+                <label>FoodContainer: </label>
+                {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
+                    <div key={index}>
+
+                        <div>
+                            <div> IMAGE</div>
+                            <div>
+                                <h3>{container.name} </h3>
+                                <h5>{container.description} </h5>
+                            </div>
+                        </div>
+
+                        <div onClick={() => goToContainer(container.id)}>
+                            Voir plus
+                        </div>
+                    </div>
+                ))}
+                {(group?.owner?.id === user?.id) &&
+                    <div>
+                        <button onClick={() => createFoodContainer(group.id)
+                        }>Ajouter</button>
+                    </div>
+                }
+            </div>
 
             {(group?.owner?.id === user?.id) &&
                 <button onClick={() => modifyGroups(group.id)}>Modifier</button>

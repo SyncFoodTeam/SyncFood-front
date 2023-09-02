@@ -1,5 +1,5 @@
-import IGroups from "./groups.interface"
-import IProducts from "./products.interface"
+import IGroups from "../groups/groups.interface";
+import IProducts from "../product/products.interface";
 
 export default interface IFoodContainers {
     id?: number,
@@ -10,3 +10,10 @@ export default interface IFoodContainers {
     updatedDate?: string,
     group?: IGroups
 }
+
+export default interface IFoodContainerCreate {
+    name?: string,
+    description?: string,
+    groupId?: number
+}
+
