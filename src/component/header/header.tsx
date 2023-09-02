@@ -3,7 +3,6 @@ import React from 'react';
 import barCodeScanner from '../../assets/barCodeScanner.svg';
 import logo from '../../assets/logo.svg';
 import { useNavigate } from "react-router-dom";
-
 interface barCodeScannerIsTrueProps {
     barCodeScannerIsTrue?: boolean;
 }
@@ -19,12 +18,18 @@ const Header: React.FC<barCodeScannerIsTrueProps> = ({
         navigate('/home');
     }
 
+    const addProduct = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        console.warn("addProduct");
+        navigate('/addProductCam');
+    }
+
     return (
         <header>
 
             <div className='headerMenu'>
                 {barCodeScannerIsTrue &&
-                    <div className='codeScanner'>
+                    <div className='codeScanner' onClick={addProduct}>
                         <img src={barCodeScanner} alt='barCode' />
                     </div>
                 }
