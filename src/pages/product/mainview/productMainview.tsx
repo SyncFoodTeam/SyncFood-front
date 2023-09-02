@@ -1,5 +1,5 @@
 import Header from '../../../component/header/header';
-import './home.css';
+import './productMainview.css';
 import React, { useState, useEffect } from 'react'
 
 

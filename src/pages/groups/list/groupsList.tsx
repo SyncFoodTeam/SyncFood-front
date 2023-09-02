@@ -70,8 +70,8 @@ function GroupsList() {
                                     <div className='groupe'>
                                         <div className='image'> IMAGE</div>
                                         <div className='descriptif'>
-                                            <h3>{group.name} </h3>
-                                            <h5>{group.description} </h5>
+                                            <h3 className='title'>{group.name} </h3>
+                                            <h5 className='description'>{group.description} </h5>
                                         </div>
                                     </div>
     

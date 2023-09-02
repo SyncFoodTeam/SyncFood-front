@@ -32,7 +32,7 @@ export async function CreateFoodContainerDao(body: IFoodContainerCreate, token: 
 };
 
 export async function GetContainerDao(token: string, foodContainerId: number) {
-    console.log("GetContainerpDao(token, foodContainerId)");
+    console.log("GetContainerDao(token, foodContainerId)");
 
     const data = await fetch(`/api/foodcontainer/get/${foodContainerId}`, {
         method: 'GET',

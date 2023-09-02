@@ -2,10 +2,13 @@ import Header from '../../../component/header/header';
 import './addProductCam.css';
 import React, { useEffect, useState } from 'react';
 import Quagga from 'quagga';
+import goBackArrow from '../../../assets/goBackArrow.svg'
+import { useNavigate } from 'react-router-dom';
 
 
 function AddProductCam() {
     const [codeBarre, setCodeBarre] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         Quagga.init({
@@ -60,10 +63,18 @@ function AddProductCam() {
         };
     }, []);
 
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        console.log(event);
+
+        navigate(-1);
+    }
 
     return (
         <div>
             <h1>Scanner de code-barres</h1>
+            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
             <div
                 id="camera-preview"
             ></div>

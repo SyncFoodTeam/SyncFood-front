@@ -15,5 +15,12 @@ export default interface IGroup {
     owner?: IGroupsMembers;
 }
 
+export default interface IGroupEdit {
+    id?: number;
+    name?: string;
+    description?: string;
+    budget?: number;
+}
+
 
 

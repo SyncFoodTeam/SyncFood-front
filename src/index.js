@@ -28,7 +28,7 @@ root.render(
       <Routes>
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="groupes" element={<GroupsList />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings" element={<Settings />} />

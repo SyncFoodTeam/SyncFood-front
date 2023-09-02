@@ -1,6 +1,7 @@
-import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup, RemoveSomeoneDao } from "../dao/groupe.dao";
+import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup, RemoveSomeoneDao, UpdateGroupDao } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 import IGroup from "../interface/groups/group.interface";
+import IGroupEdit from "../interface/groups/group.interface";
 
 export async function CreateGroupService(body: ICreateGroups) {
     console.log("CreateGroup(" + JSON.stringify(body) + ")");
@@ -10,7 +11,7 @@ export async function CreateGroupService(body: ICreateGroups) {
         console.log("Mon Bearer token :", token);
         if (token) {
             const resp = await CreateGroupDao(body, token);
-
+            console.log({resp})
             if (resp.code === 200) {
                 return resp;
             } else {
@@ -26,6 +27,34 @@ export async function CreateGroupService(body: ICreateGroups) {
 
         return false;
     }
+
+}
+
+export async function UpdateGroupService(body: IGroupEdit) {
+    console.log("UpdateGroupService(" + {body} + ")");
+
+    try {
+        let token = localStorage.getItem('token');
+        console.log("Mon Bearer token :", token);
+        if (token) {
+            const resp = await UpdateGroupDao(token, body);
+
+            if (resp?.code === 200) {
+                return resp;
+            } else {
+                console.log("J'ai un code erreur");
+                return resp;
+            }
+        } else {
+            console.log("Je n'ai pas de token");
+            return undefined
+        }
+
+    } catch (e) {
+        console.log("Erreur", e);
+        return undefined
+    }
+
 
 }
 

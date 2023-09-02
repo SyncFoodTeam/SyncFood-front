@@ -13,7 +13,7 @@ function Menu() {
     const redirectTo = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        navigate('/home');
+        navigate('/');
     };
 
     const redirectToGroupes = async (event: React.MouseEvent<HTMLElement>) => {

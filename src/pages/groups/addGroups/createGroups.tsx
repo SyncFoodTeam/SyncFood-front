@@ -26,7 +26,7 @@ function CreateGroups() {
 
         let body = {
             Name: groupName,
-            description: groupDescription
+            Description: groupDescription
         };
 
         console.log("body", body);
@@ -35,7 +35,7 @@ function CreateGroups() {
             let loginSuccess = await CreateGroupService(body);
             console.log(loginSuccess);
             setCreateError(false);
-            navigate(-1);
+            // navigate(-1);
         } else {
             setCreateError(true);
         }

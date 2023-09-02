@@ -4,7 +4,7 @@ import './modifyGroups.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
 import IGroup from '../../../interface/groups/group.interface';
-import { GetGroupService } from '../../../service/groupe.service';
+import { GetGroupService, UpdateGroupService } from '../../../service/groupe.service';
 import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
 import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
@@ -19,6 +19,9 @@ function ModifyGroups() {
 
     const [group, setGroup] = useState<IGroup>({});
     const [noData, setNoData] = useState(false);
+    const [groupName, setGroupName] = useState('');
+    const [groupDescription, setGroupDescription] = useState('');
+    const [groupBudget, setGroupBudget] = useState('');
 
     const location = useLocation();
 
@@ -52,23 +55,60 @@ function ModifyGroups() {
         navigate('/addFoodContainer');
     }
 
-    const removeSomeone = async (idUser: number) => {
-        console.log("idUser", idUser);
+    const modifyGroup = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
 
+        let body = {
+            id: group?.id,
+            name: groupName || group?.name,
+            description: groupDescription || group?.description,
+            budget: parseInt(groupBudget) || group?.budget
+        };
+
+        console.log("J'envoie mes données à la route adéquat");
+        let updateSuccess = await UpdateGroupService(body);
+        console.log(updateSuccess);
+        if (updateSuccess) {
+            navigate(-1);
+        } else {
+            console.log("Erreur lors de la connexion");
+        }
     }
 
-    
     return (
         <div className="App">
 
             <Header />
 
             <h1>Groups Page Details</h1>
+            <div>
+                <label className="label">Nom du groupe :</label>
+                <br />
+                <input type="text" name="text"
+                    defaultValue={group.name}
+                    onChange={(e) => setGroupName(e.target.value)}
+                ></input>
+            </div>
+            <div>
+                <label className="label">Description :</label>
+                <br />
+                <input type="text" name="text"
+                    defaultValue={group.description}
+                    onChange={(e) => setGroupDescription(e.target.value)}
+                ></input>
+            </div>
 
-            <div>{group.name}</div>
-            <div>{group.description}</div>
-            <div>Budget: {group.budget}</div>
-            
+            <div>
+                <label className="label">Budget :</label>
+                <br />
+                <input type="number" name="text"
+                    defaultValue={group.budget}
+                    onChange={(e) => setGroupBudget(e.target.value)}
+                ></input>
+            </div>
+
+            <button onClick={modifyGroup}>Modifier</button>
+
             <div>
                 <label>Listes des membres du groupes: </label>
                 {group?.members?.map((members: IGroupsMembers, index: number) => (
@@ -78,7 +118,9 @@ function ModifyGroups() {
                             <div className='descriptif'>
                                 <div>
                                     <h3>{members.userName}#{members.discriminator}</h3>
-                                    <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
+                                    {members.id !== group.owner.id &&
+                                        <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
+                                    }
                                     {/* <button onClick={() => removeSomeone(members.id)}>Enlever</button> */}
                                 </div>
                             </div>
@@ -119,7 +161,7 @@ function ModifyGroups() {
 
             <div>{group.creationDate}</div>
 
-            <AddUser idGroup={group.id}/>  
+            <AddUser idGroup={group.id} />
 
             <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
 

@@ -48,7 +48,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
 
             if (groupDeleted.code === 200) {
                 setError(false);
-                navigate('/home');
+                navigate('/');
             } else {
                 setError(true);
                 setErrorMessage(groupDeleted.dataGroup);
@@ -59,7 +59,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
             
             if (removeSomeone.code === 200) {
                 setError(false);
-                // navigate('/home');
+                // navigate('/');
             } else {
                 setError(true);
                 setErrorMessage(removeSomeone.dataGroup);
