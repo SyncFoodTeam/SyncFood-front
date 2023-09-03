@@ -39,7 +39,6 @@ function ContainerDetails() {
         if (myContainers) {
             console.log("j'ai des data:")
             setContainer(myContainers);
-            console.log({ container });
             setNoData(false);
         } else {
             setNoData(true);
@@ -51,6 +50,9 @@ function ContainerDetails() {
         navigate('/modifyContainers', { state: { id } });
     }
 
+    const goToProduct = async (id: number) => {
+        navigate('/productDetails', { state: { id } });
+    }
 
     return (
         <div className="App">
@@ -60,7 +62,31 @@ function ContainerDetails() {
 
             <h1>Container Page Details</h1>
 
-            <button>Ajouter un produit</button>
+            <h3>Nom: {container.name}</h3>
+            <div>
+                <h3>Produit:</h3>
+                {container?.products?.length > 0 &&
+                    <div>{container.products.map((product: any, index: number) => (
+                        <div key={index}>
+
+                            <div className='product'>
+                                <div className='image'> IMAGE</div>
+                                <div className='descriptif'>
+                                    <h3 className='title'>{product.name} </h3>
+                                    <h5 className='description'>{product.description} </h5>
+                                </div>
+                            </div>
+
+                            <div onClick={() => goToProduct(product.id)}>
+                                Voir plus
+                            </div>
+                        </div>
+                    ))}</div>
+
+                }
+                <button>Ajouter un produit</button>
+
+            </div>
 
             {/* {(container.=== user?.id) &&
                 <button onClick={() => modifyContainers(container.id)}>Modifier</button>

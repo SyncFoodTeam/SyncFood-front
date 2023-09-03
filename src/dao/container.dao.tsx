@@ -34,7 +34,7 @@ export async function CreateFoodContainerDao(body: IFoodContainerCreate, token: 
 export async function GetContainerDao(token: string, foodContainerId: number) {
     console.log("GetContainerDao(token, foodContainerId)");
 
-    const data = await fetch(`/api/foodcontainer/get/${foodContainerId}`, {
+    const data = await fetch(`/api/foodcontainers/get/${foodContainerId}`, {
         method: 'GET',
         headers: {
             'accept': 'text/plain',
