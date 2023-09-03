@@ -17,3 +17,9 @@ export default interface IFoodContainerCreate {
     groupId?: number
 }
 
+export default interface IFoodContainerEdit {
+    name?: string,
+    description?: string,
+    containerId?: number
+}
+

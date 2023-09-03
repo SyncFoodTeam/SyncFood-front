@@ -64,6 +64,7 @@ function ContainerDetails() {
             <h1>Container Page Details</h1>
 
             <h3>Nom: {container.name}</h3>
+            <h3>Description: {container.description}</h3>
             <div>
                 <h3>Produit:</h3>
                 {container?.products?.length > 0 &&
@@ -85,13 +86,13 @@ function ContainerDetails() {
                     ))}</div>
 
                 }
-                <AddProductModal containerId={container.id}/>
+                <AddProductModal containerId={container.id} />
 
             </div>
 
-            {/* {(container.=== user?.id) &&
-                <button onClick={() => modifyContainers(container.id)}>Modifier</button>
-            } */}
+
+            <button onClick={() => modifyContainers(container.id)}>Modifier</button>
+
             <Menu />
         </div>
 

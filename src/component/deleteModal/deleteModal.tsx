@@ -9,12 +9,15 @@ import { DeleteGroupService, RemoveSomeoneService } from '../../service/groupe.s
 import { useNavigate } from 'react-router-dom';
 import IError from '../../interface/error.interface';
 import ErrorComponent from '../error/errorComponent';
+import { DeleteContainerService } from '../../service/container.service';
 
 interface deleteModalProps {
     index?: number;
     whatIs: string;
     userId?: number;
     groupId?: number;
+    containerId?: number;
+
 }
 
 const DeleteModal: React.FC<deleteModalProps> = ({
@@ -22,6 +25,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
     whatIs = '',
     userId = 0,
     groupId = 0,
+    containerId = 0,
 }) => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -40,8 +44,6 @@ const DeleteModal: React.FC<deleteModalProps> = ({
         event.preventDefault();
 
         setOpen(false);
-        console.warn(index);
-        console.warn(whatIs);
 
         if (whatIs === 'groups') {
             let groupDeleted = await DeleteGroupService(index);
@@ -53,10 +55,10 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 setError(true);
                 setErrorMessage(groupDeleted.dataGroup);
             }
-        }else if (whatIs === 'removeSomeone') {
+        } else if (whatIs === 'removeSomeone') {
             console.log("removeSomeone");
             let removeSomeone = await RemoveSomeoneService(groupId, userId);
-            
+
             if (removeSomeone.code === 200) {
                 setError(false);
                 // navigate('/');
@@ -64,18 +66,29 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 setError(true);
                 setErrorMessage(removeSomeone.dataGroup);
             }
+        } else if (whatIs === 'container') {
+            console.log("container");
+            let removeContainer = await DeleteContainerService(containerId);
+
+            if (removeContainer.code === 200) {
+                setError(false);
+                navigate(-1);
+            } else {
+                setError(true);
+                setErrorMessage(removeContainer.dataContainer);
+            }
         }
 
     };
 
     return (
         <div>
-            {(whatIs === 'groups') && 
+            {(whatIs === 'groups' || whatIs === 'container') &&
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Supprimer
                 </Button>
             }
-            {(whatIs === 'removeSomeone') && 
+            {(whatIs === 'removeSomeone') &&
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Enlever du groupe
                 </Button>

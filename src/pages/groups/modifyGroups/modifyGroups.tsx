@@ -61,8 +61,8 @@ function ModifyGroups() {
         let body = {
             id: group?.id,
             name: groupName || group?.name,
-            description: groupDescription || group?.description,
-            budget: parseInt(groupBudget) || group?.budget
+            description: groupDescription,
+            budget: parseInt(groupBudget)
         };
 
         console.log("J'envoie mes données à la route adéquat");
@@ -80,7 +80,7 @@ function ModifyGroups() {
 
             <Header />
 
-            <h1>Groups Page Details</h1>
+            <h1>Groups Page Modify</h1>
             <div>
                 <label className="label">Nom du groupe :</label>
                 <br />
@@ -117,7 +117,16 @@ function ModifyGroups() {
                         <div className='groupe'>
                             <div className='descriptif'>
                                 <div>
-                                    <h3>{members.userName}#{members.discriminator}</h3>
+                                    {group?.owner?.id === members?.id &&
+                                        <h3>
+                                            Owner: {members.userName}#{members.discriminator}
+                                        </h3>
+                                    }
+                                    {group?.owner?.id !== members?.id &&
+                                        <h3>
+                                            {members.userName}#{members.discriminator}
+                                        </h3>
+                                    }
                                     {members.id !== group.owner.id &&
                                         <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
                                     }

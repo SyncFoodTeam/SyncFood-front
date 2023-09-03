@@ -84,7 +84,20 @@ function GroupDetails() {
             <div>Membres du groupe: </div>
             <ul>
                 {group?.members?.map((member, index) => (
-                    <li key={index}>{member.userName}#{member.discriminator}</li>
+                    <div>
+                        {group?.owner?.id !== member?.id &&
+                            <li key={index}>
+                                {member.userName}#{member.discriminator}
+                            </li>
+                        }
+                        {group?.owner?.id === member?.id &&
+                            <li>
+                                Owner: {member.userName}#{member.discriminator}
+                            </li>
+                        }
+
+                    </div>
+
                 ))}
             </ul>
             <div>

@@ -3,69 +3,97 @@ import Header from '../../../component/header/header';
 import './modifyContainer.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
-import IGroup from '../../../interface/groups/group.interface';
-import { GetGroupService } from '../../../service/groupe.service';
-import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
-import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
-import ajout from '../../../assets/add.svg'
+import { GetContainerService, UpdateContainerService } from '../../../service/container.service';
+import IUserPublic from '../../../interface/auth.interface';
+import { InformationMe } from '../../../service/auth.service';
 
 
-function modifyContainer() {
+function ModifyContainer() {
     const navigate = useNavigate();
-
-    const [group, setGroup] = useState<IGroup>({});
     const [noData, setNoData] = useState(false);
-
+    const [user, setUser] = useState<IUserPublic>({});
+    const [container, setContainer] = useState<IFoodContainers>({});
     const location = useLocation();
+    const [containerName, setContainerName] = useState('');
+    const [containerDescription, setContainerDescription] = useState('');
 
     const id = location.state?.id;
 
     useEffect(() => {
-        if (id) {
-            getGroup(id);
-        } else {
-            console.log("je n'ai pas d'id")
-        }
+        const fetchData = async () => {
+            if (id) {
+                await getContainer(id);
+                const userData = await InformationMe();
+                setUser(userData.dataUser);
+            } else {
+                console.log("Je n'ai pas d'id");
+            }
+        };
+
+        fetchData();
     }, []);
 
-    async function getGroup(groupId: number) {
-        console.log("getGroup(groupId)");
-        let myGroups = await GetGroupService(groupId);
+    async function getContainer(containerId: number) {
+        console.log("getContainer(containerId)");
+        let myContainers = await GetContainerService(containerId);
 
-        if (myGroups) {
+        if (myContainers) {
             console.log("j'ai des data:")
-            setGroup(myGroups);
-            console.log({ group });
+            setContainer(myContainers);
             setNoData(false);
         } else {
             setNoData(true);
         }
     }
 
-    const addFoodContainer = async (event: React.MouseEvent<HTMLElement>) => {
+    const modifyContainer = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        navigate('/addFoodContainer');
+        let body = {
+            id: container?.id,
+            name: containerName || container?.name,
+            description: containerDescription,
+        };
+
+        console.log("J'envoie mes données à la route adéquat");
+        let updateSuccess = await UpdateContainerService(body);
+        console.log(updateSuccess);
+        if (updateSuccess) {
+            navigate(-1);
+        } else {
+            console.log("Erreur lors de la connexion");
+        }
     }
 
-    
     return (
         <div className="App">
 
             <Header />
 
-            <h1>Groups Page Details</h1>
+            <h1>Modify Container Page</h1>
 
-            <div>{group.name}</div>
-            <div>{group.description}</div>
-            <div>Budget: {group.budget}</div>
+            <div>
+                <label className="label">Nom du container :</label>
+                <br />
+                <input type="text" name="text"
+                    defaultValue={container.name}
+                    onChange={(e) => setContainerName(e.target.value)}
+                ></input>
+            </div>
+            <div>
+                <label className="label">Description :</label>
+                <br />
+                <input type="text" name="text"
+                    defaultValue={container.description}
+                    onChange={(e) => setContainerDescription(e.target.value)}
+                ></input>
+            </div>
+            <button onClick={modifyContainer}>Modifier</button>
 
-            <div>{group.creationDate}</div>
-
-            <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
+            <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
 
             <Menu />
         </div>
@@ -74,4 +102,4 @@ function modifyContainer() {
     );
 }
 
-export default modifyContainer;
+export default ModifyContainer;
