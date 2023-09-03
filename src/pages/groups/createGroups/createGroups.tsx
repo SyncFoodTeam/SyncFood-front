@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import AddUser from '../addUser/addUser';
 import BounceLoader from 'react-spinners/BounceLoader';
+import ErrorComponent from '../../../component/error/errorComponent';
+import IError from '../../../interface/error.interface';
 
 
 
@@ -17,6 +19,7 @@ function CreateGroups() {
     const [groupDescription, setGroupDescription] = useState('');
     const [createError, setCreateError] = useState(false);
     const [user, setUser] = useState('');
+    const [error, setError] = useState<IError>({});
 
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,10 +35,18 @@ function CreateGroups() {
         console.log("body", body);
 
         if (body.Name !== '') {
-            let loginSuccess = await CreateGroupService(body);
-            console.log(loginSuccess);
-            setCreateError(false);
-            // navigate(-1);
+            let createSuccess = await CreateGroupService(body);
+    
+            console.log("Résultat de ma création", createSuccess)
+            if (createSuccess?.code === 200) {
+                console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
+                setCreateError(false);
+                navigate(-1);
+            } else {
+                console.log("Erreur lors de la création");
+                setError(createSuccess.dataGroup);
+            }
+
         } else {
             setCreateError(true);
         }
@@ -82,7 +93,11 @@ function CreateGroups() {
                 <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
             }
 
-            <BounceLoader color="#36d7b7" /> 
+            {error &&
+                <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+            }
+
+            <BounceLoader color="#36d7b7" />
             <Menu />
         </div>
 

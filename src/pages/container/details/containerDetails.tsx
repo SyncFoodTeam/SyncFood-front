@@ -7,6 +7,7 @@ import IUserPublic from '../../../interface/auth.interface';
 import { InformationMe } from '../../../service/auth.service';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { GetContainerService } from '../../../service/container.service';
+import AddProductModal from '../../../component/addProductModal/addProductModal';
 
 
 function ContainerDetails() {
@@ -84,7 +85,7 @@ function ContainerDetails() {
                     ))}</div>
 
                 }
-                <button>Ajouter un produit</button>
+                <AddProductModal containerId={container.id}/>
 
             </div>
 

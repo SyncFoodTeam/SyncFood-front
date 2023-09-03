@@ -25,7 +25,7 @@ export async function CreateGroupService(body: ICreateGroups) {
     } catch (e) {
         console.log("Erreur", e);
 
-        return false;
+        return undefined;
     }
 
 }

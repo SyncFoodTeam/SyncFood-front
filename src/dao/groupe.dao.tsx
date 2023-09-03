@@ -29,18 +29,17 @@ export async function CreateGroupDao(body: ICreateGroups, token: string) {
         console.log(data);
 
         const realData = await data.json();
+        let createData = {
+            dataGroup: realData,
+            code: data.status
+        }
         if (data.status === 200 && realData) {
-
-            let createData = {
-                dataGroup: realData,
-                code: data.status
-            }
 
             console.log('======success=======');
             return createData;
         } else {
             await routeService(data.status);
-            return undefined
+            return createData
         }
 
     } catch (error) {

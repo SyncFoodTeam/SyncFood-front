@@ -11,8 +11,8 @@ import LunchPage from './pages/lunchPage/lunchPage';
 import Settings from './pages/settings/settings';
 import GroupsList from './pages/groups/list/groupsList';
 import Messages from './pages/message/message';
-import AddProduct from './pages/product/addProduct/addProduct';
-import CreateGroups from './pages/groups/addGroups/createGroups';
+import AddProduct from './pages/product/addProductManual/addProductManual';
+import CreateGroups from './pages/groups/createGroups/createGroups';
 import NotFound from './pages/notFound/notFound';
 import ServerError from './pages/serverError/serverError';
 import GroupDetails from './pages/groups/details/groupDetails';
@@ -20,6 +20,7 @@ import ModifyGroups from './pages/groups/modifyGroups/modifyGroups';
 import CreateContainer from './pages/container/createContainer/createContainer';
 import ContainerDetails from './pages/container/details/containerDetails';
 import AddProductCam from './pages/product/addProductCam/addProductCam';
+import AddProductManual from './pages/product/addProductManual/addProductManual';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -42,6 +43,7 @@ root.render(
         <Route path="createContainer" element={<CreateContainer />} />
         <Route path="containerDetails" element={<ContainerDetails />} />
         <Route path="addProductCam" element={<AddProductCam />} />
+        <Route path="addProductManual" element={<AddProductManual />} />
 
         
       </Routes>
