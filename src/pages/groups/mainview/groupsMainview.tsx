@@ -14,6 +14,9 @@ function GroupsMainview() {
     const [groupsError, setGroupsError] = useState(false);
     const [error, setError] = useState<IError>({});
 
+    const [startIndex, setStartIndex] = useState(0);
+    const itemsPerPage = 3;
+
     useEffect(() => {
         getGroups();
     }, []);
@@ -36,6 +39,18 @@ function GroupsMainview() {
         }
     }
 
+    const handleNextPage = () => {
+        if (startIndex + itemsPerPage < groups.length) {
+            setStartIndex(startIndex + itemsPerPage);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (startIndex - itemsPerPage >= 0) {
+            setStartIndex(startIndex - itemsPerPage);
+        }
+    };
+
 
 
     return (
@@ -44,18 +59,28 @@ function GroupsMainview() {
             <h3>Mes groupes :</h3>
 
             {!noData &&
-                <div>
-                    {groups.map((group: IGroups, index: number) => (
+                <div className="groupsCards">
+                    {groups.slice(startIndex, startIndex + itemsPerPage).map((group, index) => (
                         <div key={index}>
-                            <div>
-                                <div>
-                                    <h5>Nom : {group.name} </h5>
-                                    <h5>Description : {group.description} </h5>
-                                    <h5>Date de Création : {moment(group.creationDate).format("YYYY/MM/DD kk:mm:ss")} </h5>
+                            <div className='groupCard'>
+                                <div className='groupName'>
+                                    <div>{group.name}</div>
                                 </div>
                             </div>
                         </div>
                     ))}
+                    <div className="paginationButtons">
+                        {startIndex > 0 && (
+                            <button onClick={handlePreviousPage} className="paginationButtonsPrevious">
+                                <i className="fa-solid fa-chevron-left"></i>
+                            </button>
+                        )}
+                        {startIndex + itemsPerPage < groups.length && (
+                            <button onClick={handleNextPage} className="paginationButtonsNext">
+                                <i className="fa-solid fa-chevron-right"></i>
+                            </button>
+                        )}
+                    </div>
                 </div>
             }
             {noData &&

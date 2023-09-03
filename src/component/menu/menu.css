@@ -6,7 +6,10 @@
     text-align: center;
     justify-content: space-between;
     width: 90%;
+    background-color: white;
 }
 
 .divIcon{
+    color: #000;
+    font-family: 'MuseoModerno';
 }
