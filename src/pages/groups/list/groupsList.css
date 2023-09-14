@@ -37,7 +37,19 @@
 .ajout {
     position: absolute;
     bottom: 12%;
-    right: 10%;
+    right: 6%;
     border: none;
     background: #ffffff;
+}
+
+.seeMore {
+    border-radius: 30px;
+    border: 2px solid #F8E7AF;
+    background: #F8E7AF;
+    width: 83px;
+    text-align: center;
+    padding: 2px;
+    margin-left: 210px;
+    margin-bottom: 11px;
+    margin-top: -18px;
 }

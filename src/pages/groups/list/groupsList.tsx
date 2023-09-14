@@ -56,39 +56,43 @@ function GroupsList() {
 
             <Header />
             <div>
-                {loading ? (
-                    <BounceLoader color="#36d7b7" className='loadingScreen'/>
-                ) : (
-
+                {!loading &&
                     <div>
                         <h1>Groupes</h1>
                         {!noData &&
-                        <div>
-                            {groups.map((group: IGroups, index: number) => (
-                                <div key={index}>
-    
-                                    <div className='groupe'>
-                                        <div className='image'> IMAGE</div>
-                                        <div className='descriptif'>
-                                            <h3 className='title'>{group.name} </h3>
-                                            <h5 className='description'>{group.description} </h5>
+                            <div>
+                                {groups.map((group: IGroups, index: number) => (
+                                    <div key={index}>
+
+                                        <div className='groupe'>
+                                            <div className='image'> IMAGE</div>
+                                            <div className='descriptif'>
+                                                <h3 className='title'>{group.name} </h3>
+                                                <h5 className='description'>{group.description} </h5>
+                                            </div>
+                                        </div>
+
+                                        <div className="seeMore" onClick={() => goToGroup(group.id)}>
+                                            Voir plus
                                         </div>
                                     </div>
-    
-                                    <div onClick={() => goToGroup(group.id)}>
-                                        Voir plus
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    }
-                    {noData &&
-                        <NoDataComponent />
-                    }
-                    <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button></div>
-                
-                    
-                    )}
+                                ))}
+                            </div>
+                        }
+                        {noData &&
+                            <NoDataComponent />
+                        }
+
+                        <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button></div>
+
+                }
+
+                {loading &&
+                    <div>
+                        <BounceLoader color="#36d7b7" className='loadingScreen' />
+
+                    </div>
+                }
             </div>
 
             <Menu />
