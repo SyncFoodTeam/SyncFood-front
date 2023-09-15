@@ -4,64 +4,23 @@ import React, { useEffect, useState } from 'react';
 import Quagga from 'quagga';
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import { useNavigate } from 'react-router-dom';
+import { getProductCamService } from '../../../service/product.service';
+import Loader from '../../../component/loader/loader';
+import Scanner from '../../../component/scanner/scanner';
 
 
 function AddProductCam() {
     const [codeBarre, setCodeBarre] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [statusVerbose, setStatusVerbose] = useState('');
+    const [product, setProduct] = useState({});
 
-    useEffect(() => {
-        Quagga.init({
-            inputStream: {
-                name: 'Live',
-                type: 'LiveStream',
-                target: document.querySelector('#camera-preview'), // L'élément HTML où la caméra doit être affichée
-                constraints: {
-                    width: '100%',
-                    height: '100%',
-                    facingMode: 'user', // Utilisation de la caméra arrière (peut être 'user' pour la caméra avant)
-                },
-                area: { // defines rectangle of the detection/localization area
-                    top: "0%",    // top offset
-                    right: "0%",  // right offset
-                    left: "0%",   // left offset
-                    bottom: "0%"  // bottom offset
-                },
-            },
-            locator: {
-                patchSize: 'medium',
-                halfSample: true,
-            },
-            numOfWorkers: 2,
-            decoder: {
-                readers: ['ean_reader'], // Le type de code-barres à scanner (par exemple, 'ean_reader' pour les codes EAN)
-            },
-            locate: true, // Activer la localisation du code-barres
-        }, (err) => {
-            if (err) {
-                console.error("Erreur lors de l'initialisation de Quagga: ", err);
-                return;
-            }
-            Quagga.start();
+    const onDetected = result => {
+        setCodeBarre(result);
 
-            // Gestionnaire d'événement pour la détection du code-barres
-            Quagga.onDetected((data) => {
-                const codeBarreDetecte = data.codeResult.code;
-                setCodeBarre(codeBarreDetecte);
-
-                // Afficher une le code barre dans la console
-                console.warn('Code-barres détecté :', codeBarreDetecte);
-
-                // Arrêtez la lecture du code-barres après avoir trouvé un code
-                Quagga.stop();
-            });
-        });
-
-        // Nettoyez Quagga lorsque le composant est démonté
-        return () => {
-            Quagga.stop();
-        };
-    }, []);
+        getProduct(result);
+    };
 
     const goBack = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -71,16 +30,54 @@ function AddProductCam() {
         navigate(-1);
     }
 
+    const retryAddProductCam = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        window.location.reload();
+
+    }
+
+    async function getProduct(code: string) {
+        console.log(`getProduct(${code})`);
+        setLoading(true);
+        let product = await getProductCamService(code);
+        console.log({ product });
+        setStatusVerbose(product.status_verbose);
+        setProduct(product.product);
+        setLoading(false);
+    }
+
     return (
-        <div>
-            <h1>Scanner de code-barres</h1>
-            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-            <div
-                id="camera-preview"
-            ></div>
+        <div className="App">
+
+            {!loading && <div>
+                <h1>Scanner de code-barres</h1>
+                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                <div className="container">
+                    {codeBarre === '' &&
+                        <Scanner onDetected={onDetected} />
+                    }
+                </div>
+            </div>
+            }
+            {loading &&
+                <Loader />
+            }
+
             {codeBarre && <p>Code-barres détecté : {codeBarre}</p>}
+
+            {statusVerbose !== '' &&
+                <div>
+
+                    <h2>{statusVerbose}</h2>
+                    <pre>{JSON.stringify(product)}</pre>
+                    <button onClick={retryAddProductCam}>Retry</button>
+                </div>
+            }
         </div>
     );
 }
 
 export default AddProductCam;
+
+
