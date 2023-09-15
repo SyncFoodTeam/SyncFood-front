@@ -1,4 +1,4 @@
-import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup, RemoveSomeoneDao, UpdateGroupDao } from "../dao/groupe.dao";
+import { CreateGroupDao, DeleteGroupDao, GetGroupDao, GetGroupsDao, searchUserAddToGroup, addUserToGroup, RemoveSomeoneDao, UpdateGroupDao, ChangeOwnerDao } from "../dao/groupe.dao";
 import ICreateGroups from "../interface/groups/groupsCreate.interface";
 import IGroup from "../interface/groups/group.interface";
 import IGroupEdit from "../interface/groups/group.interface";
@@ -189,6 +189,35 @@ export async function addUserToGroupService(token: string, groupId: number, user
     if (token) {
         try {
             const resp = await addUserToGroup(token, groupId, userId);
+
+            if (resp?.code === 200) {
+                console.log({ resp })
+                return resp;
+            } else {
+                console.log("J'ai un code erreur");
+                return resp;
+            }
+
+        } catch (e) {
+            console.log("Erreur", e);
+
+            return undefined;
+        }
+    } else {
+        console.log("Je n'ai pas de token");
+    }
+
+}
+
+export async function changeOwnerService(groupId: number, userId: number) {
+    console.log("changeOwnerService()");
+    console.log("groupId", groupId);
+    console.log("userId", userId);
+    let token = localStorage.getItem('token');
+
+    if (token) {
+        try {
+            const resp = await ChangeOwnerDao(token, userId, groupId);
 
             if (resp?.code === 200) {
                 console.log({ resp })

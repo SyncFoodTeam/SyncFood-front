@@ -1,11 +1,3 @@
-.returnToLastPage {
-    position: absolute;
-    border: none;
-    background: #ffffff;
-    left: 3%;
-    top: 8%;
-}
-
 .formulaire {
     margin-top: 10%;
     display: flex;
@@ -40,4 +32,8 @@
     border: none;
     border-radius: 15px;
     padding: 10px 20px;
+}
+
+.divGoBack{
+    margin-left: 60px;
 }

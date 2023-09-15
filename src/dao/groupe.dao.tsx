@@ -265,3 +265,44 @@ export async function UpdateGroupDao(token: string, body: IGroupEdit) {
 
 
 };
+
+export async function ChangeOwnerDao(token: string, userId: number, groupId: number) {
+    console.log("ChangeOwnerDao(", userId, groupId, ")");
+
+    try {
+        let data = await fetch(`/api/groups/changeowner/${groupId}/${userId}`, {
+
+            method: 'PATCH',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + JSON.parse(token)
+            },
+        })
+
+        const realData = await data.json();
+        if (data.status === 200 && realData) {
+
+            let updateData = {
+                dataGroup: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return updateData;
+        } else {
+            await routeService(data.status);
+            return undefined
+        }
+
+    } catch (error) {
+
+        console.error('======failure=======');
+        console.error(error);
+
+        throw new Error("Erreur");
+
+    }
+
+
+};

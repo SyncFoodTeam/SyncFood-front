@@ -1,0 +1,11 @@
+.addUserInput {
+    border-radius: 30px;
+    border: 2px solid #F8E7AF;
+    background: #FFF;
+}
+
+.addUser{
+    font-size: x-large;
+    background: none;
+    border: none;
+}

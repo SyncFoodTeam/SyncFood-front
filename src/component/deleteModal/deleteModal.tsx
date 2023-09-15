@@ -84,13 +84,13 @@ const DeleteModal: React.FC<deleteModalProps> = ({
     return (
         <div>
             {(whatIs === 'groups' || whatIs === 'container') &&
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Supprimer
+                <Button onClick={handleClickOpen}>
+                    <i className="fa-solid fa-trash-can" style={{ color: '#f00000', fontSize: 'x-large'}}></i>
                 </Button>
             }
             {(whatIs === 'removeSomeone') &&
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Enlever du groupe
+                <Button onClick={handleClickOpen}>
+                    <i className="fa-solid fa-user-slash" style={{ color: '#f00000', fontSize: 'x-large'}}></i>
                 </Button>
             }
             <Dialog

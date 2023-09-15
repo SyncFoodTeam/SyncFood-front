@@ -4,7 +4,7 @@ import './modifyGroups.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
 import IGroup from '../../../interface/groups/group.interface';
-import { GetGroupService, UpdateGroupService } from '../../../service/groupe.service';
+import { GetGroupService, UpdateGroupService, changeOwnerService } from '../../../service/groupe.service';
 import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
 import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
@@ -12,7 +12,10 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
 import ajout from '../../../assets/add.svg'
 import AddUser from '../addUser/addUser';
-
+import goBackArrow from '../../../assets/goBackArrow.svg';
+import DateFormater from '../../../pipe/dateFormater';
+import Loader from '../../../component/loader/loader';
+import { BounceLoader } from 'react-spinners';
 
 function ModifyGroups() {
     const navigate = useNavigate();
@@ -22,17 +25,24 @@ function ModifyGroups() {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
     const [groupBudget, setGroupBudget] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const location = useLocation();
 
     const id = location.state?.id;
 
     useEffect(() => {
-        if (id) {
-            getGroup(id);
-        } else {
-            console.log("je n'ai pas d'id")
-        }
+        const fetchData = async () => {
+            if (id) {
+                setLoading(false);
+                await getGroup(id);
+                setLoading(true);
+            } else {
+                console.log("je n'ai pas d'id")
+            }
+        };
+
+        fetchData(); // Appelez la fonction async
     }, []);
 
     async function getGroup(groupId: number) {
@@ -49,12 +59,6 @@ function ModifyGroups() {
         }
     }
 
-    const addFoodContainer = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        navigate('/addFoodContainer');
-    }
-
     const modifyGroup = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
@@ -62,7 +66,7 @@ function ModifyGroups() {
             id: group?.id,
             name: groupName || group?.name,
             description: groupDescription,
-            budget: parseInt(groupBudget)
+            budget: parseInt(groupBudget) || 0
         };
 
         console.log("J'envoie mes données à la route adéquat");
@@ -75,106 +79,160 @@ function ModifyGroups() {
         }
     }
 
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        console.log(event);
+
+        navigate(-1);
+    }
+
+    const changeOwner = async (userId: number) => {
+
+        await changeOwnerService(group.id, userId);
+
+        navigate('/');
+    }
+
+
+
+
     return (
         <div className="App">
 
-            <Header />
+            {loading &&
+                <Header />
+            }
+            {loading &&
+                <div className="divGoBackButton">
+                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                </div>
 
-            <h1>Groups Page Modify</h1>
-            <div>
-                <label className="label">Nom du groupe :</label>
-                <br />
-                <input type="text" name="text"
-                    defaultValue={group.name}
-                    onChange={(e) => setGroupName(e.target.value)}
-                ></input>
-            </div>
-            <div>
-                <label className="label">Description :</label>
-                <br />
-                <input type="text" name="text"
-                    defaultValue={group.description}
-                    onChange={(e) => setGroupDescription(e.target.value)}
-                ></input>
-            </div>
+            }
+            {loading &&
+                <div className='modifyCard'>
 
-            <div>
-                <label className="label">Budget :</label>
-                <br />
-                <input type="number" name="text"
-                    defaultValue={group.budget}
-                    onChange={(e) => setGroupBudget(e.target.value)}
-                ></input>
-            </div>
+                    <div className="modifyDiv">
+                        <label>Nom du groupe :</label>
+                        <br />
+                        <input type="text" name="text"
+                            defaultValue={group.name}
+                            onChange={(e) => setGroupName(e.target.value)}
+                            className='modifyInput'
+                        ></input>
+                    </div>
+                    <div className="modifyDiv">
+                        <label>Description :</label>
+                        <br />
+                        <input type="text" name="decription"
+                            defaultValue={group.description}
+                            onChange={(e) => setGroupDescription(e.target.value)}
+                            className='modifyInput'
+                        ></input>
+                    </div>
 
-            <button onClick={modifyGroup}>Modifier</button>
+                    <div className="modifyDiv">
+                        <label>Budget :</label>
+                        <br />
+                        <input type="number" name="budget"
+                            defaultValue={group.budget}
+                            onChange={(e) => setGroupBudget(e.target.value)}
+                            className='modifyInput'
+                        ></input>
+                    </div>
 
-            <div>
-                <label>Listes des membres du groupes: </label>
-                {group?.members?.map((members: IGroupsMembers, index: number) => (
-                    <div key={index}>
+                    <div>
+                        <AddUser idGroup={id} />
+                    </div>
 
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <div>
-                                    {group?.owner?.id === members?.id &&
-                                        <h3>
-                                            Owner: {members.userName}#{members.discriminator}
-                                        </h3>
-                                    }
-                                    {group?.owner?.id !== members?.id &&
-                                        <h3>
-                                            {members.userName}#{members.discriminator}
-                                        </h3>
-                                    }
-                                    {members.id !== group.owner.id &&
-                                        <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
-                                    }
-                                    {/* <button onClick={() => removeSomeone(members.id)}>Enlever</button> */}
+                    <div>
+                        <label>Listes des membres du groupes: </label>
+                        {group?.members?.map((members: IGroupsMembers, index: number) => (
+                            <div key={index}>
+
+                                <div className='groupeMembers'>
+                                    <div className='descriptif'>
+                                        {group?.owner?.id === members?.id &&
+                                            <div>
+                                                Owner: {members.userName}#{members.discriminator}
+                                            </div>
+                                        }
+                                        {(group?.owner?.id !== members?.id) &&
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <div className='userInGroups'>
+                                                    {members.userName}#{members.discriminator}
+                                                </div>
+                                                <div className='userInGroups'>
+                                                    <button onClick={() => changeOwner(members.id)} className='changeOwner'>
+                                                        <i className="fa-solid fa-people-arrows"></i>
+                                                    </button>
+                                                </div>
+                                                <div style={{ margin: '-20px' }}>
+                                                    <DeleteModal groupId={group.id} userId={members.id} whatIs={'removeSomeone'}></DeleteModal>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            <div>
-                {group?.shoppingList?.map((shoppingList: IShoppingLists, index: number) => (
-                    <div key={index}>
 
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <h3>{shoppingList.nom} </h3>
+
+                    <div>
+                        {group?.shoppingList?.map((shoppingList: IShoppingLists, index: number) => (
+                            <div key={index}>
+
+                                <div className='groupe'>
+                                    <div className='descriptif'>
+                                        <h3>{shoppingList.nom} </h3>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            <div>
-                {group?.foodContainers?.map((foodContainers: IFoodContainers, index: number) => (
-                    <div key={index}>
+                    <div>
+                        {group?.foodContainers?.map((foodContainers: IFoodContainers, index: number) => (
+                            <div key={index}>
 
-                        <div className='groupe'>
-                            <div className='descriptif'>
-                                <h3>{foodContainers.name} </h3>
+                                <div className='groupe'>
+                                    <div className='descriptif'>
+                                        <h3>{foodContainers.name} </h3>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        ))}
+
+
                     </div>
-                ))}
 
+                    <div className='creationDate'>
+                        Date de création du groupe: <DateFormater date={group.creationDate} />
+                    </div>
 
-            </div>
+                    <div className='divButton'>
+                        <div className='divButtonModify'>
+                            <button onClick={modifyGroup} className='modifyButton'>Modifier</button>
+                        </div>
 
-            <button onClick={addFoodContainer} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
+                        <div className='divButtonDelete'>
+                            <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
+                        </div>
 
-            <div>{group.creationDate}</div>
+                    </div>
+                </div>
+            }
 
-            <AddUser idGroup={group.id} />
+            {!loading &&
+                <Loader />
+            }
 
-            <DeleteModal index={group.id} whatIs={'groups'}></DeleteModal>
-
-            <Menu />
+            {loading &&
+                <Menu />
+            }
         </div>
 
 

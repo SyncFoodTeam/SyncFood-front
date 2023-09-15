@@ -2,7 +2,7 @@ import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
 import { CreateGroupService, searchUserForAddGroupeService } from '../../../service/groupe.service';
 import './createGroups.css';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import AddUser from '../addUser/addUser';
@@ -20,6 +20,12 @@ function CreateGroups() {
     const [createError, setCreateError] = useState(false);
     const [user, setUser] = useState('');
     const [error, setError] = useState<IError>({});
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(true);
+        setLoading(false);
+    }, []);
 
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,7 +42,7 @@ function CreateGroups() {
 
         if (body.Name !== '') {
             let createSuccess = await CreateGroupService(body);
-    
+
             console.log("Résultat de ma création", createSuccess)
             if (createSuccess?.code === 200) {
                 console.log("Toute les donnéees sont OK donc je redirige l'utilisateur");
@@ -68,27 +74,31 @@ function CreateGroups() {
         <div className="App">
 
             <Header barCodeScannerIsTrue={true} />
-
-            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-
-
-            <div className='formulaire'>
-                <form onSubmit={submitGroupe}>
-                    <div className='libelleForm'>
-                        <label>Nom du groupe :</label>
-                        <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)}></input>
-                    </div>
-                    <div className='libelleForm'>
-                        <label>Description :</label>
-                        <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
-                    </div>
-
-                    <br />
-                    <div>
-                        <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
-                    </div>
-                </form>
+            <div className='divGoBack'>
+                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                <h2>Création de Groupe</h2>
             </div>
+
+            {!loading &&
+                <div className='formulaire'>
+                    <form onSubmit={submitGroupe}>
+                        <div className='libelleForm'>
+                            <label>Nom du groupe :</label>
+                            <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)}></input>
+                        </div>
+                        <div className='libelleForm'>
+                            <label>Description :</label>
+                            <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
+                        </div>
+
+                        <br />
+                        <div>
+                            <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
+                        </div>
+                    </form>
+                </div>
+            }
+
             {createError &&
                 <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
             }
@@ -97,7 +107,9 @@ function CreateGroups() {
                 <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
             }
 
-            <BounceLoader color="#36d7b7" />
+            {loading &&
+                <BounceLoader color="#36d7b7" />
+            }
             <Menu />
         </div>
 

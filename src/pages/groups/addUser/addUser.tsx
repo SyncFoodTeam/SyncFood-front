@@ -22,8 +22,10 @@ function AddUser({ idGroup }: Props) {
 
 
     useEffect(() => {
+        // Test avec la regex pour savoir s'il y a tout le code qui est rentré
         if (regex.test(user)) {
             let token = JSON.parse(localStorage.getItem('token'));
+            // Va chercher dans la BDD une correspondance
             searchUserForAddGroupeService(token, user)
                 .then((users) => {
                     if (users) {
@@ -85,9 +87,9 @@ function AddUser({ idGroup }: Props) {
     return (
         <div>
             <label>Ajout d'un utilisateur</label>
-            <input type="text" name="addUser" placeholder='Rechercher' onChange={handleChange} className='inputs'></input>
+            <input type="text" name="addUser" placeholder='Rechercher' onChange={handleChange} className='addUserInput'></input>
             {unlockAddUserButton &&
-                <button onClick={AddUserToGroup}>Ajouter</button>
+                <button onClick={AddUserToGroup} className='addUser'><i className="fa-solid fa-user-plus"></i></button>
             }
 
             <ul>
