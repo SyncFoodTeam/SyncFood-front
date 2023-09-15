@@ -42,7 +42,7 @@ function ModifyGroups() {
             }
         };
 
-        fetchData(); // Appelez la fonction async
+        fetchData();
     }, []);
 
     async function getGroup(groupId: number) {

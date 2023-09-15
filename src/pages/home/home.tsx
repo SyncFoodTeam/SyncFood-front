@@ -1,26 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../../component/header/header';
-import Loader from '../../component/loader/loader';
 import Menu from '../../component/menu/menu';
 import IUser from '../../interface/auth.interface';
 import { InformationMe } from '../../service/auth.service';
 import GroupsMainview from '../groups/mainview/groupsMainview';
 import './home.css';
 import React, { useEffect, useState } from 'react'
+import Loader from '../../component/loader/loader';
 
 
 function Home() {
     const navigate = useNavigate()
     const [informationMe, setInformationMe] = useState<IUser>({});
     const [error, setError] = useState(false);
-    const [isReady, setIsReady] = useState(false);
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setIsReady(false);
-        Init()
-        setIsReady(true);
+        const fetchData = async () => {
+            setLoading(false);
+            await Init();        
+            setLoading(true);
+        };
+
+        fetchData();
     }, []);
+
 
     async function Init() {
     
@@ -48,7 +52,7 @@ function Home() {
     return (
         <div className="App">
 
-            {isReady &&
+            {loading &&
                 <div>
 
                     <Header barCodeScannerIsTrue={true} />
@@ -61,7 +65,7 @@ function Home() {
                     <Menu />
                 </div>
             }
-            {!isReady &&
+            {!loading &&
                 <Loader />
             }
             {error &&
