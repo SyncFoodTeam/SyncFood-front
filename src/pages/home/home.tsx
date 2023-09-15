@@ -13,13 +13,13 @@ function Home() {
     const navigate = useNavigate()
     const [informationMe, setInformationMe] = useState<IUser>({});
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(false);
-            await Init();        
             setLoading(true);
+            await Init();        
+            setLoading(false);
         };
 
         fetchData();
@@ -52,7 +52,7 @@ function Home() {
     return (
         <div className="App">
 
-            {loading &&
+            {!loading &&
                 <div>
 
                     <Header barCodeScannerIsTrue={true} />
@@ -65,7 +65,7 @@ function Home() {
                     <Menu />
                 </div>
             }
-            {!loading &&
+            {loading &&
                 <Loader />
             }
             {error &&

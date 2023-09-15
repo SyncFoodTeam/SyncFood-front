@@ -8,21 +8,24 @@ import ajout from '../../../assets/add.svg'
 import NoDataComponent from '../../../component/noData/noData';
 import IGroups from '../../../interface/groups/groups.interface';
 import { BounceLoader } from 'react-spinners';
+import Loader from '../../../component/loader/loader';
 
 
 function GroupsList() {
     const navigate = useNavigate();
     const [groups, setGroups] = useState<IGroups[]>([]);
     const [noData, setNoData] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
-        getGroups();
-        if (noData == true) {
+        const fetchData = async () => {
             setLoading(true);
-        } else {
+            getGroups();
             setLoading(false);
-        }
+        };
+
+        fetchData();
     }, []);
 
     const createGroup = async (event: React.MouseEvent<HTMLElement>) => {
@@ -44,7 +47,6 @@ function GroupsList() {
     }
 
     const goToGroup = async (id: number) => {
-        // event.preventDefault();
 
         console.log(id);
         navigate('/groupDetails/', { state: { id } });
@@ -53,9 +55,10 @@ function GroupsList() {
 
     return (
         <div className="App">
-
-            <Header />
-            <div>
+            {!loading &&
+                <Header />
+            }
+            <div className='groupList'>
                 {!loading &&
                     <div>
                         <h1>Groupes</h1>
@@ -89,13 +92,14 @@ function GroupsList() {
 
                 {loading &&
                     <div>
-                        <BounceLoader color="#36d7b7" className='loadingScreen' />
+                        <Loader />
 
                     </div>
                 }
             </div>
-
-            <Menu />
+            {!loading &&
+                <Menu />
+            }
         </div>
 
 

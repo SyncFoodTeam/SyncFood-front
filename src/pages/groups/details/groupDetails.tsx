@@ -15,6 +15,7 @@ import AddUser from '../addUser/addUser';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { InformationMe } from '../../../service/auth.service';
 import IUserPublic from '../../../interface/auth.interface';
+import Loader from '../../../component/loader/loader';
 
 
 function GroupDetails() {
@@ -24,6 +25,7 @@ function GroupDetails() {
     const [noData, setNoData] = useState(false);
     const [user, setUser] = useState<IUserPublic>({});
 
+    const [loading, setLoading] = useState(false);
 
     const location = useLocation();
 
@@ -32,9 +34,11 @@ function GroupDetails() {
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
+                setLoading(true);
                 await getGroup(id);
                 const userData = await InformationMe();
                 setUser(userData.dataUser);
+                setLoading(false);
             } else {
                 console.log("Je n'ai pas d'id");
             }
@@ -73,63 +77,72 @@ function GroupDetails() {
 
     return (
         <div className="App">
-
-            <Header />
-
-            <h1>Groups Page Details</h1>
-
-            <div>Nom: {group.name}</div>
-            <div>Description: {group.description}</div>
-            <div>Budget: {group.budget}</div>
-            <div>Membres du groupe: </div>
-            <ul>
-                {group?.members?.map((member, index) => (
-                    <div>
-                        {group?.owner?.id !== member?.id &&
-                            <li key={index}>
-                                {member.userName}#{member.discriminator}
-                            </li>
-                        }
-                        {group?.owner?.id === member?.id &&
-                            <li>
-                                Owner: {member.userName}#{member.discriminator}
-                            </li>
-                        }
-
-                    </div>
-
-                ))}
-            </ul>
-            <div>
-                <label>FoodContainer: </label>
-                {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
-                    <div key={index}>
-
-                        <div>
-                            <div> IMAGE</div>
-                            <div>
-                                <h3>{container.name} </h3>
-                                <h5>{container.description} </h5>
-                            </div>
-                        </div>
-
-                        <div onClick={() => goToContainer(container.id)}>
-                            Voir plus
-                        </div>
-                    </div>
-                ))}
-                {(group?.owner?.id === user?.id) &&
-                    <div>
-                        <button onClick={() => createFoodContainer(group.id)
-                        }>Ajouter</button>
-                    </div>
-                }
-            </div>
-
-            {(group?.owner?.id === user?.id) &&
-                <button onClick={() => modifyGroups(group.id)}>Modifier</button>
+            {!loading &&
+                <Header />
             }
-            <Menu />
+            {!loading &&
+                <div>
+
+                    <h1>Groups Page Details</h1>
+
+                    <div>Nom: {group.name}</div>
+                    <div>Description: {group.description}</div>
+                    <div>Budget: {group.budget}</div>
+                    <div>Membres du groupe: </div>
+                    <ul>
+                        {group?.members?.map((member, index) => (
+                            <div>
+                                {group?.owner?.id !== member?.id &&
+                                    <li key={index}>
+                                        {member.userName}#{member.discriminator}
+                                    </li>
+                                }
+                                {group?.owner?.id === member?.id &&
+                                    <li>
+                                        Owner: {member.userName}#{member.discriminator}
+                                    </li>
+                                }
+
+                            </div>
+
+                        ))}
+                    </ul>
+                    <div>
+                        <label>FoodContainer: </label>
+                        {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
+                            <div key={index}>
+
+                                <div>
+                                    <div> IMAGE</div>
+                                    <div>
+                                        <h3>{container.name} </h3>
+                                        <h5>{container.description} </h5>
+                                    </div>
+                                </div>
+
+                                <div onClick={() => goToContainer(container.id)}>
+                                    Voir plus
+                                </div>
+                            </div>
+                        ))}
+                        {(group?.owner?.id === user?.id) &&
+                            <div>
+                                <button onClick={() => createFoodContainer(group.id)
+                                }>Ajouter</button>
+                            </div>
+                        }
+                    </div>
+
+                    {(group?.owner?.id === user?.id) &&
+                        <button onClick={() => modifyGroups(group.id)}>Modifier</button>
+                    }
+                    <Menu />
+                </div>
+            }
+
+            {loading &&
+                <Loader />
+            }
         </div>
 
 
