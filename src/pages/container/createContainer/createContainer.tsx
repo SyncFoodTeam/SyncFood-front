@@ -20,7 +20,7 @@ function CreateContainer() {
 
     const id = location.state?.id;
 
-    const submitContainer = async (event: React.FormEvent<HTMLFormElement>) => {
+    const submitContainer = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         console.log(event);
@@ -55,30 +55,39 @@ function CreateContainer() {
 
 
 
+
     return (
         <div className="App">
 
             <Header barCodeScannerIsTrue={true} />
 
-            <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+            <div className="divGoBackButton">
+                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+            </div>
 
+            <div className='createCard'>
 
-            <div className='formulaire'>
-                <form onSubmit={submitContainer}>
-                    <div className='libelleForm'>
-                        <label>Nom du container :</label>
-                        <input type="text" name="text" required onChange={(e) => setContainerName(e.target.value)}></input>
-                    </div>
-                    <div className='libelleForm'>
-                        <label>Description :</label>
-                        <input type="text" name="text" onChange={(e) => setContainerDescription(e.target.value)}></input>
-                    </div>
-
+                <div className="modifyDiv">
+                    <label>Nom du groupe :</label>
                     <br />
-                    <div>
-                        <button type="submit" className='boutonAjoutGroupe'>Ajouter le container</button>
-                    </div>
-                </form>
+                    <input type="text" name="text"
+                        onChange={(e) => setContainerName(e.target.value)}
+                        className='modifyInput'
+                        required
+                    ></input>
+                </div>
+
+                <div className="modifyDiv">
+                    <label>Description :</label>
+                    <br />
+                    <input type="text" name="decription"
+                        onChange={(e) => setContainerDescription(e.target.value)}
+                        className='modifyInput'
+                    ></input>
+                </div>
+            </div>
+            <div>
+                <button type="submit" className='boutonAjoutGroupe' onClick={submitContainer}>Ajouter le container</button>
             </div>
             {createError &&
                 <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
