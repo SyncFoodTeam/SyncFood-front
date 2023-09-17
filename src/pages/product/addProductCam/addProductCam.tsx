@@ -3,10 +3,11 @@ import './addProductCam.css';
 import React, { useEffect, useState } from 'react';
 import Quagga from 'quagga';
 import goBackArrow from '../../../assets/goBackArrow.svg'
-import { useNavigate } from 'react-router-dom';
-import { getProductCamService } from '../../../service/product.service';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { addProductToContainerServiceWithCam, getProductCamService } from '../../../service/product.service';
 import Loader from '../../../component/loader/loader';
 import Scanner from '../../../component/scanner/scanner';
+import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 
 
 function AddProductCam() {
@@ -14,12 +15,17 @@ function AddProductCam() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [statusVerbose, setStatusVerbose] = useState('');
-    const [product, setProduct] = useState({});
+    const [status, setStatus] = useState(2);
 
-    const onDetected = result => {
+    const [product, setProduct] = useState<IProductOpenFood>();
+    const location = useLocation();
+    const containerId = location.state?.id;
+
+    const onDetected = async result => {
         setCodeBarre(result);
-
-        getProduct(result);
+        setLoading(true);
+        await getProduct(result);
+        setLoading(false);
     };
 
     const goBack = async (event: React.MouseEvent<HTMLElement>) => {
@@ -39,12 +45,20 @@ function AddProductCam() {
 
     async function getProduct(code: string) {
         console.log(`getProduct(${code})`);
-        setLoading(true);
         let product = await getProductCamService(code);
         console.log({ product });
         setStatusVerbose(product.status_verbose);
+        setStatus(product.status);
         setProduct(product.product);
+    }
+
+    const addProductToContainer = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        setLoading(true);
+        console.warn(product);
+        await addProductToContainerServiceWithCam(product, containerId)
         setLoading(false);
+        // navigate(-1);
     }
 
     return (
@@ -66,12 +80,25 @@ function AddProductCam() {
 
             {codeBarre && <p>Code-barres détecté : {codeBarre}</p>}
 
-            {statusVerbose !== '' &&
+            {status === 0 &&
                 <div>
-
                     <h2>{statusVerbose}</h2>
-                    <pre>{JSON.stringify(product)}</pre>
                     <button onClick={retryAddProductCam}>Retry</button>
+                </div>
+            }
+
+            {status === 1 &&
+                <div>
+                    <div>
+                        <h2>{statusVerbose}</h2>
+                    </div>
+                    <div>
+                        <button onClick={addProductToContainer}>Oui</button>
+                    </div>
+                    <div>
+                        <button onClick={retryAddProductCam}>Non</button>
+                    </div>
+
                 </div>
             }
         </div>

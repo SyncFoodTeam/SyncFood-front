@@ -30,12 +30,10 @@ const AddProductModal: React.FC<addModalProps> = ({
         setOpen(false);
     };
 
-    const handleAddWithCam = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
 
-        navigate('/addProductCam');
-
-    };
+    const handleAddWithCam = async (id: number) => {
+        navigate('/addProductCam', { state: { id } });
+    }
 
     const handleAddManual = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -66,7 +64,7 @@ const AddProductModal: React.FC<addModalProps> = ({
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Annuler</Button>
-                    <Button onClick={handleAddWithCam} autoFocus>
+                    <Button onClick={() => handleAddWithCam(containerId)} autoFocus>
                         Ajouter en scannant le code barre
                     </Button>
                     <Button onClick={handleAddManual} autoFocus>

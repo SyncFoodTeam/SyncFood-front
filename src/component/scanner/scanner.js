@@ -1,9 +1,15 @@
-import React, { useEffect } from "react";
+import React, {
+  useEffect
+} from "react";
 import config from "./config.json";
 import Quagga from "quagga";
 
 const Scanner = props => {
-  const { onDetected } = props;
+  const {
+    onDetected
+  } = props;
+
+  let detectionDone = false;
 
   useEffect(() => {
     Quagga.init(config, err => {
@@ -30,11 +36,14 @@ const Scanner = props => {
             Number(drawingCanvas.getAttribute("height"))
           );
           result.boxes
-            .filter(function(box) {
+            .filter(function (box) {
               return box !== result.box;
             })
-            .forEach(function(box) {
-              Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+            .forEach(function (box) {
+              Quagga.ImageDebug.drawPath(box, {
+                x: 0,
+                y: 1
+              }, drawingCtx, {
                 color: "green",
                 lineWidth: 2
               });
@@ -42,7 +51,10 @@ const Scanner = props => {
         }
 
         if (result.box) {
-          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+          Quagga.ImageDebug.drawPath(result.box, {
+            x: 0,
+            y: 1
+          }, drawingCtx, {
             color: "#00F",
             lineWidth: 2
           });
@@ -50,10 +62,14 @@ const Scanner = props => {
 
         if (result.codeResult && result.codeResult.code) {
           Quagga.ImageDebug.drawPath(
-            result.line,
-            { x: "x", y: "y" },
-            drawingCtx,
-            { color: "red", lineWidth: 3 }
+            result.line, {
+              x: "x",
+              y: "y"
+            },
+            drawingCtx, {
+              color: "red",
+              lineWidth: 3
+            }
           );
         }
       }
@@ -63,11 +79,15 @@ const Scanner = props => {
   }, []);
 
   const detected = result => {
-    onDetected(result.codeResult.code);
+    if (!detectionDone) {
+      onDetected(result.codeResult.code);
+      detectionDone = true;
+    }
   };
 
-  return (
-    <div id="interactive" className="viewport" />
+  return ( <
+    div id = "interactive"
+    className = "viewport" / >
   );
 };
 

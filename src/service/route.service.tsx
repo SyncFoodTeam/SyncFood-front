@@ -6,6 +6,10 @@ export async function routeService(code: number) {
     if (code === 404) {
         RedirectService("notFound");
     }
+    if (code === 401) {
+        console.log("Token Not Found");
+        RedirectService("lunchPage");
+    }
     if (code >= 500 && code <= 504) {
         RedirectService("serveurError");
     }else{
