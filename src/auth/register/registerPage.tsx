@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../../component/header/header';
 import ErrorComponent from '../../component/error/errorComponent';
 import IError from '../../interface/error.interface';
+import Loader from '../../component/loader/loader';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -18,11 +19,12 @@ function RegisterPage() {
     const [username, setUsername] = useState('');
     const [registerError, setRegisterError] = useState(false);
     const [error, setError] = useState<IError>({});
-
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(event);
+        setLoading(true);
 
         if (password === passwordConfirm) {
             let body = {
@@ -53,7 +55,7 @@ function RegisterPage() {
             console.log("Le mot de passe n'est pas le même");
             setWrongPassword(true);
         }
-
+        setLoading(false);
     };
 
     const goToLogin = async (event: React.MouseEvent<HTMLElement>) => {
@@ -64,50 +66,56 @@ function RegisterPage() {
 
     return (
         <div className="App">
+            {!loading &&
+                <div>
+                    <Header barCodeScannerIsTrue={false} />
 
-            <Header barCodeScannerIsTrue={false} />
+                    <div className="centerDiv registerForm">
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label className="label">Adresse Mail :</label>
+                                <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="registerFormInput"></input>
+                            </div>
+                            <br />
+                            <div>
+                                <label className="label">Nom d'utilisateur :</label>
+                                <input type="text" name="text" required onChange={(e) => setUsername(e.target.value)} className="registerFormInput"></input>
+                            </div>
+                            <br />
+                            <div>
+                                <label className="label">* Mot de passe : </label>
+                                <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="registerFormInput"></input>
+                                <div className='passwordRecommendation'>*6 caractères minimun avec au moins une majuscule et une minuscule</div>
+                            </div>
+                            <br />
+                            <div>
+                                <label className="label">Confirmer le mot de passe :</label>
+                                <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
+                            </div>
 
-            <div className="centerDiv registerForm">
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className="label">Adresse Mail :</label>
-                        <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="registerFormInput"></input>
+                            {error &&
+                                <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+                            }
+
+                            {wrongPassword &&
+                                <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
+                            }
+                            <div className="centerDiv">
+                                <button className="register-Button" type="submit">Inscription</button>
+                            </div>
+                        </form>
                     </div>
                     <br />
-                    <div>
-                        <label className="label">Nom d'utilisateur :</label>
-                        <input type="text" name="text" required onChange={(e) => setUsername(e.target.value)} className="registerFormInput"></input>
-                    </div>
                     <br />
-                    <div>
-                        <label className="label">* Mot de passe : </label>
-                        <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="registerFormInput"></input>
-                        <div className='passwordRecommendation'>*6 caractères minimun avec au moins une majuscule et une minuscule</div>
+                    <div className="centerDiv noAccount">
+                        <p>Déjà un compte ? </p><span onClick={goToLogin}><strong className='haveAccount'> Connecter vous ici</strong></span>
                     </div>
-                    <br />
-                    <div>
-                        <label className="label">Confirmer le mot de passe :</label>
-                        <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
-                    </div>
+                </div>
+            }
 
-                    {error &&
-                        <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
-                    }
-
-                    {wrongPassword &&
-                        <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
-                    }
-                    <div className="centerDiv">
-                        <button className="register-Button" type="submit">Inscription</button>
-                    </div>
-                </form>
-            </div>
-            <br />
-            <br />
-            <div className="centerDiv noAccount">
-                <p>Déjà un compte ? </p><span onClick={goToLogin}><strong className='haveAccount'> Connecter vous ici</strong></span>
-            </div>
-
+            {loading &&
+                <Loader />
+            }
         </div>
 
 

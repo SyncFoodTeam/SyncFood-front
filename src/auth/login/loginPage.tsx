@@ -6,6 +6,7 @@ import Header from '../../component/header/header';
 import { LoginService } from '../../service/auth.service';
 import ErrorComponent from '../../component/error/errorComponent';
 import IError from '../../interface/error.interface';
+import Loader from '../../component/loader/loader';
 
 
 function LoginPage() {
@@ -14,9 +15,12 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [loginError, setloginError] = useState(false);
     const [error, setError] = useState<IError>({});
+    const [loading, setLoading] = useState(false);
+
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoading(true);
 
         console.log(event);
 
@@ -38,6 +42,9 @@ function LoginPage() {
             setloginError(true);
             setError(loginCode.dataUser);
         }
+
+        setLoading(false);
+
     };
 
     const goToRegister = async (event: React.MouseEvent<HTMLElement>) => {
@@ -48,34 +55,41 @@ function LoginPage() {
 
     return (
         <div className="App">
+            {!loading &&
+                <div>
+                    <Header barCodeScannerIsTrue={false} />
 
-            <Header barCodeScannerIsTrue={false} />
+                    <div className="centerDiv loginForm">
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label className="label">Adresse Mail :</label>
+                                <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="loginFormInput"></input>
+                            </div>
+                            <br />
+                            <div>
+                                <label className="label">Mot de passe :</label>
+                                <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="loginFormInput"></input>
+                            </div>
 
-            <div className="centerDiv loginForm">
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className="label">Adresse Mail :</label>
-                        <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="loginFormInput"></input>
+                            <br />
+                            <div className="centerDiv">
+                                <button className="login-Button" type="submit">Connexion</button>
+                            </div>
+                        </form>
                     </div>
-                    <br />
-                    <div>
-                        <label className="label">Mot de passe :</label>
-                        <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="loginFormInput"></input>
-                    </div>
-
+                    {loginError &&
+                        <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+                    }
                     <br />
                     <div className="centerDiv">
-                        <button className="login-Button" type="submit">Connexion</button>
+                        <p>Pas de compte ? </p><span onClick={goToRegister}><strong className='noAccount'>Créez en un ici</strong></span>
                     </div>
-                </form>
-            </div>
-            {loginError &&
-                <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
+                </div>
             }
-            <br />
-            <div className="centerDiv">
-                <p>Pas de compte ? </p><span onClick={goToRegister}><strong className='noAccount'>Créez en un ici</strong></span>
-            </div>
+
+            {loading &&
+                <Loader />
+            }
 
 
         </div>
