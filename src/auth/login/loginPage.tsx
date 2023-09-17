@@ -55,19 +55,17 @@ function LoginPage() {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className="label">Adresse Mail :</label>
-                        <br />
                         <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="loginFormInput"></input>
                     </div>
                     <br />
                     <div>
                         <label className="label">Mot de passe :</label>
-                        <br />
                         <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="loginFormInput"></input>
                     </div>
 
                     <br />
                     <div className="centerDiv">
-                        <button className="loginButton" type="submit">Connexion</button>
+                        <button className="login-Button" type="submit">Connexion</button>
                     </div>
                 </form>
             </div>
@@ -75,8 +73,8 @@ function LoginPage() {
                 <ErrorComponent name={error.name} value={error.value} resourceNotFound={error.resourceNotFound} searchedLocation={error.searchedLocation} />
             }
             <br />
-            <div className="centerDiv noAccount">
-                <p>Pas de compte ? </p><span onClick={goToRegister}><strong> Créez en un ici</strong></span>
+            <div className="centerDiv">
+                <p>Pas de compte ? </p><span onClick={goToRegister}><strong className='noAccount'>Créez en un ici</strong></span>
             </div>
 
 

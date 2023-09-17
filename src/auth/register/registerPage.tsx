@@ -42,7 +42,7 @@ function RegisterPage() {
             } else {
                 setRegisterError(true);
                 console.log("Erreur lors de la connexion");
-                console.warn({registerSuccess})
+                console.warn({ registerSuccess })
                 setError(registerSuccess.dataUser);
             }
 
@@ -71,24 +71,22 @@ function RegisterPage() {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className="label">Adresse Mail :</label>
-                        <br />
                         <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="registerFormInput"></input>
                     </div>
                     <br />
                     <div>
-                        <label className="label">Nom d'utilisateurs :</label>
-                        <br />
+                        <label className="label">Nom d'utilisateur :</label>
                         <input type="text" name="text" required onChange={(e) => setUsername(e.target.value)} className="registerFormInput"></input>
                     </div>
                     <br />
                     <div>
-                        <label className="label">Mot de passe : *6 caractères minimun avec au moins une majuscule et une minuscule</label>
-                        <br />
+                        <label className="label">* Mot de passe : </label>
                         <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="registerFormInput"></input>
+                        <div className='passwordRecommendation'>*6 caractères minimun avec au moins une majuscule et une minuscule</div>
                     </div>
+                    <br />
                     <div>
                         <label className="label">Confirmer le mot de passe :</label>
-                        <br />
                         <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
                     </div>
 
@@ -100,14 +98,14 @@ function RegisterPage() {
                         <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
                     }
                     <div className="centerDiv">
-                        <button className="registerButton" type="submit">Inscription</button>
+                        <button className="register-Button" type="submit">Inscription</button>
                     </div>
                 </form>
             </div>
             <br />
             <br />
             <div className="centerDiv noAccount">
-                <p>Déjà un compte ? </p><span onClick={goToLogin}><strong> Connecter vous ici</strong></span>
+                <p>Déjà un compte ? </p><span onClick={goToLogin}><strong className='haveAccount'> Connecter vous ici</strong></span>
             </div>
 
         </div>

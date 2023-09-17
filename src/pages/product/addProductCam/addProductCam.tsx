@@ -58,7 +58,6 @@ function AddProductCam() {
         console.warn(product);
         await addProductToContainerServiceWithCam(product, containerId)
         setLoading(false);
-        // navigate(-1);
     }
 
     return (

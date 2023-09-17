@@ -25,11 +25,11 @@ function LunchPage() {
         <div className="App">
 
             <Header barCodeScannerIsTrue={false} />
-            <div className='centerDiv'>
+            <div className='centerDiv imageSyncFood'>
                 <img src={lunchPageImage}></img>
             </div>
 
-            <div>
+            <div className='divButtonLoginRegister'>
                 <button onClick={handleSubmitLogin} className='centerDiv loginButton'>Connexion</button>
                 <button onClick={handleSubmitRegister} className='centerDiv registerButton'>Inscription</button>
             </div>
