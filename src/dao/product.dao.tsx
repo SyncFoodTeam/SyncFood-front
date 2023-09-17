@@ -1,7 +1,8 @@
 import { IProduct, IProductOpenFood } from "../interface/product/productOpenFood.interface";
+import RedirectService from "../service/redirect.service";
 import { routeService } from "../service/route.service";
 
-export async function getProductCamDao(codeBarre: string) {
+export async function getProductCamDao(codeBarre: string): Promise<IProductOpenFood> {
     console.log("getProductCamDao(", { codeBarre }, ")");
 
     const data = await fetch(`https://fr.openfoodfacts.org/api/2/product/${codeBarre}`, {
@@ -26,8 +27,7 @@ export async function getProductCamDao(codeBarre: string) {
         console.log('======success=======');
         return productData;
     } else {
-        await routeService(data.status);
-        return undefined
+        routeService(data.status);
     }
 };
 
@@ -39,7 +39,7 @@ export async function addProductToContainerServiceWithCamDao(token: string, prod
         body: JSON.stringify({
             price: 12,
             barcode: product.code,
-            expirationdate: '19/12/2025',
+            expirationdate: '2023-12-19T15:44:44.44',
             foodcontainerid: containerId,
             quantity: 2,
         }),
@@ -59,6 +59,6 @@ export async function addProductToContainerServiceWithCamDao(token: string, prod
         console.log('======success=======');
         return groupData;
     } else {
-        return groupData;
+        routeService(data.status);
     }
 };

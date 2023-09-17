@@ -1,8 +1,8 @@
 export interface IProductOpenFood {
-    code: string;
-    product: IProduct;
-    status: number;
-    status_verbose: string;
+    code?: string;
+    product?: IProduct;
+    status?: number;
+    status_verbose?: string;
 }
 
 export interface IProduct {

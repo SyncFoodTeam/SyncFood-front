@@ -20,16 +20,12 @@ function CreateGroups() {
     const [createError, setCreateError] = useState(false);
     const [user, setUser] = useState('');
     const [error, setError] = useState<IError>({});
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(true);
-        setLoading(false);
-    }, []);
+    const [loading, setLoading] = useState(false);
 
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoading(true);
 
         console.log(event);
 
@@ -57,6 +53,7 @@ function CreateGroups() {
             setCreateError(true);
         }
 
+        setLoading(false);
 
     };
 
@@ -96,9 +93,6 @@ function CreateGroups() {
                             <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                         </div>
 
-                        <div>
-                            
-                        </div>
                     </form>
                 </div>
             }

@@ -4,10 +4,13 @@ import './containerDetails.css';
 import React, { useState, useEffect } from 'react'
 import Menu from '../../../component/menu/menu';
 import IUserPublic from '../../../interface/auth.interface';
-import { InformationMe } from '../../../service/auth.service';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { GetContainerService } from '../../../service/container.service';
 import AddProductModal from '../../../component/addProductModal/addProductModal';
+import { getProductCamService } from '../../../service/product.service';
+import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
+import Loader from '../../../component/loader/loader';
+import goBackArrow from '../../../assets/goBackArrow.svg'
 
 
 function ContainerDetails() {
@@ -16,15 +19,16 @@ function ContainerDetails() {
     const [noData, setNoData] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState<IProductOpenFood[]>();
     const id = location.state?.id;
 
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
+                setLoading(true);
                 await getContainer(id);
-                const userData = await InformationMe();
-                setUser(userData.dataUser);
+                setLoading(false);
             } else {
                 console.log("Je n'ai pas d'id");
             }
@@ -38,62 +42,92 @@ function ContainerDetails() {
         let myContainers = await GetContainerService(containerId);
 
         if (myContainers) {
-            console.log("j'ai des data:")
+            console.log("j'ai des container:")
             setContainer(myContainers);
+            await getAllProduct(myContainers);
             setNoData(false);
         } else {
             setNoData(true);
         }
     }
 
-    const modifyContainers = async (id: number) => {
+    async function getAllProduct(container: IFoodContainers) {
+        console.log("getAllProduct()");
+        console.log(container.products);
 
+        if (container?.products?.length) {
+            const productPromises = container.products.map(async (product) => {
+                const element = product.barCode;
+                console.log(element);
+                const productsOpenFood = await getProductCamService(element);
+                return productsOpenFood;
+            });
+
+            const products = await Promise.all(productPromises);
+            setProducts(products);
+
+            console.log(products);
+        }
+    }
+
+    const modifyContainers = async (id: number) => {
         navigate('/modifyContainers', { state: { id } });
     }
 
-    const goToProduct = async (id: number) => {
-        navigate('/productDetails', { state: { id } });
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        console.log(event);
+
+        navigate(-1);
     }
+
+    const goToProduct = async (id: string) => {
+        console.warn(id);
+
+        navigate('/productDetails', { state: { id } })
+    }
+
+
+
+
 
     return (
         <div className="App">
+            {!loading &&
+                <div>
+                    <Header />
+                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                    <h3>{container.name}</h3>
 
-            <Header />
+                    {products?.length > 0 &&
+                        <div className='product-container'>
+                            {products.slice(0, 6).map((product, index) => (
+                                <div key={index} className='product' onClick={() => goToProduct(product.product.code)}>
 
+                                    <div className='productCard'>
+                                        <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                        <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
+                                    </div>
 
-            <h1>Container Page Details</h1>
-
-            <h3>Nom: {container.name}</h3>
-            <h3>Description: {container.description}</h3>
-            <div>
-                <h3>Produit:</h3>
-                {container?.products?.length > 0 &&
-                    <div>{container.products.map((product: any, index: number) => (
-                        <div key={index}>
-
-                            <div className='product'>
-                                <div className='image'> IMAGE</div>
-                                <div className='descriptif'>
-                                    <h3 className='title'>{product.name} </h3>
-                                    <h5 className='description'>{product.description} </h5>
                                 </div>
-                            </div>
-
-                            <div onClick={() => goToProduct(product.id)}>
-                                Voir plus
-                            </div>
+                            ))}
                         </div>
-                    ))}</div>
 
-                }
-                <AddProductModal containerId={container.id} />
+                    }
 
-            </div>
+                    <AddProductModal containerId={container.id} />
 
 
-            <button onClick={() => modifyContainers(container.id)}>Modifier</button>
+                    <button onClick={() => modifyContainers(container.id)}>Modifier</button>
 
-            <Menu />
+                    <Menu />
+                </div>
+            }
+            {loading &&
+                <Loader />
+            }
+
         </div>
 
 

@@ -4,7 +4,7 @@ export default interface IProducts {
     id?: number,
     name?: string,
     price?: number,
-    barCode?: number,
+    barCode?: string,
     nutriScore?: number,
     nutritionalValue?: number,
     expirationDate?: string,

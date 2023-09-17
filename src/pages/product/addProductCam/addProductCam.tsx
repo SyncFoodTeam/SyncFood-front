@@ -1,7 +1,6 @@
 import Header from '../../../component/header/header';
 import './addProductCam.css';
 import React, { useEffect, useState } from 'react';
-import Quagga from 'quagga';
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { addProductToContainerServiceWithCam, getProductCamService } from '../../../service/product.service';
@@ -58,6 +57,8 @@ function AddProductCam() {
         console.warn(product);
         await addProductToContainerServiceWithCam(product, containerId)
         setLoading(false);
+        // navigate('/containerDetails', { state: { containerId } });
+        navigate(-1);
     }
 
     return (

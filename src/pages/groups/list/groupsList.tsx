@@ -17,7 +17,7 @@ function GroupsList() {
     const [noData, setNoData] = useState(false);
     const [loading, setLoading] = useState(false);
 
-
+    const imageUrl = localStorage.getItem('imageURL');
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -68,7 +68,7 @@ function GroupsList() {
                                     <div key={index}>
 
                                         <div className='groupe'>
-                                            <div className='image'> IMAGE</div>
+                                            <img className='image' src={imageUrl} />
                                             <div className='descriptif'>
                                                 <h3 className='title'>{group.name} </h3>
                                                 <h5 className='description'>{group.description} </h5>
