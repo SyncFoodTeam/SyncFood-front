@@ -95,6 +95,10 @@ function CreateGroups() {
                         <div>
                             <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
                         </div>
+
+                        <div>
+                            
+                        </div>
                     </form>
                 </div>
             }

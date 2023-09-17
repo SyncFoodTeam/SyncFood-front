@@ -6,6 +6,7 @@ import NoDataComponent from '../../../component/noData/noData';
 import IGroups from '../../../interface/groups/groups.interface';
 import IError from '../../../interface/error.interface';
 import ErrorComponent from '../../../component/error/errorComponent';
+import { useNavigate } from 'react-router-dom';
 
 function GroupsMainview() {
 
@@ -16,6 +17,7 @@ function GroupsMainview() {
 
     const [startIndex, setStartIndex] = useState(0);
     const itemsPerPage = 3;
+    const navigate = useNavigate();
 
     useEffect(() => {
         getGroups();
@@ -51,6 +53,11 @@ function GroupsMainview() {
         }
     };
 
+    const goToGroup = async (id: number) => {
+
+        console.log(id);
+        navigate('/groupDetails/', { state: { id } });
+    }
 
 
     return (
@@ -62,7 +69,7 @@ function GroupsMainview() {
                 <div className="groupsCards">
                     {groups.slice(startIndex, startIndex + itemsPerPage).map((group, index) => (
                         <div key={index}>
-                            <div className='groupCard'>
+                            <div className='groupCard' onClick={() => goToGroup(group.id)}>
                                 <div className='groupName'>
                                     <div>{group.name}</div>
                                 </div>

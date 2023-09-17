@@ -18,7 +18,7 @@ function Home() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            await Init();        
+            await Init();
             setLoading(false);
         };
 
@@ -27,12 +27,12 @@ function Home() {
 
 
     async function Init() {
-    
+
         let token = localStorage.getItem('token');
 
-        if(token){
+        if (token) {
             await getInfo();
-        }else{
+        } else {
             console.log("Il n'y a pas de token donc je redirige vers la lunchPage");
             navigate('/lunchPage');
         }
@@ -40,7 +40,7 @@ function Home() {
 
     async function getInfo() {
         let user = await InformationMe();
-        console.log({user});
+        console.log({ user });
         if (user?.code === 200 && user?.dataUser) {
             setError(false);
             setInformationMe(user.dataUser);
@@ -49,20 +49,43 @@ function Home() {
         }
     }
 
+    const createGroup = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        navigate('/createGroups');
+    }
+
     return (
         <div className="App">
 
             {!loading &&
                 <div>
-
                     <Header barCodeScannerIsTrue={true} />
+                    <div className='home'>
 
+                        <h2>Bonjour {informationMe?.userName}</h2>
 
-                    <h2>Bonjour {informationMe?.userName}</h2>
+                        <div>
+                            <GroupsMainview />
 
-                    <GroupsMainview />
+                        </div>
+                        <div className='divFastAdd'>
+                            <h3>Ajout Rapide :</h3>
+                            <div>
+                                <div>
+                                    <button className='fastAddButton'>Ajouter un Aliment</button>
+                                </div>
+                                <div style={{marginTop: '25px'}}>
+                                    <button className='fastAddButton' onClick={createGroup}>Créer un Groupe</button>
+                                </div>
+                            </div>
 
-                    <Menu />
+                        </div>
+                    </div>
+
+                    <div>
+                        <Menu />
+                    </div>
                 </div>
             }
             {loading &&
