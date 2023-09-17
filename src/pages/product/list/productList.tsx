@@ -1,21 +1,72 @@
 import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
-import './groupsList.css';
+import './productList.css';
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
-import ajout from '../../../assets/add.svg'
-import NoDataComponent from '../../../component/noData/noData';
-import IProducts from '../../../interface/product/products.interface';
+import { useLocation, useNavigate } from "react-router-dom";
+import Loader from '../../../component/loader/loader';
+import AddProductModal from '../../../component/addProductModal/addProductModal';
+import IFoodContainers from '../../../interface/container/foodContainer.interface';
+import { getProductCamService } from '../../../service/product.service';
+import { GetContainerService } from '../../../service/container.service';
+import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
+import goBackArrow from '../../../assets/goBackArrow.svg'
 
 function ProductList() {
 
     const navigate = useNavigate();
-    const [products, setProducts] = useState<IProducts[]>([]);
+    const [products, setProducts] = useState<IProductOpenFood[]>([]);
     const [noData, setNoData] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const location = useLocation();
+    const id = location.state?.id;
+    const [container, setContainer] = useState<IFoodContainers>({});
 
     useEffect(() => {
-        
+        const fetchData = async () => {
+            if (id) {
+                setLoading(true);
+                await getContainer(id);
+                setLoading(false);
+            } else {
+                console.log("Je n'ai pas d'id");
+            }
+        };
+
+        fetchData();
     }, []);
+
+    async function getContainer(containerId: number) {
+        console.log("getContainer(containerId)");
+        let myContainers = await GetContainerService(containerId);
+
+        if (myContainers) {
+            console.log("j'ai des container:")
+            setContainer(myContainers);
+            await getAllProduct(myContainers);
+            setNoData(false);
+        } else {
+            setNoData(true);
+        }
+    }
+
+    async function getAllProduct(container: IFoodContainers) {
+        console.log("getAllProduct()");
+        console.log(container.products);
+
+        if (container?.products?.length) {
+            const productPromises = container.products.map(async (product) => {
+                const element = product.barCode;
+                console.log(element);
+                const productsOpenFood = await getProductCamService(element);
+                return productsOpenFood;
+            });
+
+            const products = await Promise.all(productPromises);
+            setProducts(products);
+
+            console.log(products);
+        }
+    }
 
     const addProduct = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -24,46 +75,56 @@ function ProductList() {
     }
 
 
-    const goToProduct = async (id: number) => {
-        console.log(id);
-        navigate('/productDetails/', { state: { id } });
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        console.log(event);
+
+        navigate(-1);
     }
+
+    const goToProduct = async (id: string) => {
+        console.warn(id);
+
+        navigate('/productDetails', { state: { id } })
+    }
+
+
+
 
 
     return (
         <div className="App">
-
-            <Header />
-
-            <h1>{groups.name}</h1>
-
-            {!noData &&
+            {!loading &&
                 <div>
-                    {products.map((product: IProducts, index: number) => (
-                        <div key={index}>
+                    <Header />
+                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
 
-                            <div className='groupe'>
-                                <div className='image'> IMAGE</div>
-                                <div className='descriptif'>
-                                    <h3>{product.name} </h3>
+                    {products?.length > 0 &&
+                        <div className='product-container'>
+                            {products.map((product, index) => (
+                                <div key={index} className='product-List' onClick={() => goToProduct(product.product.code)}>
+
+                                    <div className='productCard'>
+                                        <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                        <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
+                                    </div>
+
                                 </div>
-                            </div>
-
-                            <div onClick={() => goToProduct(product.id)}>
-                                Voir plus
-                            </div>
+                            ))}
                         </div>
-                    ))}
+
+                    }
+
+                    <AddProductModal containerId={container.id} />
+
+                    <Menu />
                 </div>
             }
-            {noData &&
-                <NoDataComponent />
+            {loading &&
+                <Loader />
             }
-            <button onClick={addProduct} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button>
 
-
-
-            <Menu />
         </div>
 
 

@@ -23,6 +23,7 @@ import AddProductManual from './pages/product/addProductManual/addProductManual'
 import ModifyContainer from './pages/container/modifyContainer/modifyContainer';
 import AddProductCam from './pages/product/addProductCam/addProductCam';
 import ProductDetails from './pages/product/details/productDetails';
+import ProductList from './pages/product/list/productList';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -48,6 +49,7 @@ root.render(
         <Route path="addProductManual" element={<AddProductManual />} />
         <Route path="modifyContainers" element={<ModifyContainer />} />
         <Route path="productDetails" element={<ProductDetails />} />
+        <Route path="productList" element={<ProductList />} />
 
         
       </Routes>

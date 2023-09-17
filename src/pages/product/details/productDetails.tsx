@@ -9,6 +9,7 @@ import DeleteModal from '../../../component/deleteModal/deleteModal';
 import { getProductCamService } from '../../../service/product.service';
 import { IProduct } from '../../../interface/product/productOpenFood.interface';
 import Loader from '../../../component/loader/loader';
+import goBackArrow from '../../../assets/goBackArrow.svg'
 
 
 function ProductDetails() {
@@ -45,6 +46,15 @@ function ProductDetails() {
         setProduct(product.product);
     }
 
+    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        console.log(event);
+
+        navigate(-1);
+    }
+
+
 
 
     return (
@@ -54,11 +64,12 @@ function ProductDetails() {
                 <div>
 
                     <Header barCodeScannerIsTrue={true} />
+                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
 
 
                     <h1>Description produit</h1>
 
-                    <div>{product.abbreviated_product_name || product.generic_name}</div>
+                    <div>{product?.abbreviated_product_name || product?.generic_name}</div>
                     <img src={product?.image_front_url} />
 
                     <Menu />

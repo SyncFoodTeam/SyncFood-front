@@ -88,6 +88,12 @@ function ContainerDetails() {
         navigate('/productDetails', { state: { id } })
     }
 
+    const goToProductList = async (id: number) => {
+        console.warn(id);
+
+        navigate('/productList', { state: { id } })
+    }
+
 
 
 
@@ -115,6 +121,8 @@ function ContainerDetails() {
                         </div>
 
                     }
+
+                    <button onClick={() => goToProductList(container.id)}>Voir plus</button>
 
                     <AddProductModal containerId={container.id} />
 
