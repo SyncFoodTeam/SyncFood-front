@@ -9,6 +9,7 @@ import { DeleteGroupService, RemoveSomeoneService } from '../../service/groupe.s
 import { useNavigate } from 'react-router-dom';
 import IError from '../../interface/error.interface';
 import ErrorComponent from '../error/errorComponent';
+import { useTranslation } from 'react-i18next';
 
 interface addModalProps {
     containerId?: number;
@@ -21,6 +22,7 @@ const AddProductModal: React.FC<addModalProps> = ({
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState<IError>({});
+    const { t } = useTranslation();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -44,7 +46,7 @@ const AddProductModal: React.FC<addModalProps> = ({
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Ajouter
+            {t('Add')}
             </Button>
             <Dialog
                 open={open}
@@ -63,12 +65,12 @@ const AddProductModal: React.FC<addModalProps> = ({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Annuler</Button>
+                    <Button onClick={handleClose}>{t('Cancel')}</Button>
                     <Button onClick={() => handleAddWithCam(containerId)} autoFocus>
-                        Ajouter en scannant le code barre
+                    {t('Add by scanning the barcode')}
                     </Button>
                     <Button onClick={handleAddManual} autoFocus>
-                        Ajouter à la main
+                    {t('Add by hand')}
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -11,6 +11,7 @@ import { getProductCamService } from '../../../service/product.service';
 import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 import Loader from '../../../component/loader/loader';
 import goBackArrow from '../../../assets/goBackArrow.svg'
+import { useTranslation } from 'react-i18next';
 
 
 function ContainerDetails() {
@@ -22,6 +23,7 @@ function ContainerDetails() {
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<IProductOpenFood[]>();
     const id = location.state?.id;
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -122,12 +124,12 @@ function ContainerDetails() {
 
                     }
 
-                    <button onClick={() => goToProductList(container.id)}>Voir plus</button>
+                    <button onClick={() => goToProductList(container.id)}>{t('View More')}</button>
 
                     <AddProductModal containerId={container.id} />
 
 
-                    <button onClick={() => modifyContainers(container.id)}>Modifier</button>
+                    <button onClick={() => modifyContainers(container.id)}>{t('Modify')}</button>
 
                     <Menu />
                 </div>

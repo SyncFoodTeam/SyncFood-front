@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import IError from '../../interface/error.interface';
 import ErrorComponent from '../error/errorComponent';
 import { DeleteContainerService } from '../../service/container.service';
+import { useTranslation } from 'react-i18next';
 
 interface deleteModalProps {
     index?: number;
@@ -31,6 +32,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState<IError>({});
+    const { t } = useTranslation();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -112,7 +114,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 <DialogActions>
                     <Button onClick={handleClose}>Annuler</Button>
                     <Button onClick={handleDelete} autoFocus>
-                        Supprimer
+                    {t('Remove')}
                     </Button>
                 </DialogActions>
             </Dialog>

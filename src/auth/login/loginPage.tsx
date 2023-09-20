@@ -7,6 +7,7 @@ import { LoginService } from '../../service/auth.service';
 import ErrorComponent from '../../component/error/errorComponent';
 import IError from '../../interface/error.interface';
 import Loader from '../../component/loader/loader';
+import { useTranslation } from 'react-i18next';
 
 
 function LoginPage() {
@@ -16,6 +17,7 @@ function LoginPage() {
     const [loginError, setloginError] = useState(false);
     const [error, setError] = useState<IError>({});
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -62,18 +64,18 @@ function LoginPage() {
                     <div className="centerDiv loginForm">
                         <form onSubmit={handleSubmit}>
                             <div>
-                                <label className="label">Adresse Mail :</label>
+                                <label className="label">{t('Mail Address')} :</label>
                                 <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="loginFormInput"></input>
                             </div>
                             <br />
                             <div>
-                                <label className="label">Mot de passe :</label>
+                                <label className="label">{t('Password')} :</label>
                                 <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="loginFormInput"></input>
                             </div>
 
                             <br />
                             <div className="centerDiv">
-                                <button className="login-Button" type="submit">Connexion</button>
+                                <button className="login-Button" type="submit">{t('Connection')}</button>
                             </div>
                         </form>
                     </div>
@@ -82,7 +84,7 @@ function LoginPage() {
                     }
                     <br />
                     <div className="centerDiv">
-                        <p>Pas de compte ? </p><span onClick={goToRegister}><strong className='noAccount'>Créez en un ici</strong></span>
+                        <p>{t('No account')} ? </p><span onClick={goToRegister}><strong className='noAccount'>{t('Create one here')}</strong></span>
                     </div>
                 </div>
             }

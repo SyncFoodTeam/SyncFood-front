@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
 import { CreateFoodContainerService } from '../../../service/container.service';
+import { useTranslation } from 'react-i18next';
 
 
 function CreateContainer() {
@@ -17,6 +18,7 @@ function CreateContainer() {
     const [user, setUser] = useState('');
 
     const location = useLocation();
+    const { t } = useTranslation();
 
     const id = location.state?.id;
 
@@ -68,7 +70,7 @@ function CreateContainer() {
             <div className='createCard'>
 
                 <div className="modifyDiv">
-                    <label>Nom du groupe :</label>
+                    <label>{t('Name of the group')} :</label>
                     <br />
                     <input type="text" name="text"
                         onChange={(e) => setContainerName(e.target.value)}
@@ -78,7 +80,7 @@ function CreateContainer() {
                 </div>
 
                 <div className="modifyDiv">
-                    <label>Description :</label>
+                    <label>{t('Description')} :</label>
                     <br />
                     <input type="text" name="decription"
                         onChange={(e) => setContainerDescription(e.target.value)}
@@ -87,10 +89,10 @@ function CreateContainer() {
                 </div>
             </div>
             <div>
-                <button type="submit" className='boutonAjoutGroupe' onClick={submitContainer}>Ajouter le container</button>
+                <button type="submit" className='boutonAjoutGroupe' onClick={submitContainer}>{t('Add the container')}</button>
             </div>
             {createError &&
-                <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
+                <h4 className='errorMessage'>{t('The name is not specified')}</h4>
             }
 
             <Menu />

@@ -31,6 +31,7 @@ import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const userLanguage = navigator.language || navigator.userLanguage;
 
 i18next.init({
   resources: {
@@ -41,7 +42,7 @@ i18next.init({
       translation: frTranslation,
     },
   },
-  lng: 'en',
+  lng: userLanguage,
   interpolation: {
     escapeValue: false,
   },

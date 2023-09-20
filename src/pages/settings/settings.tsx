@@ -8,6 +8,7 @@ import './settings.css';
 import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -19,6 +20,7 @@ function Settings() {
     const [loading, setLoading] = useState(false);
     const [isModify, setIsModify] = useState(false);
     const [memberSince, setMemberSince] = useState('');
+    const { t } = useTranslation();
 
     const [informationMe, setInformationMe] = useState<IUser>({});
 
@@ -89,7 +91,7 @@ function Settings() {
                         <Header barCodeScannerIsTrue={false} />
 
 
-                        <h1>Mes paramètres</h1>
+                        <h1>{t('My settings')}</h1>
 
                         <div className="centerDiv">
                             {!isModify &&
@@ -99,19 +101,19 @@ function Settings() {
                                     </div>
                                     <div className='settingsCards'>
                                         <div>
-                                            UserName : {informationMe.userName}
+                                            {t('Username')} : {informationMe.userName}
                                         </div>
                                         <br />
                                         <div>
-                                            Adresse Mail : {informationMe.email}
+                                            {t('Mail Address')} : {informationMe.email}
                                         </div>
                                         <br />
                                         <div>
-                                            Mot de passe : **********
+                                            {t('Password')} : **********
                                         </div>
                                         <br />
                                         <div>
-                                            Membre depuis : {memberSince}
+                                            {t('Member since')} : {memberSince}
                                         </div>
                                     </div>
 
@@ -123,7 +125,7 @@ function Settings() {
                                 <div>
                                     <form className='settingsModify' >
                                         <div>
-                                            <label className="label">UserName :</label>
+                                            <label className="label">{t('Username')} :</label>
                                             <br />
                                             <input type="text" name="text"
                                                 defaultValue={informationMe.userName}
@@ -132,7 +134,7 @@ function Settings() {
                                         </div>
                                         <br />
                                         <div>
-                                            <label className="label">Adresse Mail :</label>
+                                            <label className="label">{t('Mail Address')} :</label>
                                             <br />
                                             <input type="text" name="email"
                                                 defaultValue={informationMe.email}
@@ -141,7 +143,7 @@ function Settings() {
                                         </div>
                                         <br />
                                         <div>
-                                            <label className="label">Mot de passe :</label>
+                                            <label className="label">{t('Password')} :</label>
                                             <br />
                                             <input type="password" name="password"
                                                 defaultValue={'**********'}
@@ -152,7 +154,7 @@ function Settings() {
                                         <br />
                                     </form>
                                     <div className="centerDiv">
-                                        <button className="modifyButton" onClick={handleSubmit}>Modifié</button>
+                                        <button className="modifyButton" onClick={handleSubmit}>{t('Modify')}</button>
                                     </div>
                                 </div>
                             }
@@ -160,7 +162,7 @@ function Settings() {
 
                         {!isModify &&
                             <div className="centerDiv">
-                                <button className="logOutButton" onClick={deconnect}>Déconnexion</button>
+                                <button className="logOutButton" onClick={deconnect}>{t('Disconnect')}</button>
                             </div>
                         }
 

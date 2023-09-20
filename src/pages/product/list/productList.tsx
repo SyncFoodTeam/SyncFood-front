@@ -10,6 +10,7 @@ import { getProductCamService } from '../../../service/product.service';
 import { GetContainerService } from '../../../service/container.service';
 import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 import goBackArrow from '../../../assets/goBackArrow.svg'
+import { useTranslation } from 'react-i18next';
 
 function ProductList() {
 
@@ -20,6 +21,7 @@ function ProductList() {
     const location = useLocation();
     const id = location.state?.id;
     const [container, setContainer] = useState<IFoodContainers>({});
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {

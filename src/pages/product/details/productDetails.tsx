@@ -10,6 +10,7 @@ import { getProductCamService } from '../../../service/product.service';
 import { IProduct } from '../../../interface/product/productOpenFood.interface';
 import Loader from '../../../component/loader/loader';
 import goBackArrow from '../../../assets/goBackArrow.svg'
+import { useTranslation } from 'react-i18next';
 
 
 function ProductDetails() {
@@ -19,6 +20,7 @@ function ProductDetails() {
     const [noData, setNoData] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
 
     const location = useLocation();
@@ -67,7 +69,7 @@ function ProductDetails() {
                     <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
 
 
-                    <h1>Description produit</h1>
+                    <h1>{t('Product description')}</h1>
 
                     <div>{product?.abbreviated_product_name || product?.generic_name}</div>
                     <img src={product?.image_front_url} />

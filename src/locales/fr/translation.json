@@ -1,6 +1,6 @@
 {
     "welcome": "Bonjour",
-    "Quick Add" : "Ajout Rapide",
+    "Quick Add": "Ajout Rapide",
     "Add a Food": "Ajouter un Aliment",
     "Create a group": "Créer un groupe",
     "Error loading profile": "Erreur lors du chargement du profil",
@@ -27,10 +27,35 @@
     "Add Groupe": "Créer le groupe",
     "The name is not specified": "Le nom n'est pas renseigné",
     "Lists of group members": "Listes des membres du groupes",
-    "Group creation date": "Date de création du groupe"
-
-
-
-
-
+    "Group creation date": "Date de création du groupe",
+    "Mail Address": "Adresse Mail",
+    "Password": "Mot de passe",
+    "Connection": "Connexion",
+    "No account": "Pas de compte",
+    "Create one here": "Créez en un ici",
+    "Already an account": "Déjà un compte",
+    "Passwords are not similar": "Les mots de passe ne sont pas similaire",
+    "Registration": "Incription",
+    "Confirm password": "Confirmer le mot de passe",
+    "*6 characters minimum with at least one uppercase and one lowercase": "*6 caractères minimun avec au moins une majuscule et une minuscule",
+    "Username": "Nom d'utilisateur",
+    "Cancel": "Annuler",
+    "Add by scanning the barcode": "Ajouter en scannant le code barre",
+    "Add by hand": "Ajouter à la main",
+    "Add the container": "Ajouter le container",
+    "Container Page List": "Container Page List",
+    "Container Page Mainview": "Vue principale de la page Conteneur",
+    "Modify Container Page": "Modifier la page du conteneur",
+    "Nom of Food Container": "Nom du Contenaire alimentaire",
+    "Message Pages": "Pages des messages",
+    "This function is not yet implemented in the application": "Cette fonction n'est pas encore implémenter dans l'application",
+    "Food Name": "Nom de l'aliment",
+    "Price": "Prix",
+    "Quantity": "Quantité",
+    "Expiration date": "Date de péremption",
+    "Product description": "Description produit",
+    "Error 500: Server error": "Erreur 500 : Erreur serveur",
+    "My settings": "Mes paramètres",
+    "Member since":"Membre depuis",
+    "Disconnect": "Déconnexion"
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
 import './message.css';
@@ -5,6 +6,7 @@ import React from 'react'
 
 
 function Messages() {
+    const { t } = useTranslation();
 
     return (
         <div className="App">
@@ -12,9 +14,9 @@ function Messages() {
             <Header barCodeScannerIsTrue={true} />
 
 
-            <h1>Message Pages</h1>
+            <h1>{t('Message Pages')}</h1>
 
-            <div>Cette fonction n'est pas encore implémenter dans l'application</div>
+            <div>{t('This function is not yet implemented in the application')}</div>
 
             <Menu />
         </div>

@@ -9,6 +9,7 @@ import Scanner from '../../../component/scanner/scanner';
 import { IProduct, IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 import IProductAdd from '../../../interface/product/productAdd.interface';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 
 function AddProductCam() {
@@ -26,6 +27,7 @@ function AddProductCam() {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [wrongDate, setWrongDate] = useState("");
+    const { t } = useTranslation();
 
 
     const onDetected = async result => {
@@ -137,29 +139,29 @@ function AddProductCam() {
                 <div className='formAddProduct'>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label className="label">Nom de l'aliment: </label>
+                            <label className="label">{t('Food Name')}: </label>
                             {product?.abbreviated_product_name || product?.generic_name}
                         </div>
                         <br />
                         <div>
-                            <label className="label">Prix :</label>
+                            <label className="label">{t('Price')} :</label>
                             <input type="number" name="price" min="1" required onChange={(e) => setPrice(e.target.value)} className='inputAddProduct'></input>
                         </div>
                         <br />
                         <div>
-                            <label className="label">Quantité :</label>
+                            <label className="label">{t('Quantity')} :</label>
                             <input type="number" name="quantity" min="1" required onChange={(e) => setQuantity(e.target.value)} className='inputAddProduct'></input>
                         </div>
                         <br />
                         <div>
-                            <label className="label">Date de péremption:</label>
+                            <label className="label">{t('Expiration date')}:</label>
                             <input type="date" name="datePeremption" className='datePeremption' required onChange={(e) => setDatePeremption(e.target.value)}></input>
                             {wrongDate && <p style={{ color: "red" }}>{wrongDate}</p>}
                         </div>
 
                         <br />
                         <div className="centerDiv">
-                            <button type="submit" className='addProduct'>Ajouter</button>
+                            <button type="submit" className='addProduct'>{t('Add')}</button>
                         </div>
                     </form>
                 </div>

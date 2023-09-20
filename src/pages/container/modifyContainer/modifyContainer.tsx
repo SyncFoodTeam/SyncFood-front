@@ -9,6 +9,7 @@ import DeleteModal from '../../../component/deleteModal/deleteModal';
 import { GetContainerService, UpdateContainerService } from '../../../service/container.service';
 import IUserPublic from '../../../interface/auth.interface';
 import { InformationMe } from '../../../service/auth.service';
+import { useTranslation } from 'react-i18next';
 
 
 function ModifyContainer() {
@@ -19,6 +20,7 @@ function ModifyContainer() {
     const location = useLocation();
     const [containerName, setContainerName] = useState('');
     const [containerDescription, setContainerDescription] = useState('');
+    const { t } = useTranslation();
 
     const id = location.state?.id;
 
@@ -73,10 +75,10 @@ function ModifyContainer() {
 
             <Header />
 
-            <h1>Modify Container Page</h1>
+            <h1>{t('Modify Container Page')}</h1>
 
             <div>
-                <label className="label">Nom du container :</label>
+                <label className="label">{t('Name of Food Container')} :</label>
                 <br />
                 <input type="text" name="text"
                     defaultValue={container.name}
@@ -84,14 +86,14 @@ function ModifyContainer() {
                 ></input>
             </div>
             <div>
-                <label className="label">Description :</label>
+                <label className="label">{t('Description')} :</label>
                 <br />
                 <input type="text" name="text"
                     defaultValue={container.description}
                     onChange={(e) => setContainerDescription(e.target.value)}
                 ></input>
             </div>
-            <button onClick={modifyContainer}>Modifier</button>
+            <button onClick={modifyContainer}>{t('Modify')}</button>
 
             <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
 

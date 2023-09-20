@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import Header from '../../../component/header/header';
 import './containerList.css';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 
 function ContainerList() {
+    const { t } = useTranslation();
 
     return (
         <div className="App">
@@ -11,7 +13,7 @@ function ContainerList() {
             <Header barCodeScannerIsTrue={true} />
 
 
-            <h1>Container Page List</h1>
+            <h1>{t('Container Page List')}</h1>
         </div>
 
 

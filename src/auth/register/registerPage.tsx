@@ -7,6 +7,7 @@ import Header from '../../component/header/header';
 import ErrorComponent from '../../component/error/errorComponent';
 import IError from '../../interface/error.interface';
 import Loader from '../../component/loader/loader';
+import { useTranslation } from 'react-i18next';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ function RegisterPage() {
     const [registerError, setRegisterError] = useState(false);
     const [error, setError] = useState<IError>({});
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -73,23 +75,23 @@ function RegisterPage() {
                     <div className="centerDiv registerForm">
                         <form onSubmit={handleSubmit}>
                             <div>
-                                <label className="label">Adresse Mail :</label>
+                                <label className="label">{t('Mail Address')} :</label>
                                 <input type="text" name="mailAddress" required onChange={(e) => setMailAddress(e.target.value)} className="registerFormInput"></input>
                             </div>
                             <br />
                             <div>
-                                <label className="label">Nom d'utilisateur :</label>
+                                <label className="label">{t('Username')} :</label>
                                 <input type="text" name="text" required onChange={(e) => setUsername(e.target.value)} className="registerFormInput"></input>
                             </div>
                             <br />
                             <div>
-                                <label className="label">* Mot de passe : </label>
+                                <label className="label">* {t('Password')} : </label>
                                 <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} className="registerFormInput"></input>
-                                <div className='passwordRecommendation'>*6 caractères minimun avec au moins une majuscule et une minuscule</div>
+                                <div className='passwordRecommendation'>{t('*6 characters minimum with at least one uppercase and one lowercase')}</div>
                             </div>
                             <br />
                             <div>
-                                <label className="label">Confirmer le mot de passe :</label>
+                                <label className="label">{t('Confirm password')} :</label>
                                 <input type="password" name="passwordConfrim" required onChange={(e) => setPasswordConfirm(e.target.value)} className="registerFormInput"></input>
                             </div>
 
@@ -98,17 +100,17 @@ function RegisterPage() {
                             }
 
                             {wrongPassword &&
-                                <h4 className='errorMessage'>Les mots de passe ne sont pas similaire</h4>
+                                <h4 className='errorMessage'>{t('Passwords are not similar')}</h4>
                             }
                             <div className="centerDiv">
-                                <button className="register-Button" type="submit">Inscription</button>
+                                <button className="register-Button" type="submit">{t('Registration')}</button>
                             </div>
                         </form>
                     </div>
                     <br />
                     <br />
                     <div className="centerDiv noAccount">
-                        <p>Déjà un compte ? </p><span onClick={goToLogin}><strong className='haveAccount'> Connectez vous ici</strong></span>
+                        <p>{t('Already an account')} ? </p><span onClick={goToLogin}><strong className='haveAccount'> {t('Log in here')}</strong></span>
                     </div>
                 </div>
             }
