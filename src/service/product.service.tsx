@@ -1,4 +1,5 @@
 import { addProductToContainerServiceWithCamDao, getProductCamDao } from "../dao/product.dao";
+import IProductAdd from "../interface/product/productAdd.interface";
 import { IProduct, IProductOpenFood } from "../interface/product/productOpenFood.interface";
 
 export async function getProductCamService(codeBarre: string) {
@@ -15,12 +16,12 @@ export async function getProductCamService(codeBarre: string) {
 
 }
 
-export async function addProductToContainerServiceWithCam(product: IProductOpenFood, containerId: number) {
-    console.log(`addProductToContainerServiceWithCam(product)`);
-    console.log(product);
+export async function addProductToContainerServiceWithCam(body: IProductAdd) {
+    console.log(`addProductToContainerServiceWithCam(body)`);
+    console.log(body);
     let token = JSON.parse(localStorage.getItem('token'));
     try {
-        const resp = await addProductToContainerServiceWithCamDao(token, product, containerId);
+        const resp = await addProductToContainerServiceWithCamDao(token, body);
         return resp;
     } catch (e) {
         console.log("Erreur", e);

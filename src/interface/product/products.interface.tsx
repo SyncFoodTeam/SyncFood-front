@@ -13,3 +13,4 @@ export default interface IProducts {
     foodContainers?: IFoodContainers[],
     shoppingLists?: string[]
 }
+

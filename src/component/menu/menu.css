@@ -1,7 +1,7 @@
 .menu{
     bottom: 0;
     display: flex;
-    position: fixed;
+    position: absolute;
     padding: 5%;
     text-align: center;
     justify-content: space-between;

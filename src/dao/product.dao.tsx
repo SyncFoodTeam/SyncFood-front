@@ -1,4 +1,5 @@
-import { IProduct, IProductOpenFood } from "../interface/product/productOpenFood.interface";
+import IProductAdd from "../interface/product/productAdd.interface";
+import { IProductOpenFood } from "../interface/product/productOpenFood.interface";
 import RedirectService from "../service/redirect.service";
 import { routeService } from "../service/route.service";
 
@@ -31,17 +32,17 @@ export async function getProductCamDao(codeBarre: string): Promise<IProductOpenF
     }
 };
 
-export async function addProductToContainerServiceWithCamDao(token: string, product: IProductOpenFood, containerId: number, expirationDate?: string, price?: number, quantity?: number) {
-    console.log("addProductToContainerServiceWithCamDao(token, product, containerId)");
-    console.log({product});
+export async function addProductToContainerServiceWithCamDao(token: string, body: IProductAdd) {
+    console.log("addProductToContainerServiceWithCamDao(token, body)");
+    console.log({ body });
     const data = await fetch(`/api/products/add`, {
         method: 'POST',
         body: JSON.stringify({
-            price: 12,
-            barcode: product.code,
-            expirationdate: '2023-12-19T15:44:44.44',
-            foodcontainerid: containerId,
-            quantity: 2,
+            price: body.price,
+            barcode: body.barcode,
+            expirationdate: body.expirationdate,
+            foodcontainerid: body.foodcontainerid,
+            quantity: body.quantity,
         }),
         headers: {
             'accept': 'text/plain',
