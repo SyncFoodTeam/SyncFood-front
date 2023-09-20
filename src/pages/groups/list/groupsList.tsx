@@ -21,7 +21,7 @@ function GroupsList() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            getGroups();
+            await getGroups();
             setLoading(false);
         };
 
