@@ -40,14 +40,8 @@
     font-size: x-large;
 }
 
-.modifyButton {
-    background: #27D4A9;
-    border-radius: 15px;
-    border: none;
-    width: 87px;
-    height: 33px;
-    text-align: center;
-}
+
+
 .divButton{
     margin: 15px 0px 35px 0px;
     

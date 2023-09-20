@@ -149,7 +149,7 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
             headers: {
                 'accept': 'text/plain',
                 'Content-Type': 'application/json',
-                'Authorization': 'bearer ' + JSON.parse(token)
+                'Authorization': 'bearer ' + token
             },
         })
 

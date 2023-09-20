@@ -92,9 +92,9 @@ export async function UpdateInformationMe(body: IUserUpdateInformation) {
 
     try {
         let token = localStorage.getItem('token');
-        console.log("Mon Bearer token :", token);
+        console.log("Mon Bearer token :", JSON.parse(token));
         if (token) {
-            const resp = await UpdateInformation(token, body);
+            const resp = await UpdateInformation(JSON.parse(token), body);
 
             if (resp?.code === 200) {
                 return resp;

@@ -38,3 +38,13 @@
 .divGoBackButton{
     padding: 20px;
 }
+
+.modifyButton {
+    background: #27D4A9;
+    border-radius: 15px;
+    border: none;
+    width: 87px;
+    height: 33px;
+    text-align: center;
+    color: white;
+}

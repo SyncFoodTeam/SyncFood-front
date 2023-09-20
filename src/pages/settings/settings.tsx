@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Header from '../../component/header/header';
 import Loader from '../../component/loader/loader';
 import Menu from '../../component/menu/menu';
@@ -16,6 +17,8 @@ function Settings() {
     const [password, setPassword] = useState('');
     const [userName, setUserName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isModify, setIsModify] = useState(false);
+    const [memberSince, setMemberSince] = useState('');
 
     const [informationMe, setInformationMe] = useState<IUser>({});
 
@@ -36,12 +39,13 @@ function Settings() {
         if (user?.code == 200 && user?.dataUser) {
             setError(false);
             setInformationMe(user.dataUser);
+            setMemberSince(moment(informationMe.creationDate, "YYYYMMDD").fromNow());
         } else {
             setError(true);
         }
     }
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         console.log(event);
@@ -70,58 +74,101 @@ function Settings() {
         localStorage.clear();
     };
 
+    const modifyInformation = async (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
 
+        setIsModify(true);
+    };
 
     return (
-        <div className="App">
-            {!loading &&
-                <div>
-                    <Header barCodeScannerIsTrue={false} />
+        <div>
 
-
-                    <h1>Mes paramètres</h1>
-
-                    <div className="centerDiv settingsForm">
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <label className="label">UserName :</label>
-                                <br />
-                                <input type="text" name="text"
-                                    defaultValue={informationMe.userName}
-                                    onChange={(e) => setUserName(e.target.value)}
-                                    className="settingsFormInput"></input>
-                            </div>
-                            <div>
-                                <label className="label">Adresse Mail :</label>
-                                <br />
-                                <input type="text" name="email"
-                                    defaultValue={informationMe.email}
-                                    onChange={(e) => setMailAddress(e.target.value)}
-                                    className="settingsFormInput"></input>
-                            </div>
-                            <br />
-                            <div>
-                                <label className="label">Mot de passe :</label>
-                                <br />
-                                <input type="password" name="password"
-                                    defaultValue={'**********'}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="settingsFormInput"></input>
-                            </div>
-
-                            <br />
-                            <div className="centerDiv">
-                                <button className="loginButton" type="submit">Modifié</button>
-                            </div>
-                        </form>
-                    </div>
-
+            <div className="settings">
+                {!loading &&
                     <div>
-                        <button onClick={deconnect}>Déconnexion</button>
-                    </div>
+                        <Header barCodeScannerIsTrue={false} />
 
-                    <Menu />
-                </div>
+
+                        <h1>Mes paramètres</h1>
+
+                        <div className="centerDiv">
+                            {!isModify &&
+                                <div>
+                                    <div className='divButtonModify'>
+                                        <button className='buttonModify' onClick={modifyInformation}><i className="fa-solid fa-pen-to-square fa-lg"></i></button>
+                                    </div>
+                                    <div className='settingsCards'>
+                                        <div>
+                                            UserName : {informationMe.userName}
+                                        </div>
+                                        <br />
+                                        <div>
+                                            Adresse Mail : {informationMe.email}
+                                        </div>
+                                        <br />
+                                        <div>
+                                            Mot de passe : **********
+                                        </div>
+                                        <br />
+                                        <div>
+                                            Membre depuis : {memberSince}
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            }
+                            {isModify &&
+                                <div>
+                                    <form className='settingsModify' >
+                                        <div>
+                                            <label className="label">UserName :</label>
+                                            <br />
+                                            <input type="text" name="text"
+                                                defaultValue={informationMe.userName}
+                                                onChange={(e) => setUserName(e.target.value)}
+                                                className="settingsFormInput"></input>
+                                        </div>
+                                        <br />
+                                        <div>
+                                            <label className="label">Adresse Mail :</label>
+                                            <br />
+                                            <input type="text" name="email"
+                                                defaultValue={informationMe.email}
+                                                onChange={(e) => setMailAddress(e.target.value)}
+                                                className="settingsFormInput"></input>
+                                        </div>
+                                        <br />
+                                        <div>
+                                            <label className="label">Mot de passe :</label>
+                                            <br />
+                                            <input type="password" name="password"
+                                                defaultValue={'**********'}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                className="settingsFormInput"></input>
+                                        </div>
+
+                                        <br />
+                                    </form>
+                                    <div className="centerDiv">
+                                        <button className="modifyButton" onClick={handleSubmit}>Modifié</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        {!isModify &&
+                            <div className="centerDiv">
+                                <button className="logOutButton" onClick={deconnect}>Déconnexion</button>
+                            </div>
+                        }
+
+                    </div>
+                }
+            </div>
+            {!loading &&
+                <Menu />
             }
             {loading &&
                 <Loader />

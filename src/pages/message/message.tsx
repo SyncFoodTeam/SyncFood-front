@@ -14,6 +14,8 @@ function Messages() {
 
             <h1>Message Pages</h1>
 
+            <div>Cette fonction n'est pas encore implémenter dans l'application</div>
+
             <Menu />
         </div>
 
