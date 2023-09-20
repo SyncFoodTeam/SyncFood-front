@@ -16,6 +16,7 @@ import goBackArrow from '../../../assets/goBackArrow.svg';
 import DateFormater from '../../../pipe/dateFormater';
 import Loader from '../../../component/loader/loader';
 import { BounceLoader } from 'react-spinners';
+import { useTranslation } from 'react-i18next';
 
 function ModifyGroups() {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ function ModifyGroups() {
     const [groupDescription, setGroupDescription] = useState('');
     const [groupBudget, setGroupBudget] = useState('');
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     const location = useLocation();
 
@@ -113,7 +115,7 @@ function ModifyGroups() {
                 <div className='modifyCard'>
 
                     <div className="modifyDiv">
-                        <label>Nom du groupe :</label>
+                        <label>{t('Name of the group')} :</label>
                         <br />
                         <input type="text" name="text"
                             defaultValue={group.name}
@@ -122,7 +124,7 @@ function ModifyGroups() {
                         ></input>
                     </div>
                     <div className="modifyDiv">
-                        <label>Description :</label>
+                        <label>{t('Description')} :</label>
                         <br />
                         <input type="text" name="decription"
                             defaultValue={group.description}
@@ -132,7 +134,7 @@ function ModifyGroups() {
                     </div>
 
                     <div className="modifyDiv">
-                        <label>Budget :</label>
+                        <label>{t('Budget')} :</label>
                         <br />
                         <input type="number" name="budget"
                             defaultValue={group.budget}
@@ -146,7 +148,7 @@ function ModifyGroups() {
                     </div>
 
                     <div>
-                        <label>Listes des membres du groupes: </label>
+                        <label>{t('Lists of group members')}: </label>
                         {group?.members?.map((members: IGroupsMembers, index: number) => (
                             <div key={index}>
 
@@ -154,7 +156,7 @@ function ModifyGroups() {
                                     <div className='descriptif'>
                                         {group?.owner?.id === members?.id &&
                                             <div>
-                                                Owner: {members.userName}#{members.discriminator}
+                                                {t('Owner')}: {members.userName}#{members.discriminator}
                                             </div>
                                         }
                                         {(group?.owner?.id !== members?.id) &&
@@ -210,12 +212,12 @@ function ModifyGroups() {
                     </div>
 
                     <div className='creationDate'>
-                        Date de création du groupe: <DateFormater date={group.creationDate} />
+                    {t('Group creation date')}: <DateFormater date={group.creationDate} />
                     </div>
 
                     <div className='divButton'>
                         <div className='divButtonModify'>
-                            <button onClick={modifyGroup} className='modifyButton'>Modifier</button>
+                            <button onClick={modifyGroup} className='modifyButton'>{t('Modify')}</button>
                         </div>
 
                         <div className='divButtonDelete'>

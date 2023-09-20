@@ -1,14 +1,14 @@
 import Header from '../../../component/header/header';
 import Menu from '../../../component/menu/menu';
-import { CreateGroupService, searchUserForAddGroupeService } from '../../../service/groupe.service';
+import { CreateGroupService } from '../../../service/groupe.service';
 import './createGroups.css';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import goBackArrow from '../../../assets/goBackArrow.svg'
-import AddUser from '../addUser/addUser';
-import BounceLoader from 'react-spinners/BounceLoader';
 import ErrorComponent from '../../../component/error/errorComponent';
 import IError from '../../../interface/error.interface';
+import { useTranslation } from 'react-i18next';
+import Loader from '../../../component/loader/loader';
 
 
 
@@ -21,6 +21,7 @@ function CreateGroups() {
     const [user, setUser] = useState('');
     const [error, setError] = useState<IError>({});
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
 
     const submitGroupe = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,24 +74,24 @@ function CreateGroups() {
             <Header barCodeScannerIsTrue={true} />
             <div className='divGoBack'>
                 <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-                <h2>Création de Groupe</h2>
+                <h2>{t('Group Creation')}</h2>
             </div>
 
             {!loading &&
                 <div className='formulaire'>
                     <form onSubmit={submitGroupe}>
                         <div className='libelleForm'>
-                            <label>Nom du groupe :</label>
+                            <label>{t('Name of the group')} :</label>
                             <input type="text" name="text" required onChange={(e) => setGroupName(e.target.value)}></input>
                         </div>
                         <div className='libelleForm'>
-                            <label>Description :</label>
+                            <label>{t('Description')} :</label>
                             <input type="text" name="text" onChange={(e) => setGroupDescription(e.target.value)}></input>
                         </div>
 
                         <br />
                         <div>
-                            <button type="submit" className='boutonAjoutGroupe'>Ajouter le groupe</button>
+                            <button type="submit" className='boutonAjoutGroupe'>{t('Add Groupe')}</button>
                         </div>
 
                     </form>
@@ -98,7 +99,7 @@ function CreateGroups() {
             }
 
             {createError &&
-                <h4 className='errorMessage'>Le nom n'est pas renseigné</h4>
+                <h4 className='errorMessage'>{t('The name is not specified')}</h4>
             }
 
             {error &&
@@ -106,7 +107,7 @@ function CreateGroups() {
             }
 
             {loading &&
-                <BounceLoader color="#36d7b7" />
+                <Loader />
             }
             <Menu />
         </div>

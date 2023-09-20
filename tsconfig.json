@@ -10,7 +10,7 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "types": ["react-native", "jest"],
+    "types": ["react"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": false,

@@ -16,6 +16,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { InformationMe } from '../../../service/auth.service';
 import IUserPublic from '../../../interface/auth.interface';
 import Loader from '../../../component/loader/loader';
+import { useTranslation } from 'react-i18next';
 
 
 function GroupDetails() {
@@ -28,6 +29,7 @@ function GroupDetails() {
     const [loading, setLoading] = useState(false);
 
     const location = useLocation();
+    const { t } = useTranslation();
 
     const id = location.state?.id;
 
@@ -83,23 +85,22 @@ function GroupDetails() {
             {!loading &&
                 <div>
 
-                    <h1>Groups Page Details</h1>
+                    <h1>{t('Group details')} : {group.name}</h1>
 
-                    <div>Nom: {group.name}</div>
-                    <div>Description: {group.description}</div>
-                    <div>Budget: {group.budget}</div>
-                    <div>Membres du groupe: </div>
+                    <div>{t('Description')} : {group.description}</div>
+                    <div>{t('Budget')}: {group.budget}</div>
+                    <div>{t('Group members')}: </div>
                     <ul>
                         {group?.members?.map((member, index) => (
-                            <div>
+                            <div key={index}>
                                 {group?.owner?.id !== member?.id &&
-                                    <li key={index}>
+                                    <li>
                                         {member.userName}#{member.discriminator}
                                     </li>
                                 }
                                 {group?.owner?.id === member?.id &&
                                     <li>
-                                        Owner: {member.userName}#{member.discriminator}
+                                        {t('Owner')}: {member.userName}#{member.discriminator}
                                     </li>
                                 }
 
@@ -108,7 +109,7 @@ function GroupDetails() {
                         ))}
                     </ul>
                     <div>
-                        <label>FoodContainer: </label>
+                        <label>{t('Food Container')}: </label>
                         {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
                             <div key={index}>
 
@@ -121,20 +122,20 @@ function GroupDetails() {
                                 </div>
 
                                 <div onClick={() => goToContainer(container.id)}>
-                                    Voir plus
+                                {t('View More')}
                                 </div>
                             </div>
                         ))}
                         {(group?.owner?.id === user?.id) &&
                             <div>
                                 <button onClick={() => createFoodContainer(group.id)
-                                }>Ajouter</button>
+                                }>{t('Add')}</button>
                             </div>
                         }
                     </div>
 
                     {(group?.owner?.id === user?.id) &&
-                        <button onClick={() => modifyGroups(group.id)}>Modifier</button>
+                        <button onClick={() => modifyGroups(group.id)}>{t('Modify')}</button>
                     }
                     <Menu />
                 </div>

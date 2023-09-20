@@ -9,6 +9,7 @@ import NoDataComponent from '../../../component/noData/noData';
 import IGroups from '../../../interface/groups/groups.interface';
 import { BounceLoader } from 'react-spinners';
 import Loader from '../../../component/loader/loader';
+import { useTranslation } from 'react-i18next';
 
 
 function GroupsList() {
@@ -16,6 +17,7 @@ function GroupsList() {
     const [groups, setGroups] = useState<IGroups[]>([]);
     const [noData, setNoData] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     const imageUrl = localStorage.getItem('imageURL');
     useEffect(() => {
@@ -61,7 +63,7 @@ function GroupsList() {
             <div className='groupList'>
                 {!loading &&
                     <div>
-                        <h1>Groupes</h1>
+                        <h1>{t('Groups')}</h1>
                         {!noData &&
                             <div>
                                 {groups.map((group: IGroups, index: number) => (
@@ -76,7 +78,7 @@ function GroupsList() {
                                         </div>
 
                                         <div className="seeMore" onClick={() => goToGroup(group.id)}>
-                                            Voir plus
+                                        {t('View More')}
                                         </div>
                                     </div>
                                 ))}

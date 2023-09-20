@@ -25,9 +25,33 @@ import AddProductCam from './pages/product/addProductCam/addProductCam';
 import ProductDetails from './pages/product/details/productDetails';
 import ProductList from './pages/product/list/productList';
 
+import enTranslation from './locales/en/translation.json';
+import frTranslation from './locales/fr/translation.json';
+import i18next from 'i18next';
+import { I18nextProvider } from 'react-i18next';
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+i18next.init({
+  resources: {
+    en: {
+      translation: enTranslation,
+    },
+    fr: {
+      translation: frTranslation,
+    },
+  },
+  lng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
 root.render(
+
   <React.StrictMode>
+<I18nextProvider i18n={i18next}>
+
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<LoginPage />} />
@@ -50,10 +74,10 @@ root.render(
         <Route path="modifyContainers" element={<ModifyContainer />} />
         <Route path="productDetails" element={<ProductDetails />} />
         <Route path="productList" element={<ProductList />} />
-
-        
       </Routes>
     </BrowserRouter>
+    </I18nextProvider>
+
   </React.StrictMode>
 );
 

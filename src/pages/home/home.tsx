@@ -7,6 +7,7 @@ import GroupsMainview from '../groups/mainview/groupsMainview';
 import './home.css';
 import React, { useEffect, useState } from 'react'
 import Loader from '../../component/loader/loader';
+import { useTranslation } from 'react-i18next';
 
 
 function Home() {
@@ -14,6 +15,7 @@ function Home() {
     const [informationMe, setInformationMe] = useState<IUser>({});
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,21 +64,20 @@ function Home() {
                 <div>
                     <Header barCodeScannerIsTrue={true} />
                     <div className='home'>
-
-                        <h2>Bonjour {informationMe?.userName}</h2>
+                        <h2>{t('welcome')} {informationMe?.userName}</h2>
 
                         <div>
                             <GroupsMainview />
 
                         </div>
                         <div className='divFastAdd'>
-                            <h3>Ajout Rapide :</h3>
+                            <h3>{t('Quick Add')} :</h3>
                             <div>
                                 <div>
-                                    <button className='fastAddButton'>Ajouter un Aliment</button>
+                                    <button className='fastAddButton'>{t('Add a Food')}</button>
                                 </div>
                                 <div style={{marginTop: '25px'}}>
-                                    <button className='fastAddButton' onClick={createGroup}>Créer un Groupe</button>
+                                    <button className='fastAddButton' onClick={createGroup}>{t('Create a group')}</button>
                                 </div>
                             </div>
 
@@ -92,7 +93,7 @@ function Home() {
                 <Loader />
             }
             {error &&
-                <h4 className='errorMessage'>Erreur lors du chargement du profil</h4>
+                <h4 className='errorMessage'>{t('Error loading profile')}</h4>
             }
         </div>
 

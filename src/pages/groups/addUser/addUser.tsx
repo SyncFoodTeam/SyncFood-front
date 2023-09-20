@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ErrorComponent from '../../../component/error/errorComponent';
 import IUserPublic from '../../../interface/auth.interface';
 import IError from '../../../interface/error.interface';
@@ -19,6 +20,7 @@ function AddUser({ idGroup }: Props) {
     // let UserToAdd;
     const [userToAdd, setUserToAdd] = useState<IUserPublic>({});
     const [usersTab, setUsersTab] = useState([]);
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -86,7 +88,7 @@ function AddUser({ idGroup }: Props) {
 
     return (
         <div>
-            <label>Ajout d'un utilisateur</label>
+            <label>{t('Add User')}</label>
             <input type="text" name="addUser" placeholder='Rechercher' onChange={handleChange} className='addUserInput'></input>
             {unlockAddUserButton &&
                 <button onClick={AddUserToGroup} className='addUser'><i className="fa-solid fa-user-plus"></i></button>
@@ -94,7 +96,7 @@ function AddUser({ idGroup }: Props) {
 
             <ul>
                 {usersTab.map((user, index) => (
-                    <li key={index}>{user.userName}#{user.discriminator} <button>Supprimer</button></li>
+                    <li key={index}>{user.userName}#{user.discriminator} <button>{t('Remove')}</button></li>
                 ))}
             </ul>
 

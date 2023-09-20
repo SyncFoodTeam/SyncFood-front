@@ -7,6 +7,7 @@ import IGroups from '../../../interface/groups/groups.interface';
 import IError from '../../../interface/error.interface';
 import ErrorComponent from '../../../component/error/errorComponent';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function GroupsMainview() {
 
@@ -18,6 +19,7 @@ function GroupsMainview() {
     const [startIndex, setStartIndex] = useState(0);
     const itemsPerPage = 3;
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     useEffect(() => {
         getGroups();
@@ -63,7 +65,7 @@ function GroupsMainview() {
     return (
         <div>
 
-            <h3>Mes groupes :</h3>
+            <h3>{t('My Groups')}</h3>
 
             {!noData &&
                 <div className="groupsCards">

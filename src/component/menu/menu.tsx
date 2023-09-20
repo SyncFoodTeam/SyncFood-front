@@ -6,9 +6,11 @@ import groups from '../../assets/groups.svg';
 import messages from '../../assets/message.svg';
 import account from '../../assets/account.svg';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function Menu() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const redirectTo = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -42,7 +44,7 @@ function Menu() {
                     <img src={home} alt="logo" />
                 </div>
                 <div>
-                    <label>Accueil</label>
+                    <label>{t('Reception')}</label>
                 </div>
             </div>
 
@@ -51,7 +53,7 @@ function Menu() {
                     <img src={groups} alt="logo" />
                 </div>
                 <div>
-                    <label>Groupes</label>
+                    <label>{t('Groups')}</label>
                 </div>
             </div>
 
@@ -60,7 +62,7 @@ function Menu() {
                     <img src={messages} alt="logo" />
                 </div>
                 <div>
-                    <label>Messages</label>
+                    <label>{t('Messages')}</label>
                 </div>
             </div>
 
@@ -69,7 +71,7 @@ function Menu() {
                     <img src={account} alt="logo" />
                 </div>
                 <div>
-                    <label>Compte</label>
+                    <label>{t('Account')}</label>
                 </div>
             </div>
 
