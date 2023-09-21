@@ -27,15 +27,7 @@
     font-family: 'MuseoModerno';
 }
 
-.returnToLastPage {
-    position: fixed;
-    border: none;
-    background: none;
-    left: 3%;
-    top: 8%;
-}
-
-.divGoBackButton{
+.divGoBackButton {
     padding: 20px;
 }
 

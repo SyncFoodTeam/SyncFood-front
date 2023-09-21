@@ -10,8 +10,8 @@ import AddProductModal from '../../../component/addProductModal/addProductModal'
 import { getProductCamService } from '../../../service/product.service';
 import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 import Loader from '../../../component/loader/loader';
-import goBackArrow from '../../../assets/goBackArrow.svg'
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function ContainerDetails() {
@@ -76,14 +76,6 @@ function ContainerDetails() {
         navigate('/modifyContainers', { state: { id } });
     }
 
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
     const goToProduct = async (id: string) => {
         console.warn(id);
 
@@ -105,8 +97,9 @@ function ContainerDetails() {
             {!loading &&
                 <div>
                     <Header />
-                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-                    <h3>{container.name}</h3>
+                    <div>
+                        <GoBack name={container.name} />
+                    </div>
 
                     {products?.length > 0 &&
                         <div className='product-container'>

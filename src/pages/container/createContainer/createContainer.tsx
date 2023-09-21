@@ -4,9 +4,9 @@ import Menu from '../../../component/menu/menu';
 import './createContainer.css';
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
-import goBackArrow from '../../../assets/goBackArrow.svg'
 import { CreateFoodContainerService } from '../../../service/container.service';
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function CreateContainer() {
@@ -47,24 +47,13 @@ function CreateContainer() {
 
     };
 
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
-
-
-
     return (
         <div className="App">
 
             <Header barCodeScannerIsTrue={true} />
 
-            <div className="divGoBackButton">
-                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+            <div>
+                <GoBack />
             </div>
 
             <div className='createCard'>

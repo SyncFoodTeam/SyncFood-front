@@ -1,15 +1,15 @@
 import Header from '../../../component/header/header';
 import './addProductCam.css';
-import React, { useEffect, useState } from 'react';
-import goBackArrow from '../../../assets/goBackArrow.svg'
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { addProductToContainerServiceWithCam, getProductCamService } from '../../../service/product.service';
 import Loader from '../../../component/loader/loader';
 import Scanner from '../../../component/scanner/scanner';
-import { IProduct, IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
+import { IProduct } from '../../../interface/product/productOpenFood.interface';
 import IProductAdd from '../../../interface/product/productAdd.interface';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function AddProductCam() {
@@ -36,14 +36,6 @@ function AddProductCam() {
         await getProduct(result);
         setLoading(false);
     };
-
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
 
     const retryAddProductCam = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -101,7 +93,9 @@ function AddProductCam() {
 
             {(!loading && statusVerbose === '') && <div>
                 <h1>Scanner de code-barres</h1>
-                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                <div>
+                    <GoBack />
+                </div>
                 <div className="container">
                     {codeBarre === '' &&
                         <Scanner onDetected={onDetected} />

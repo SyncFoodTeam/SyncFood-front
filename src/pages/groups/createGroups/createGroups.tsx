@@ -4,11 +4,11 @@ import { CreateGroupService } from '../../../service/groupe.service';
 import './createGroups.css';
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import goBackArrow from '../../../assets/goBackArrow.svg'
 import ErrorComponent from '../../../component/error/errorComponent';
 import IError from '../../../interface/error.interface';
 import { useTranslation } from 'react-i18next';
 import Loader from '../../../component/loader/loader';
+import GoBack from '../../../component/goBack/goBack';
 
 
 
@@ -58,23 +58,14 @@ function CreateGroups() {
 
     };
 
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
-
 
     return (
         <div className="App">
 
             <Header barCodeScannerIsTrue={true} />
-            <div className='divGoBack'>
-                <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-                <h2>{t('Group Creation')}</h2>
+
+            <div>
+                <GoBack name={t('Group Creation')} />
             </div>
 
             {!loading &&

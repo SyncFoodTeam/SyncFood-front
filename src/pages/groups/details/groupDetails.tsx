@@ -4,19 +4,13 @@ import './groupDetails.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
 import IGroup from '../../../interface/groups/group.interface';
-import { DeleteGroupService, GetGroupService } from '../../../service/groupe.service';
-import IGroupsMembers from '../../../interface/groups/groupsMembers.interface';
-import IShoppingLists from '../../../interface/shoppingList/shoppingList.interface';
-import IFoodContainers from '../../../interface/container/foodContainer.interface';
+import { GetGroupService } from '../../../service/groupe.service';
 import { useNavigate } from "react-router-dom";
-import DeleteModal from '../../../component/deleteModal/deleteModal';
-import ajout from '../../../assets/add.svg'
-import AddUser from '../addUser/addUser';
-import BounceLoader from 'react-spinners/BounceLoader';
 import { InformationMe } from '../../../service/auth.service';
 import IUserPublic from '../../../interface/auth.interface';
 import Loader from '../../../component/loader/loader';
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function GroupDetails() {
@@ -84,31 +78,10 @@ function GroupDetails() {
             }
             {!loading &&
                 <div>
-
-                    <h1>{t('Group details')} : {group.name}</h1>
-
-                    <div>{t('Description')} : {group.description}</div>
-                    <div>{t('Budget')}: {group.budget}</div>
-                    <div>{t('Group members')}: </div>
-                    <ul>
-                        {group?.members?.map((member, index) => (
-                            <div key={index}>
-                                {group?.owner?.id !== member?.id &&
-                                    <li>
-                                        {member.userName}#{member.discriminator}
-                                    </li>
-                                }
-                                {group?.owner?.id === member?.id &&
-                                    <li>
-                                        {t('Owner')}: {member.userName}#{member.discriminator}
-                                    </li>
-                                }
-
-                            </div>
-
-                        ))}
-                    </ul>
                     <div>
+                        <GoBack name={group.name} />
+                    </div>
+                    {/* <div>
                         <label>{t('Food Container')}: </label>
                         {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
                             <div key={index}>
@@ -122,7 +95,7 @@ function GroupDetails() {
                                 </div>
 
                                 <div onClick={() => goToContainer(container.id)}>
-                                {t('View More')}
+                                    {t('View More')}
                                 </div>
                             </div>
                         ))}
@@ -132,11 +105,11 @@ function GroupDetails() {
                                 }>{t('Add')}</button>
                             </div>
                         }
-                    </div>
+                    </div> */}
 
-                    {(group?.owner?.id === user?.id) &&
+                    {/* {(group?.owner?.id === user?.id) &&
                         <button onClick={() => modifyGroups(group.id)}>{t('Modify')}</button>
-                    }
+                    } */}
                     <Menu />
                 </div>
             }

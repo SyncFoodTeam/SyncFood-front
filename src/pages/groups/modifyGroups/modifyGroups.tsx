@@ -10,13 +10,11 @@ import IShoppingLists from '../../../interface/shoppingList/shoppingList.interfa
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../../../component/deleteModal/deleteModal';
-import ajout from '../../../assets/add.svg'
 import AddUser from '../addUser/addUser';
-import goBackArrow from '../../../assets/goBackArrow.svg';
 import DateFormater from '../../../pipe/dateFormater';
 import Loader from '../../../component/loader/loader';
-import { BounceLoader } from 'react-spinners';
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 function ModifyGroups() {
     const navigate = useNavigate();
@@ -81,14 +79,6 @@ function ModifyGroups() {
         }
     }
 
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
     const changeOwner = async (userId: number) => {
 
         await changeOwnerService(group.id, userId);
@@ -106,8 +96,8 @@ function ModifyGroups() {
                 <Header />
             }
             {loading &&
-                <div className="divGoBackButton">
-                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
+                <div>
+                    <GoBack />
                 </div>
 
             }
@@ -212,7 +202,7 @@ function ModifyGroups() {
                     </div>
 
                     <div className='creationDate'>
-                    {t('Group creation date')}: <DateFormater date={group.creationDate} />
+                        {t('Group creation date')}: <DateFormater date={group.creationDate} />
                     </div>
 
                     <div className='divButton'>

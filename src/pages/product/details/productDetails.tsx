@@ -3,14 +3,12 @@ import Header from '../../../component/header/header';
 import './productDetails.css';
 import React, { useEffect, useState } from 'react'
 import Menu from '../../../component/menu/menu';
-import { DeleteGroupService, GetGroupService } from '../../../service/groupe.service';
 import { useNavigate } from "react-router-dom";
-import DeleteModal from '../../../component/deleteModal/deleteModal';
 import { getProductCamService } from '../../../service/product.service';
 import { IProduct } from '../../../interface/product/productOpenFood.interface';
 import Loader from '../../../component/loader/loader';
-import goBackArrow from '../../../assets/goBackArrow.svg'
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function ProductDetails() {
@@ -48,16 +46,6 @@ function ProductDetails() {
         setProduct(product.product);
     }
 
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
-
-
 
     return (
         <div className="App">
@@ -66,8 +54,9 @@ function ProductDetails() {
                 <div>
 
                     <Header barCodeScannerIsTrue={true} />
-                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-
+                    <div>
+                        <GoBack />
+                    </div>
 
                     <h1>{t('Product description')}</h1>
 

@@ -9,8 +9,8 @@ import IFoodContainers from '../../../interface/container/foodContainer.interfac
 import { getProductCamService } from '../../../service/product.service';
 import { GetContainerService } from '../../../service/container.service';
 import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
-import goBackArrow from '../../../assets/goBackArrow.svg'
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 function ProductList() {
 
@@ -76,15 +76,6 @@ function ProductList() {
         navigate('/addProduct');
     }
 
-
-    const goBack = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        console.log(event);
-
-        navigate(-1);
-    }
-
     const goToProduct = async (id: string) => {
         console.warn(id);
 
@@ -100,8 +91,9 @@ function ProductList() {
             {!loading &&
                 <div>
                     <Header />
-                    <button onClick={goBack} className="returnToLastPage"><img src={goBackArrow} alt='Retour en arrière' /></button>
-
+                    <div>
+                        <GoBack />
+                    </div>
                     {products?.length > 0 &&
                         <div className='product-container'>
                             {products.map((product, index) => (
