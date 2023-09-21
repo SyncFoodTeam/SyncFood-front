@@ -16,7 +16,7 @@ function CreateContainer() {
     const [containerDescription, setContainerDescription] = useState('');
     const [createError, setCreateError] = useState(false);
     const [user, setUser] = useState('');
-
+    const [storageLocation, setStorageLocation] = useState('')
     const location = useLocation();
     const { t } = useTranslation();
 
@@ -28,7 +28,7 @@ function CreateContainer() {
         console.log(event);
 
         let body = {
-            name: containerName,
+            name: storageLocation,
             description: containerDescription,
             groupId: id,
         };
@@ -59,13 +59,37 @@ function CreateContainer() {
             <div className='createCard'>
 
                 <div className="modifyDiv">
-                    <label>{t('Name of the group')} :</label>
+                    <label>{t('Name of the container')} :</label>
                     <br />
-                    <input type="text" name="text"
-                        onChange={(e) => setContainerName(e.target.value)}
-                        className='modifyInput'
-                        required
-                    ></input>
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="frigo"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                        /> {t('Fridge')}
+                    </label>
+                    <br />
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="placard"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                        /> {t('Closet')}
+                    </label>
+                    <br />
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="congélateur"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                        /> {t('Freezer')}
+                    </label>
                 </div>
 
                 <div className="modifyDiv">

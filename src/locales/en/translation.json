@@ -48,7 +48,7 @@
     "Modify Container Page": "Modify Container Page",
     "Name of Food Container": "Name of Food Container",
     "Message Pages": "Message Pages",
-    "This function is not yet implemented in the application":"This function is not yet implemented in the application",
+    "This function is not yet implemented in the application": "This function is not yet implemented in the application",
     "Food Name": "Food Name",
     "Price": "Price",
     "Quantity": "Quantity",
@@ -56,10 +56,22 @@
     "Product description": "Product description",
     "Error 500: Server error": "Error 500: Server error",
     "My settings": "My settings",
-    "Member since":"Member since",
-    "Disconnect": "Disconnect"
-
-
-
+    "Member since": "Member since",
+    "Disconnect": "Disconnect",
+    "Retry": "Retry",
+    "Yes": "Yes",
+    "No": "No",
+    "product found": "Product Found",
+    "product not found": "Produit not Found",
+    "Add Product": "Add Product",
+    "Modify Group": "Modify Group",
+    "Name of the container": "Name of the container",
+    "Fridge": "Fridge",
+    "Closet": "Closet",
+    "Freezer": "Freezer",
+    "Ingredients": "Ingrédients",
+    "Creation date": "Creation date",
+    "Add a Product": "Add a Product",
+    "Modify Product": "Modify Product"
 
 }

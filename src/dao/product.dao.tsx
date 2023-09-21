@@ -52,14 +52,87 @@ export async function addProductToContainerServiceWithCamDao(token: string, body
     })
 
     const realData = await data.json();
-    let groupData = {
-        groupData: realData,
+    let productData = {
+        productData: realData,
         code: data.status
     }
     if (data.status === 200 && realData) {
         console.log('======success=======');
-        return groupData;
+        return productData;
     } else {
         routeService(data.status);
+    }
+};
+
+export async function UpdateProductDao(token: string, body: any) {
+    console.log("UpdateProductDao(", { token }, { body }, ")");
+
+    try {
+        let data = await fetch('/api/product/edit', {
+
+            method: 'PATCH',
+            body: JSON.stringify({
+                productId: body.id,
+                quantity: body.quantity,
+            }),
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + token
+            },
+        })
+
+        const realData = await data.json();
+        if (data.status === 200 && realData) {
+
+            let updateData = {
+                dataContainer: realData,
+                code: data.status
+            }
+
+            console.log('======success=======');
+            return updateData;
+        } else {
+            await routeService(data.status);
+            return undefined
+        }
+
+    } catch (error) {
+
+        console.error('======failure=======');
+        console.error(error);
+
+        throw new Error("Erreur");
+
+    }
+
+
+};
+
+export async function DeleteProductDao(token: string, productId: number) {
+    console.log("DeleteProductDao(token, productId)");
+
+    const data = await fetch(`/api/product/delete/${productId}`, {
+        method: 'DELETE',
+
+        headers: {
+            'accept': 'text/plain',
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + JSON.parse(token)
+        }
+    })
+
+    const realData = await data.json();
+    let productData = {
+        dataGroup: realData,
+        code: data.status
+    }
+    if (data.status === 200) {
+
+        console.log('======success=======');
+        return productData;
+    } else {
+        await routeService(data.status);
+        return productData
     }
 };

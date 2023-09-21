@@ -87,8 +87,6 @@ function ModifyGroups() {
     }
 
 
-
-
     return (
         <div className="App">
 
@@ -206,7 +204,7 @@ function ModifyGroups() {
                     </div>
 
                     <div className='divButton'>
-                        <div className='divButtonModify'>
+                        <div className='divButtonModifyGroups'>
                             <button onClick={modifyGroup} className='modifyButton'>{t('Modify')}</button>
                         </div>
 

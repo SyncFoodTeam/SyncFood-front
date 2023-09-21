@@ -10,6 +10,9 @@ import { GetContainerService, UpdateContainerService } from '../../../service/co
 import IUserPublic from '../../../interface/auth.interface';
 import { InformationMe } from '../../../service/auth.service';
 import { useTranslation } from 'react-i18next';
+import Loader from '../../../component/loader/loader';
+import DateFormater from '../../../pipe/dateFormater';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function ModifyContainer() {
@@ -21,15 +24,18 @@ function ModifyContainer() {
     const [containerName, setContainerName] = useState('');
     const [containerDescription, setContainerDescription] = useState('');
     const { t } = useTranslation();
+    const [loading, setLoading] = useState(true);
 
     const id = location.state?.id;
 
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
+                setLoading(true)
                 await getContainer(id);
                 const userData = await InformationMe();
                 setUser(userData.dataUser);
+                setLoading(false);
             } else {
                 console.log("Je n'ai pas d'id");
             }
@@ -73,29 +79,58 @@ function ModifyContainer() {
     return (
         <div className="App">
 
-            <Header />
+            {!loading &&
+                <Header />
+            }
+            {!loading &&
+                <div>
+                    <GoBack name={t('Modify Container Page')}/>
+                </div>
 
-            <h1>{t('Modify Container Page')}</h1>
+            }
 
-            <div>
-                <label className="label">{t('Name of Food Container')} :</label>
-                <br />
-                <input type="text" name="text"
-                    defaultValue={container.name}
-                    onChange={(e) => setContainerName(e.target.value)}
-                ></input>
+            {!loading &&
+                <div className='modifyCard'>
+                    <div className="modifyDiv">
+                        <label>{t('Name of Food Container')} :</label>
+                        <br />
+                        <input type="text" name="text"
+                            defaultValue={container.name}
+                            onChange={(e) => setContainerName(e.target.value)}
+                            className='modifyInput'
+                        ></input>
+                    </div>
+                    <div className="modifyDiv">
+                        <label>{t('Description')} :</label>
+                        <br />
+                        <input type="text" name="text"
+                            defaultValue={container.description}
+                            onChange={(e) => setContainerDescription(e.target.value)}
+                            className='modifyInput'
+                        ></input>
+                    </div>
+
+                    <div className='creationDate'>
+                        {t('Creation date')}: <DateFormater date={container.creationDate} />
+                    </div>
+                </div>
+            }
+            {loading &&
+                <Loader />
+            }
+
+            <div className='divButton'>
+                <div className='divButtonModifyGroups'>
+                    <button onClick={modifyContainer} className='modifyButton'>{t('Modify')}</button>
+                </div>
+
+                <div className='divButtonDelete'>
+                    <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
+                </div>
+
             </div>
-            <div>
-                <label className="label">{t('Description')} :</label>
-                <br />
-                <input type="text" name="text"
-                    defaultValue={container.description}
-                    onChange={(e) => setContainerDescription(e.target.value)}
-                ></input>
-            </div>
-            <button onClick={modifyContainer}>{t('Modify')}</button>
 
-            <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
+
 
             <Menu />
         </div>

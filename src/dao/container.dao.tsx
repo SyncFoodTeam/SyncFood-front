@@ -62,7 +62,8 @@ export async function GetContainerDao(token: string, foodContainerId: number) {
 
 export async function DeleteContainerDao(token: string, foodContainerid: number) {
     console.log("DeleteContainerDao(token, foodContainerid)");
-
+    console.log(foodContainerid);
+    
     const data = await fetch(`/api/foodcontainers/delete/${foodContainerid}`, {
         method: 'DELETE',
 

@@ -4,4 +4,5 @@ export default interface IProductAdd {
     expirationdate?: string,
     foodcontainerid?: number,
     quantity?: number,
+    id?: number,
 }

@@ -14,3 +14,8 @@ export default interface IProducts {
     shoppingLists?: string[]
 }
 
+export default interface IProductEdit {
+    productId?: number,
+    quantity?: number,
+}
+

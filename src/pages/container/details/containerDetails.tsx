@@ -12,6 +12,7 @@ import { IProductOpenFood } from '../../../interface/product/productOpenFood.int
 import Loader from '../../../component/loader/loader';
 import { useTranslation } from 'react-i18next';
 import GoBack from '../../../component/goBack/goBack';
+import IProducts from '../../../interface/product/products.interface';
 
 
 function ContainerDetails() {
@@ -28,6 +29,7 @@ function ContainerDetails() {
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
+                console.log("J'ai l'id d'un conteneur");
                 setLoading(true);
                 await getContainer(id);
                 setLoading(false);
@@ -54,7 +56,8 @@ function ContainerDetails() {
     }
 
     async function getAllProduct(container: IFoodContainers) {
-        console.log("getAllProduct()");
+        console.log("getAllProduct(container)");
+        console.log(container);
         console.log(container.products);
 
         if (container?.products?.length) {
@@ -76,20 +79,11 @@ function ContainerDetails() {
         navigate('/modifyContainers', { state: { id } });
     }
 
-    const goToProduct = async (id: string) => {
-        console.warn(id);
+    const goToProduct = async (product: IProducts, containerId: number) => {
+        console.warn(product);
 
-        navigate('/productDetails', { state: { id } })
+        navigate('/productDetails', { state: { product, containerId } })
     }
-
-    const goToProductList = async (id: number) => {
-        console.warn(id);
-
-        navigate('/productList', { state: { id } })
-    }
-
-
-
 
 
     return (
@@ -104,7 +98,7 @@ function ContainerDetails() {
                     {products?.length > 0 &&
                         <div className='product-container'>
                             {products.slice(0, 6).map((product, index) => (
-                                <div key={index} className='product' onClick={() => goToProduct(product.product.code)}>
+                                <div key={index} className='product' onClick={() => goToProduct(container.products[index], container.id)}>
 
                                     <div className='productCard'>
                                         <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
@@ -117,12 +111,21 @@ function ContainerDetails() {
 
                     }
 
-                    <button onClick={() => goToProductList(container.id)}>{t('View More')}</button>
+                    {/* <button onClick={() => goToProductList(container.id)}>{t('View More')}</button> */}
 
-                    <AddProductModal containerId={container.id} />
+                    <div className='divButton'>
+                        <div className='divButtonModifyGroups'>
+                            <button onClick={() => modifyContainers(container.id)}  className='modifyButton'>{t('Modify')}</button>
+                        </div>
+
+                        <div className='divButtonDelete'>
+                            <AddProductModal containerId={container.id} />
+                        </div>
+
+                    </div>
 
 
-                    <button onClick={() => modifyContainers(container.id)}>{t('Modify')}</button>
+
 
                     <Menu />
                 </div>

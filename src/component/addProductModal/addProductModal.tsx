@@ -46,7 +46,7 @@ const AddProductModal: React.FC<addModalProps> = ({
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-            {t('Add')}
+                {t('Add a Product')}
             </Button>
             <Dialog
                 open={open}
@@ -67,10 +67,10 @@ const AddProductModal: React.FC<addModalProps> = ({
                 <DialogActions>
                     <Button onClick={handleClose}>{t('Cancel')}</Button>
                     <Button onClick={() => handleAddWithCam(containerId)} autoFocus>
-                    {t('Add by scanning the barcode')}
+                        {t('Add by scanning the barcode')}
                     </Button>
                     <Button onClick={handleAddManual} autoFocus>
-                    {t('Add by hand')}
+                        {t('Add by hand')}
                     </Button>
                 </DialogActions>
             </Dialog>

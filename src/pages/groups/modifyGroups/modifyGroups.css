@@ -45,7 +45,7 @@
 .divButton{
     margin: 15px 0px 35px 0px;
     
-    && .divButtonModify{
+    && .divButtonModifyGroups{
         position: absolute;
         left: 67%;
     }

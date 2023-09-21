@@ -11,6 +11,7 @@ import IError from '../../interface/error.interface';
 import ErrorComponent from '../error/errorComponent';
 import { DeleteContainerService } from '../../service/container.service';
 import { useTranslation } from 'react-i18next';
+import { DeleteProductService } from '../../service/product.service';
 
 interface deleteModalProps {
     index?: number;
@@ -18,7 +19,7 @@ interface deleteModalProps {
     userId?: number;
     groupId?: number;
     containerId?: number;
-
+    productId?: number;
 }
 
 const DeleteModal: React.FC<deleteModalProps> = ({
@@ -27,6 +28,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
     userId = 0,
     groupId = 0,
     containerId = 0,
+    productId = 0,
 }) => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -79,20 +81,31 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 setError(true);
                 setErrorMessage(removeContainer.dataContainer);
             }
+        } else if (whatIs === 'product') {
+            console.log("product");
+            let removeProduct = await DeleteProductService(productId);
+
+            if (removeProduct.code === 200) {
+                setError(false);
+                navigate(-1);
+            } else {
+                setError(true);
+                setErrorMessage(removeProduct.dataGroup);
+            }
         }
 
     };
 
     return (
         <div>
-            {(whatIs === 'groups' || whatIs === 'container') &&
+            {(whatIs === 'groups' || whatIs === 'container' || whatIs === 'product') &&
                 <Button onClick={handleClickOpen}>
-                    <i className="fa-solid fa-trash-can" style={{ color: '#f00000', fontSize: 'x-large'}}></i>
+                    <i className="fa-solid fa-trash-can" style={{ color: '#f00000', fontSize: 'x-large' }}></i>
                 </Button>
             }
             {(whatIs === 'removeSomeone') &&
                 <Button onClick={handleClickOpen}>
-                    <i className="fa-solid fa-user-slash" style={{ color: '#f00000', fontSize: 'x-large'}}></i>
+                    <i className="fa-solid fa-user-slash" style={{ color: '#f00000', fontSize: 'x-large' }}></i>
                 </Button>
             }
             <Dialog
@@ -114,7 +127,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
                 <DialogActions>
                     <Button onClick={handleClose}>Annuler</Button>
                     <Button onClick={handleDelete} autoFocus>
-                    {t('Remove')}
+                        {t('Remove')}
                     </Button>
                 </DialogActions>
             </Dialog>

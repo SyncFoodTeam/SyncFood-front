@@ -77,8 +77,6 @@ function ProductList() {
     }
 
     const goToProduct = async (id: string) => {
-        console.warn(id);
-
         navigate('/productDetails', { state: { id } })
     }
 
@@ -97,9 +95,8 @@ function ProductList() {
                     {products?.length > 0 &&
                         <div className='product-container'>
                             {products.map((product, index) => (
-                                <div key={index} className='product-List' onClick={() => goToProduct(product.product.code)}>
-
-                                    <div className='productCard'>
+                                <div key={index} onClick={() => goToProduct(product.product.code)}>
+                                    <div>
                                         <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
                                         <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
                                     </div>

@@ -92,7 +92,6 @@ function AddProductCam() {
         <div className="App">
 
             {(!loading && statusVerbose === '') && <div>
-                <h1>Scanner de code-barres</h1>
                 <div>
                     <GoBack />
                 </div>
@@ -108,22 +107,22 @@ function AddProductCam() {
             }
             {status === 0 &&
                 <div>
-                    <h2>{statusVerbose}</h2>
-                    <button onClick={retryAddProductCam}>Retry</button>
+                    <h2>{t(`${statusVerbose}`)}</h2>
+                    <button onClick={retryAddProductCam}>{t('Retry')}</button>
                 </div>
             }
 
             {(status === 1 && !addProduct) &&
                 <div className='productAdd'>
                     <div className='productFound'>
-                        {statusVerbose}
+                        {t(`${statusVerbose}`)}
                         <br />
-                        L'ajouter ?
+                        {t('Add Product')} ?
                     </div>
 
                     <div className='productButton'>
-                        <button className='buttonAddProduct' onClick={addProductToContainer}>Oui</button>
-                        <button className='buttonRetryProduct' onClick={retryAddProductCam}>Non</button>
+                        <button className='buttonAddProduct' onClick={addProductToContainer}>{t('Yes')}</button>
+                        <button className='buttonRetryProduct' onClick={retryAddProductCam}>{t('No')}</button>
                     </div>
 
                 </div>

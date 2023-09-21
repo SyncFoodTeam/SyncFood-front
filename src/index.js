@@ -29,6 +29,7 @@ import enTranslation from './locales/en/translation.json';
 import frTranslation from './locales/fr/translation.json';
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
+import ModifyProduct from './pages/product/modify/modifyProduct';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const userLanguage = navigator.language || navigator.userLanguage;
@@ -75,6 +76,8 @@ root.render(
         <Route path="modifyContainers" element={<ModifyContainer />} />
         <Route path="productDetails" element={<ProductDetails />} />
         <Route path="productList" element={<ProductList />} />
+        <Route path="modifyProduct" element={<ModifyProduct />} />
+  
       </Routes>
     </BrowserRouter>
     </I18nextProvider>
