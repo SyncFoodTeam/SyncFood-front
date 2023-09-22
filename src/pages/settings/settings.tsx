@@ -9,6 +9,8 @@ import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import IError from '../../interface/error.interface';
+import ErrorComponent from '../../component/error/errorComponent';
 
 
 
@@ -25,6 +27,7 @@ function Settings() {
     const [informationMe, setInformationMe] = useState<IUser>({});
 
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<IError>({})
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,17 +57,20 @@ function Settings() {
 
         let body = {
             userName: userName || informationMe?.userName,
-            email: email || informationMe?.email,
+            email: email || null,
             password: password || informationMe?.password
         };
 
         console.log("J'envoie mes données à la route adéquat");
-        let loginSuccess = await UpdateInformationMe(body);
-        console.log(loginSuccess);
-        if (loginSuccess) {
+        let modifySuccess = await UpdateInformationMe(body);
+        console.log(modifySuccess);
+        if (modifySuccess.code === 200) {
+            setError(false);
             navigate('/');
         } else {
-            console.log("Erreur lors de la connexion");
+            console.log("Erreur lors de la modification");
+            setErrorMessage(modifySuccess.dataUser);
+            setError(true);
         }
     };
 
@@ -164,6 +170,10 @@ function Settings() {
                             <div className="centerDiv">
                                 <button className="logOutButton" onClick={deconnect}>{t('Disconnect')}</button>
                             </div>
+                        }
+
+                        {error &&
+                            <ErrorComponent name={errorMessage.name} value={errorMessage.value} resourceNotFound={errorMessage.resourceNotFound} searchedLocation={errorMessage.searchedLocation} />
                         }
 
                     </div>

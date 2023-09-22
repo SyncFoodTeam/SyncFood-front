@@ -22,7 +22,7 @@ export async function LoginDao(body: any) {
         })
 
         const realData = await data.json();
-        console.log({realData});
+        console.log({ realData });
 
         let loginData = {
             dataUser: realData,
@@ -33,7 +33,7 @@ export async function LoginDao(body: any) {
             console.log('======success=======');
             return loginData;
         } else {
-            await routeService(data.status);
+            // await routeService(data.status);
             return loginData
         }
 
@@ -154,18 +154,16 @@ export async function UpdateInformation(token: string, body: IUserUpdateInformat
         })
 
         const realData = await data.json();
+        let modifyData = {
+            dataUser: realData,
+            code: data.status
+        }
         if (data.status === 200 && realData) {
-
-            let loginData = {
-                dataUser: realData,
-                code: data.status
-            }
-
             console.log('======success=======');
-            return loginData;
+            return modifyData;
         } else {
             await routeService(data.status);
-            return undefined
+            return modifyData
         }
 
     } catch (error) {

@@ -4,6 +4,7 @@ import IUserLogin from '../interface/auth.interface';
 import IUserRegister from '../interface/auth.interface';
 import IUserUpdateInformation from '../interface/auth.interface';
 import ICommonUser from '../interface/common/commonUser.interface';
+import RedirectService from './redirect.service';
 
 export async function LoginService(body: IUserLogin) {
     console.log("LoginService()", body);
@@ -75,7 +76,7 @@ export async function InformationMe(): Promise<ICommonUser | undefined> {
             }
         } else {
             console.log("Je n'ai pas de token");
-            return undefined;
+            RedirectService("lunchPage");
         }
 
 
@@ -104,7 +105,7 @@ export async function UpdateInformationMe(body: IUserUpdateInformation) {
             }
         } else {
             console.log("Je n'ai pas de token");
-            return undefined
+            RedirectService("lunchPage");
         }
 
     } catch (e) {

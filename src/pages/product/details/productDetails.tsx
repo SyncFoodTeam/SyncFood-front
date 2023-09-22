@@ -58,9 +58,9 @@ function ProductDetails() {
         setProduct(product.product);
     }
 
-    const modifyProduct = async (product: IProducts, containerId: number) => {
+    const modifyProduct = async (product: IProducts) => {
 
-        navigate('/modifyProduct', { state: { product, containerId } });
+        navigate('/modifyProduct', { state: { product} });
     }
 
 
@@ -111,7 +111,7 @@ function ProductDetails() {
                         </div>
 
                         <div>
-                            <button className='modifyGroup' onClick={() => modifyProduct(productReceive, containerId)}>{t('Modify Product')}</button>
+                            <button className='modifyGroup' onClick={() => modifyProduct(productReceive)}>{t('Modify Product')}</button>
                         </div>
                     </div>
 
