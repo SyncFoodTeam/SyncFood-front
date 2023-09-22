@@ -111,6 +111,7 @@ function ModifyGroups() {
                             className='modifyInput'
                         ></input>
                     </div>
+                    <br />
                     <div className="modifyDiv">
                         <label>{t('Description')} :</label>
                         <br />
@@ -120,7 +121,7 @@ function ModifyGroups() {
                             className='modifyInput'
                         ></input>
                     </div>
-
+                    <br />
                     <div className="modifyDiv">
                         <label>{t('Budget')} :</label>
                         <br />
@@ -130,11 +131,11 @@ function ModifyGroups() {
                             className='modifyInput'
                         ></input>
                     </div>
-
+                    <br />
                     <div>
                         <AddUser idGroup={id} />
                     </div>
-
+                    <br />
                     <div>
                         <label>{t('Lists of group members')}: </label>
                         {group?.members?.map((members: IGroupsMembers, index: number) => (
@@ -168,9 +169,7 @@ function ModifyGroups() {
                             </div>
                         ))}
                     </div>
-
-
-
+                    <br />
                     <div>
                         {group?.shoppingList?.map((shoppingList: IShoppingLists, index: number) => (
                             <div key={index}>
@@ -183,15 +182,17 @@ function ModifyGroups() {
                             </div>
                         ))}
                     </div>
+                    <br />
 
                     <div>
+                        {t('List of Food Containers')} :
                         {group?.foodContainers?.map((foodContainers: IFoodContainers, index: number) => (
                             <div key={index}>
 
-                                <div className='groupe'>
-                                    <div className='descriptif'>
-                                        <h3>{foodContainers.name} </h3>
-                                    </div>
+                                <div>
+                                    <ul>
+                                        <li>{foodContainers.name} </li>
+                                    </ul>
                                 </div>
                             </div>
                         ))}
@@ -199,6 +200,7 @@ function ModifyGroups() {
 
                     </div>
 
+                    <br />
                     <div className='creationDate'>
                         {t('Group creation date')}: <DateFormater date={group.creationDate} />
                     </div>

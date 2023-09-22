@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import IFoodContainers from '../../../interface/container/foodContainer.interface';
 import { GetContainerService } from '../../../service/container.service';
 import { getProductCamService } from '../../../service/product.service';
-import { IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
+import { IProduct, IProductOpenFood } from '../../../interface/product/productOpenFood.interface';
 import frigo from '../../../assets/frigo.svg';
 import placard from '../../../assets/placard.svg';
 import congelateur from '../../../assets/congelateur.svg';
@@ -50,17 +50,14 @@ const ContainerList: React.FC<goBackProps> = ({
                     containers.push(container);
 
                     console.log('TATA')
-                    setContainers(containers);
                     console.log({ containers });
+
                     if (container.products.length) {
+                        console.log(container.id)
                         console.log("mon container n'est pas vide j'ai des produits")
                         await getAllProduct(container);
                         console.log("products");
                         console.log(products);
-                        let myObject = {
-                            containerId: container.id,
-                            products: products
-                        };
                         setNoData(false);
                     } else {
                         console.log("mon container est vide")
@@ -68,6 +65,7 @@ const ContainerList: React.FC<goBackProps> = ({
                         setNoData(true);
                     }
                 }
+                setContainers(containers);
                 setLoading(false);
             } else {
                 console.log("Je n'ai pas d'id");
@@ -121,68 +119,60 @@ const ContainerList: React.FC<goBackProps> = ({
         navigate('/productDetails', { state: { id } })
     }
 
-    const createFoodContainer = async (id: number) => {
-        navigate('/createContainer', { state: { id } });
-    }
+
 
     return (
         <div className="App">
 
             {!loading &&
                 <div>
-                    <div></div>
                     {/* Permet de boucler sur tout les foods containers */}
                     {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
                         <div key={index}>
-
+                            <div className='containerLogoDiv'>
+                                {(container.name) === 'frigo' &&
+                                    <img className='containerLogoImg' src={frigo} />
+                                }
+                                {(container.name) === 'placard' &&
+                                    <img className='containerLogoImg' src={placard} />
+                                }
+                                {(container.name) === 'congelateur' &&
+                                    <img className='containerLogoImg' src={congelateur} />
+                                }
+                            </div>
                             <div>
-                                <div>
-
-                                    {products?.length > 0 &&
-                                        <div>
-                                            <div className=''>
-                                                {products.slice(0, 2).map((product, index) => (
-                                                    <div key={index}>
-                                                        <div className='containerLogoDiv'>
-                                                            {(container.name) === 'frigo' &&
-                                                                <img className='containerLogoImg' src={frigo} />
-                                                            }
-                                                            {(container.name) === 'placard' &&
-                                                                <img className='containerLogoImg' src={placard} />
-                                                            }
-                                                            {/* {(container.name) === 'congelateur' &&
-                                                                <img className='containerLogoImg' src={congelateur} />
-                                                            } */}
-                                                        </div>
-                                                        <div className='productList-container'>
-                                                            <div className='productCard' onClick={() => goToProduct(product.product.code)}>
-                                                                <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
-                                                                <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
-                                                            </div>
-                                                            <div className='seeMoreProductDiv'>
-                                                                <div className="seeMoreProduct" onClick={() => goToContainer(container.id)}>
-                                                                    {t('View More')}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
 
                             </div>
+                            <div className='productList-container'>
+                                {/* Permet de boucler sur les produits présent dans les containers */}
+                                {containers.find((e) => e.id === container.id)?.products?.slice(0, 2).map((productInArray: any, index) => (
+                                    <div key={index}>
+                                        {/* Permet d'afficher les produits */}
+                                        {products.filter((e) => e.barCode === productInArray.code).map((product, index) => (
+                                            <div key={index}>
+                                                <div className='productCard' onClick={() => goToProduct(product.product.code)}>
+                                                    <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                                    <h3 className='title'> {product.product.abbreviated_product_name || product.product?.generic_name} </h3>
+                                                    <h3></h3>
+                                                    {product.id}
+                                                </div>
+                                            </div>
+                                        ))}
+
+                                    </div>
+                                ))}
+
+                            </div>
+                            <div className='seeMoreProductDiv'>
+                                <div className="seeMoreProduct" onClick={() => goToContainer(container.id)}>
+                                    {t('View More')}
+                                </div>
+                            </div>
+
+                            {JSON.stringify(products.find((e) => e.id === container.id))}
 
                         </div>
                     ))}
-                    {(group?.owner?.id === user?.id) &&
-                        <div>
-                            <button className='addContainer' onClick={() => createFoodContainer(group.id)
-                            }>{t('Add the container')}</button>
-                        </div>
-                    }
                 </div>
             }
             {loading &&

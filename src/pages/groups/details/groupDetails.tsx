@@ -64,7 +64,9 @@ function GroupDetails() {
     }
 
 
-
+    const createFoodContainer = async (id: number) => {
+        navigate('/createContainer', { state: { id } });
+    }
 
 
 
@@ -74,25 +76,33 @@ function GroupDetails() {
                 <Header />
             }
             {!loading &&
-                <div>
+                <div className='page'>
                     <div>
                         <GoBack name={group.name} />
                     </div>
 
                     <div>
-                        <ContainerList group={group} user={user}/>
+                        <ContainerList group={group} user={user} />
                     </div>
 
                     {(group?.owner?.id === user?.id) &&
-                        <button className='modifyGroup' onClick={() => modifyGroups(group.id)}>{t('Modify Group')}</button>
+                        <div className='ownerDiv'>
+
+                            <button className='modifyGroup' onClick={() => modifyGroups(group.id)}>{t('Modify Group')}</button>
+                            <button className='addContainer' onClick={() => createFoodContainer(group.id)
+                            }>{t('Add the container')}</button>
+                        </div>
                     }
+
                     <Menu />
+
                 </div>
             }
 
             {loading &&
                 <Loader />
             }
+
         </div>
 
 

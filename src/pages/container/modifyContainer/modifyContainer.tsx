@@ -84,7 +84,7 @@ function ModifyContainer() {
             }
             {!loading &&
                 <div>
-                    <GoBack name={t('Modify Container Page')}/>
+                    <GoBack name={t('Modify Container Page')} />
                 </div>
 
             }
@@ -119,17 +119,18 @@ function ModifyContainer() {
                 <Loader />
             }
 
-            <div className='divButton'>
-                <div className='divButtonModifyGroups'>
-                    <button onClick={modifyContainer} className='modifyButton'>{t('Modify')}</button>
+            {!loading &&
+                <div className='divButton'>
+                    <div className='divButtonModifyGroups'>
+                        <button onClick={modifyContainer} className='modifyButton'>{t('Modify')}</button>
+                    </div>
+
+                    <div className='divButtonDelete'>
+                        <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
+                    </div>
+
                 </div>
-
-                <div className='divButtonDelete'>
-                    <DeleteModal containerId={container.id} whatIs={'container'}></DeleteModal>
-                </div>
-
-            </div>
-
+            }
 
 
             <Menu />

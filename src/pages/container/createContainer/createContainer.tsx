@@ -85,7 +85,7 @@ function CreateContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="congélateur"
+                            value="congelateur"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
                         /> {t('Freezer')}
