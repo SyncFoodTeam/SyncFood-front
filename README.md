@@ -30,7 +30,7 @@ Dans le cas contraire accédez à l'url [http://localhost:3000](http://localhost
 
 ## Mise en production de l'application
 
-````
+```
 npm i --legacy-peer-deps
 ```
 ```
