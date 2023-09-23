@@ -1,0 +1,59 @@
+.groupe {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #F8E7AF;
+    border-radius: 30px;
+    width: auto;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.title {
+    color: #000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.description {
+    color: #000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.groupe .image {
+    margin-right: 15%;
+}
+
+
+
+.ajout {
+    position: absolute;
+    bottom: 12%;
+    right: 6%;
+    border: none;
+    background: #ffffff;
+}
+
+.seeMore {
+    border-radius: 30px;
+    border: 2px solid #F8E7AF;
+    background: #F8E7AF;
+    width: 83px;
+    text-align: center;
+    padding: 2px;
+    margin-left: 210px;
+    margin-bottom: 11px;
+    margin-top: -18px;
+}
+
+.groupList{
+    margin: 30px;
+}

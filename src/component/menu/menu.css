@@ -1,0 +1,16 @@
+.menu{
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    padding: 5%;
+    text-align: center;
+    justify-content: space-between;
+    width: 90%;
+    background-color: white;
+    z-index: 10;
+}
+
+.divIcon{
+    color: #000;
+    font-family: 'MuseoModerno';
+}

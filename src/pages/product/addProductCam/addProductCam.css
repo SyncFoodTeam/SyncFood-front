@@ -1,0 +1,122 @@
+.container {
+  position: relative;
+}
+
+.container,
+#interactive.viewport {
+  width: 400px;
+  height: 300px;
+}
+
+#interactive.viewport canvas,
+video {
+  width: 400px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#interactive.viewport canvas.drawingBuffer,
+video.drawingBuffer {
+  width: 400px;
+  height: 300px;
+}
+
+.productAdd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.productFound {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  min-height: 46px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  width: 157px;
+  padding: 8px 32px;
+  justify-content: center;
+}
+
+.productButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+}
+
+.buttonAddProduct {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #F8E7AF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  right: 33%;
+  position: relative;
+  width: 65px;
+  height: 27px;
+}
+
+.buttonRetryProduct {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #F8E7AF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  left: 33%;
+  position: relative;
+  width: 65px;
+  height: 27px;
+}
+
+.formAddProduct {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.inputAddProduct {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #F8E7AF;
+  width: 75px;
+  text-align: center;
+}
+
+.datePeremption {
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #F8E7AF;
+  padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.addProduct {
+  border-radius: 15px;
+  background: #27D4A9;
+  text-align: center;
+  border: none;
+  padding: 10px;
+}

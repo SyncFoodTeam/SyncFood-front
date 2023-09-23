@@ -1,0 +1,64 @@
+.modifyCard {
+    border-radius: 30px;
+    border: 2px solid #F8E7AF;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 30px;
+    padding: 26px;
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
+
+.modifyInput {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #F8E7AF;
+    padding: 7px;
+}
+
+.modifyDiv {
+    margin-bottom: 13px;
+}
+
+.groupeMembers {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #F8E7AF;
+    height: 27px;
+    padding: 7px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.userInGroups {
+    margin-right: 10px;
+}
+
+.changeOwner {
+    background: none;
+    border: none;
+    font-size: x-large;
+}
+
+
+
+.divButton{
+    margin: 15px 0px 35px 0px;
+    
+    && .divButtonModifyGroups{
+        position: absolute;
+        left: 67%;
+    }
+    
+    && .divButtonDelete{
+        position: absolute;
+        left: 10%;
+    }
+
+}
+
+.creationDate{
+    margin: 10px 0px 10px 0px;
+}

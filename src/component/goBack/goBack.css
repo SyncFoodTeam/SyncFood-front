@@ -1,0 +1,23 @@
+.goBackWithName {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.nameOfPage {
+    margin-left: 15%;
+    font-size: 23px;
+    font-weight: 800;
+    display: flex;
+    text-align: start;
+}
+
+.returnToLastPage {
+    position: absolute;
+    border: none;
+    background: none;
+    left: 5%;
+    font-size: 20px;
+}

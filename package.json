@@ -3,19 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.2",
+    "@mui/styled-engine-sc": "^5.12.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/node": "^20.4.5",
+    "@types/react": "^18.2.16",
+    "@types/react-dom": "^18.2.7",
+    "@types/websocket": "^1.0.5",
+    "i18next": "^23.5.1",
+    "i18next-http-backend": "^2.2.2",
+    "moment": "^2.29.4",
+    "quagga": "^0.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^13.2.2",
+    "react-modal": "^3.16.1",
+    "react-qr-reader": "^3.0.0-beta-1",
+    "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
+    "scanbot-web-sdk": "^2.14.0",
+    "styled-components": "^6.0.5",
+    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:types": "tsc"
   },
   "eslintConfig": {
     "extends": [
@@ -34,7 +55,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0",
+    "ts-migrate": "^0.1.35"
   }
-
 }
-

@@ -1,0 +1,46 @@
+.centerDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.errorMessage {
+    font-family: 'MuseoModerno';
+    font-size: 16px;
+    color: red;
+}
+
+.loadingScreen {
+    justify-content: center;
+    align-items: center;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+}
+
+* {
+    color: #000;
+    font-family: 'MuseoModerno';
+}
+
+.divGoBackButton {
+    padding: 20px;
+}
+
+.modifyButton {
+    background: #27D4A9;
+    border-radius: 15px;
+    border: none;
+    width: 87px;
+    height: 33px;
+    text-align: center;
+    color: white;
+}
+
+.page {
+    margin-bottom: 248px;
+}

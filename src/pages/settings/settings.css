@@ -1,0 +1,55 @@
+.settings{
+    margin: 30px;
+}
+
+.settingsCards {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 30px;
+    padding: 25px;
+}
+
+.settingsModify {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 30px;
+    padding: 25px;
+    align-items: center;
+    text-align: center;
+    display: grid;
+}
+
+.buttonModify {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 7px;
+    align-items: center;
+}
+
+.divButtonModify {
+    position: absolute;
+    right: 14%;
+    top: 20%;
+}
+
+.logOutButton {
+    border-radius: 30px;
+    border: 1px solid red;
+    background: red;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    padding: 10px;
+}
+
+.settingsFormInput {
+    border-radius: 30px;
+    border: 1px solid #F8E7AF;
+    background: #F8E7AF;
+    padding: 7px;
+}
