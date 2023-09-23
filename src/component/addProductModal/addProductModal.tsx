@@ -37,10 +37,8 @@ const AddProductModal: React.FC<addModalProps> = ({
         navigate('/addProductCam', { state: { id } });
     }
 
-    const handleAddManual = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        navigate('/addProductManual');
+    const handleAddManual = async (id: number) => {
+        navigate('/addProductManual', { state: { id } });
     };
 
     return (
@@ -69,7 +67,7 @@ const AddProductModal: React.FC<addModalProps> = ({
                     <Button onClick={() => handleAddWithCam(containerId)} autoFocus>
                         {t('Add by scanning the barcode')}
                     </Button>
-                    <Button onClick={handleAddManual} autoFocus>
+                    <Button onClick={() => handleAddManual(containerId)} autoFocus>
                         {t('Add by hand')}
                     </Button>
                 </DialogActions>
