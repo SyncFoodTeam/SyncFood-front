@@ -73,9 +73,6 @@ function Home() {
                         <div className='divFastAdd'>
                             <h3>{t('Quick Add')} :</h3>
                             <div>
-                                <div>
-                                    <button className='fastAddButton'>{t('Add a Food')}</button>
-                                </div>
                                 <div style={{marginTop: '25px'}}>
                                     <button className='fastAddButton' onClick={createGroup}>{t('Create a group')}</button>
                                 </div>

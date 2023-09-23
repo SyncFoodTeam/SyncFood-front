@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import IError from '../../interface/error.interface';
 import ErrorComponent from '../../component/error/errorComponent';
+import GoBack from '../../component/goBack/goBack';
 
 
 
@@ -97,15 +98,15 @@ function Settings() {
                         <Header barCodeScannerIsTrue={false} />
 
 
-                        <h1>{t('My settings')}</h1>
+                        <GoBack name={t('My settings')} />
 
                         <div className="centerDiv">
                             {!isModify &&
                                 <div>
-                                    <div className='divButtonModify'>
-                                        <button className='buttonModify' onClick={modifyInformation}><i className="fa-solid fa-pen-to-square fa-lg"></i></button>
-                                    </div>
                                     <div className='settingsCards'>
+                                        <div className='divButtonModify'>
+                                            <button className='buttonModify' onClick={modifyInformation}><i className="fa-solid fa-pen-to-square fa-lg"></i></button>
+                                        </div>
                                         <div>
                                             {t('Username')} : {informationMe.userName}
                                         </div>

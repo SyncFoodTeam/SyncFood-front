@@ -28,7 +28,7 @@ function LunchPage() {
 
             <Header barCodeScannerIsTrue={false} />
             <div className='centerDiv imageSyncFood'>
-                <img src={lunchPageImage}></img>
+                <img style={{width: '75%' }} src={lunchPageImage}></img>
             </div>
 
             <div className='divButtonLoginRegister'>

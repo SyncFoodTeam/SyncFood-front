@@ -10,6 +10,7 @@ import IGroups from '../../../interface/groups/groups.interface';
 import { BounceLoader } from 'react-spinners';
 import Loader from '../../../component/loader/loader';
 import { useTranslation } from 'react-i18next';
+import GoBack from '../../../component/goBack/goBack';
 
 
 function GroupsList() {
@@ -56,21 +57,20 @@ function GroupsList() {
 
 
     return (
-        <div className="App">
+        <div >
             {!loading &&
                 <Header />
             }
             <div className='groupList'>
                 {!loading &&
                     <div>
-                        <h1>{t('Groups')}</h1>
+                        <GoBack name={t('Groups')} />
                         {!noData &&
                             <div>
                                 {groups.map((group: IGroups, index: number) => (
                                     <div key={index}>
 
                                         <div className='groupe'>
-                                            <img className='image' src={imageUrl} />
                                             <div className='descriptif'>
                                                 <h3 className='title'>{group.name} </h3>
                                                 <h5 className='description'>{group.description} </h5>
@@ -78,27 +78,30 @@ function GroupsList() {
                                         </div>
 
                                         <div className="seeMore" onClick={() => goToGroup(group.id)}>
-                                        {t('View More')}
+                                            {t('View More')}
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         }
+                        <div>
+                            <button className='addGroup' onClick={createGroup}>{t('Add the container')}</button>
+                        </div>
                         {noData &&
                             <NoDataComponent />
                         }
 
-                        <button onClick={createGroup} className="ajout"><img src={ajout} alt='Ajout de groupe' /></button></div>
-
-                }
-
-                {loading &&
-                    <div>
-                        <Loader />
-
                     </div>
+
                 }
+
             </div>
+            {loading &&
+                <div>
+                    <Loader />
+
+                </div>
+            }
             {!loading &&
                 <Menu />
             }
