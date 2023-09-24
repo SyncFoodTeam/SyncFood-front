@@ -45,7 +45,8 @@ function Settings() {
         if (user?.code == 200 && user?.dataUser) {
             setError(false);
             setInformationMe(user.dataUser);
-            setMemberSince(moment(informationMe.creationDate, "YYYYMMDD").fromNow());
+            setMemberSince(moment(user.dataUser.creationDate, "YYYYMMDD").fromNow());
+            console.log(memberSince);
         } else {
             setError(true);
         }
