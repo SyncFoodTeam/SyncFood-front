@@ -67,7 +67,15 @@ function ModifyProduct() {
         let updateSuccess = await UpdateProductService(body);
         console.log(updateSuccess);
         if (updateSuccess) {
-            navigate(-1);
+            let product = {
+                barCode: productReceive.barCode,
+                creationDate: productReceive.creationDate,
+                expirationDate: productReceive.expirationDate,
+                id: productReceive.id,
+                price: productReceive.price,
+                quantity: body.quantity
+            }
+            navigate('/productDetails', { state: { product, containerId } });
         } else {
             console.log("Erreur lors de la connexion");
         }

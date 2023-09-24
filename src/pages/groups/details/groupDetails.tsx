@@ -30,15 +30,15 @@ function GroupDetails() {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             if (id) {
-                setLoading(true);
                 await getGroup(id);
                 const userData = await InformationMe();
                 setUser(userData.dataUser);
-                setLoading(false);
             } else {
                 console.log("Je n'ai pas d'id");
             }
+            setLoading(false);
         };
 
         fetchData();
@@ -78,22 +78,22 @@ function GroupDetails() {
             {!loading &&
                 <div className='page'>
                     <div>
-                        <GoBack name={group.name} />
+                        <GoBack name={group.name}/>
                     </div>
 
                     <div>
                         <ContainerList group={group} user={user} />
                     </div>
+                    <div>
+                        {(group?.owner?.id === user?.id) &&
+                            <div className='ownerDiv'>
 
-                    {(group?.owner?.id === user?.id) &&
-                        <div className='ownerDiv'>
-
-                            <button className='modifyGroup' onClick={() => modifyGroups(group.id)}>{t('Modify Group')}</button>
-                            <button className='addContainer' onClick={() => createFoodContainer(group.id)
-                            }>{t('Add the container')}</button>
-                        </div>
-                    }
-
+                                <button className='modifyGroup' onClick={() => modifyGroups(group.id)}>{t('Modify Group')}</button>
+                                <button className='addContainer' onClick={() => createFoodContainer(group.id)
+                                }>{t('Add the container')}</button>
+                            </div>
+                        }
+                    </div>
                     <Menu />
 
                 </div>

@@ -115,7 +115,7 @@ const ContainerList: React.FC<goBackProps> = ({
 
 
     return (
-        <div className="page">
+        <div>
 
             {!loading &&
                 <div>
@@ -159,9 +159,6 @@ const ContainerList: React.FC<goBackProps> = ({
                                     {t('View More')}
                                 </div>
                             </div>
-
-                            {JSON.stringify(products.find((e) => e.id === container.id))}
-
                         </div>
                     ))}
                 </div>

@@ -18,7 +18,7 @@ const ErrorComponent: React.FC<errorProps> = ({
     searchedLocation = ''
 }) => {
     return (
-        <div>
+        <div className='Error'>
             {value}
         </div>
 

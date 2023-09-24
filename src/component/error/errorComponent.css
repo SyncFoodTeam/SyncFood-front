@@ -1,0 +1,8 @@
+.Error{
+    color: red;
+    margin: 30px;
+    display: flex;
+    place-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}

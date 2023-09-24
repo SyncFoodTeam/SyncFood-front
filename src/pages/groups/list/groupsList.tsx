@@ -85,7 +85,7 @@ function GroupsList() {
                             </div>
                         }
                         <div>
-                            <button className='addGroup' onClick={createGroup}>{t('Add the container')}</button>
+                            <button className='addGroup' onClick={createGroup}>{t('Add a group')}</button>
                         </div>
                         {noData &&
                             <NoDataComponent />
