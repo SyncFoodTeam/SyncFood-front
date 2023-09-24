@@ -20,9 +20,6 @@ git clone https://github.com/SyncFoodTeam/SyncFood-front
 ```
 npm i --legacy-peer-deps
 ```
-```
-npm install --save typescript @types/node @types/react @types/react-dom @types/websocket
-```
 ### Lancer l'application en mode développement
 
 ```
