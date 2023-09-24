@@ -4,6 +4,9 @@
     margin-top: 20px;
     font-size: 12px;
     font-weight: 400;
+    position: relative;
+    z-index: 10;
+
 }
 
 .nameOfPage {
@@ -20,4 +23,6 @@
     background: none;
     left: 5%;
     font-size: 20px;
+    background: white;
+    border-radius: 30px;
 }
