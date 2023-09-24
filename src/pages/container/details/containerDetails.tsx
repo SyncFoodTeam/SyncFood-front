@@ -100,7 +100,7 @@ function ContainerDetails() {
                                 <div key={index} className='product' onClick={() => goToProduct(container.products[index], container.id)}>
 
                                     <div className='productCard'>
-                                        <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                        <img className='imageProductInContainerView' src={product.product.image_front_small_url} alt={product.product.abbreviated_product_name} />
                                         <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
                                     </div>
 

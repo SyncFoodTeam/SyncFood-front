@@ -18,7 +18,7 @@ const Scanner = props => {
       }
       Quagga.start();
       return () => {
-        Quagga.stop()
+        Quagga.stop();
       }
     });
 
@@ -82,6 +82,7 @@ const Scanner = props => {
     if (!detectionDone) {
       onDetected(result.codeResult.code);
       detectionDone = true;
+      Quagga.stop();
     }
   };
 
