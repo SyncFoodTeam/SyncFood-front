@@ -109,7 +109,7 @@ function Settings() {
                                             <button className='buttonModify' onClick={modifyInformation}><i className="fa-solid fa-pen-to-square fa-lg"></i></button>
                                         </div>
                                         <div>
-                                            {t('Username')} : {informationMe.userName}
+                                            {t('Username')} : {informationMe.userName}#{informationMe.discriminator}
                                         </div>
                                         <br />
                                         <div>
