@@ -99,10 +99,10 @@ function ModifyContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="frigo"
+                            value="Fridge"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
-                            defaultChecked={container.name === 'frigo'}
+                            defaultChecked={container.name === 'Fridge'}
                         /> {t('Fridge')}
                     </label>
                     <br />
@@ -110,10 +110,10 @@ function ModifyContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="placard"
+                            value="Closet"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
-                            defaultChecked={container.name === 'placard'}
+                            defaultChecked={container.name === 'Closet'}
                         /> {t('Closet')}
                     </label>
                     <br />
@@ -121,10 +121,10 @@ function ModifyContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="congelateur"
+                            value="Freezer"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
-                            defaultChecked={container.name === 'congelateur'}
+                            defaultChecked={container.name === 'Freezer'}
 
                         /> {t('Freezer')}
                     </label>

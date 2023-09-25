@@ -82,7 +82,7 @@ function ProductDetails() {
                         </div>
                         <br />
                         <div className='principalInformation'>
-                            <div>{product?.abbreviated_product_name || product?.generic_name}</div>
+                            <div>{product?.abbreviated_product_name || product?.generic_name || product?.product_name}</div>
                             <br />
                             <div>Quantité: {productReceive?.quantity}</div>
                             <br />
