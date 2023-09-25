@@ -25,6 +25,8 @@ function ContainerDetails() {
     const id = location.state?.id;
     const { t } = useTranslation();
 
+    const [containerName, setContainerName] = useState('');
+
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
@@ -47,6 +49,7 @@ function ContainerDetails() {
         if (myContainers) {
             console.log("j'ai des container:")
             setContainer(myContainers);
+            setContainerName(myContainers.name)
             await getAllProduct(myContainers);
             setNoData(false);
         } else {
@@ -91,7 +94,7 @@ function ContainerDetails() {
                 <div className="page">
                     <Header />
                     <div>
-                        <GoBack name={container.name} />
+                        <GoBack name={t(container.name)} />
                     </div>
 
                     {products?.length > 0 &&

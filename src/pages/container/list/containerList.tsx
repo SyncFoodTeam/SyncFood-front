@@ -123,13 +123,13 @@ const ContainerList: React.FC<goBackProps> = ({
                     {group?.foodContainers?.map((container: IFoodContainers, index: number) => (
                         <div key={index}>
                             <div className='containerLogoDiv'>
-                                {(container.name) === 'frigo' &&
+                                {(container.name) === 'Fridge' &&
                                     <img className='containerLogoImg' src={frigo} />
                                 }
-                                {(container.name) === 'placard' &&
+                                {(container.name) === 'Closet' &&
                                     <img className='containerLogoImg' src={placard} />
                                 }
-                                {(container.name) === 'congelateur' &&
+                                {(container.name) === 'Freezer' &&
                                     <img className='containerLogoImg' src={congelateur} />
                                 }
                             </div>

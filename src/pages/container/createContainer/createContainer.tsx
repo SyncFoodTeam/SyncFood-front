@@ -65,7 +65,7 @@ function CreateContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="frigo"
+                            value="Fridge"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
                         /> {t('Fridge')}
@@ -75,7 +75,7 @@ function CreateContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="placard"
+                            value="Closet"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
                         /> {t('Closet')}
@@ -85,7 +85,7 @@ function CreateContainer() {
                         <input
                             type="radio"
                             name="storage"
-                            value="congelateur"
+                            value="Freezer"
                             onChange={(e) => setStorageLocation(e.target.value)}
                             required
                         /> {t('Freezer')}
