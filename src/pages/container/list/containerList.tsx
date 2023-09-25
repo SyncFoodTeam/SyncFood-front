@@ -14,6 +14,7 @@ import congelateur from '../../../assets/congelateur.svg';
 
 import IUser from '../../../interface/auth.interface';
 import Loader from '../../../component/loader/loader';
+import IProducts from '../../../interface/product/products.interface';
 interface goBackProps {
     group?: IGroup;
     user?: IUser;
@@ -112,17 +113,9 @@ const ContainerList: React.FC<goBackProps> = ({
         }
     }
 
-    const goToProduct = async (id: string) => {
-        console.log("goToProduct()");
-        console.log(id);
-
-        navigate('/productDetails', { state: { id } })
-    }
-
-
 
     return (
-        <div className="App">
+        <div>
 
             {!loading &&
                 <div>
@@ -150,11 +143,9 @@ const ContainerList: React.FC<goBackProps> = ({
                                         {/* Permet d'afficher les produits */}
                                         {products.filter((e) => e.barCode === productInArray.code).map((product, index) => (
                                             <div key={index}>
-                                                <div className='productCard' onClick={() => goToProduct(product.product.code)}>
+                                                <div className='productCard'>
                                                     <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
                                                     <h3 className='title'> {product.product.abbreviated_product_name || product.product?.generic_name} </h3>
-                                                    <h3></h3>
-                                                    {product.id}
                                                 </div>
                                             </div>
                                         ))}
@@ -168,9 +159,6 @@ const ContainerList: React.FC<goBackProps> = ({
                                     {t('View More')}
                                 </div>
                             </div>
-
-                            {JSON.stringify(products.find((e) => e.id === container.id))}
-
                         </div>
                     ))}
                 </div>

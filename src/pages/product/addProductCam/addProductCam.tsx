@@ -106,9 +106,13 @@ function AddProductCam() {
                 <Loader />
             }
             {status === 0 &&
-                <div>
-                    <h2>{t(`${statusVerbose}`)}</h2>
-                    <button onClick={retryAddProductCam}>{t('Retry')}</button>
+                <div className='productAdd'>
+                    <div className='productFound'>
+                        {t(`${statusVerbose}`)}
+                    </div>
+                    <div className='productButton'>
+                        <button className='buttonProductNotFound' onClick={retryAddProductCam}>{t('Retry')}</button>
+                    </div>
                 </div>
             }
 

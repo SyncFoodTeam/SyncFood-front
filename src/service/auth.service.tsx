@@ -72,7 +72,8 @@ export async function InformationMe(): Promise<ICommonUser | undefined> {
                 return resp;
             } else {
                 console.log("J'ai un code erreur");
-                return undefined;
+                console.log(resp.code)
+                return resp;
             }
         } else {
             console.log("Je n'ai pas de token");

@@ -25,6 +25,7 @@ function ModifyContainer() {
     const [containerDescription, setContainerDescription] = useState('');
     const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
+    const [storageLocation, setStorageLocation] = useState('')
 
     const id = location.state?.id;
 
@@ -62,7 +63,7 @@ function ModifyContainer() {
 
         let body = {
             id: container?.id,
-            name: containerName || container?.name,
+            name: storageLocation || container?.name,
             description: containerDescription,
         };
 
@@ -90,16 +91,44 @@ function ModifyContainer() {
             }
 
             {!loading &&
-                <div className='modifyCard'>
+                <div className='modifyCardContainer'>
                     <div className="modifyDiv">
-                        <label>{t('Name of Food Container')} :</label>
-                        <br />
-                        <input type="text" name="text"
-                            defaultValue={container.name}
-                            onChange={(e) => setContainerName(e.target.value)}
-                            className='modifyInput'
-                        ></input>
-                    </div>
+                    <label>{t('Name of the container')} :</label>
+                    <br />
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="frigo"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                            defaultChecked={container.name === 'frigo'}
+                        /> {t('Fridge')}
+                    </label>
+                    <br />
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="placard"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                            defaultChecked={container.name === 'placard'}
+                        /> {t('Closet')}
+                    </label>
+                    <br />
+                    <label>
+                        <input
+                            type="radio"
+                            name="storage"
+                            value="congelateur"
+                            onChange={(e) => setStorageLocation(e.target.value)}
+                            required
+                            defaultChecked={container.name === 'congelateur'}
+
+                        /> {t('Freezer')}
+                    </label>
+                </div>
                     <div className="modifyDiv">
                         <label>{t('Description')} :</label>
                         <br />

@@ -5,25 +5,30 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     margin: 30px;
     padding: 14px 22px;
+    margin-bottom: 300px;
 }
 
 .photoProduct {
-    width: 140px;
-    height: 87px;
+    max-width: 70px;
+    height: auto;
+    display: flex;
 }
 
 .photoNutriscore {
-    width: 60px;
-    height: 33px;
+    max-width: 100px;
+    height: auto;
     margin-left: 10px;
 }
 .nutriscore{
     display: flex;
 }
 
-.descriptionProduct{
-    width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.nutritionImage{
+    max-width: 300px;
+    height: auto;
+}
+
+.productImage{
+    display: flex;
+    place-content: center;
 }

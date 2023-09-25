@@ -96,7 +96,6 @@ export async function RegisterDao(body: IUserRegister) {
 
 export async function InformationMeDao(token: string) {
     console.log("InformationMeDao()");
-    // console.log(token);
 
     try {
         let data = await fetch('/api/user/info/me', {
@@ -109,18 +108,16 @@ export async function InformationMeDao(token: string) {
         })
 
         const realData = await data.json();
-        if (data.status === 200 && realData) {
+        let userData = {
+            dataUser: realData,
+            code: data.status
+        }
 
-            let loginData = {
-                dataUser: realData,
-                code: data.status
-            }
-
+        if (userData.code === 200 && realData) {
             console.log('======success=======');
-            return loginData;
+            return userData;
         } else {
             await routeService(data.status);
-            return undefined
         }
 
     } catch (error) {

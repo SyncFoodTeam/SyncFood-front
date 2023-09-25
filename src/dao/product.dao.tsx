@@ -68,11 +68,11 @@ export async function UpdateProductDao(token: string, body: any) {
     console.log("UpdateProductDao(", { token }, { body }, ")");
 
     try {
-        let data = await fetch('/api/product/edit', {
+        let data = await fetch('/api/products/edit', {
 
             method: 'PATCH',
             body: JSON.stringify({
-                productId: body.id,
+                ProductID: body.id,
                 quantity: body.quantity,
             }),
             headers: {
@@ -112,7 +112,7 @@ export async function UpdateProductDao(token: string, body: any) {
 export async function DeleteProductDao(token: string, productId: number) {
     console.log("DeleteProductDao(token, productId)");
 
-    const data = await fetch(`/api/product/delete/${productId}`, {
+    const data = await fetch(`/api/products/delete/${productId}`, {
         method: 'DELETE',
 
         headers: {

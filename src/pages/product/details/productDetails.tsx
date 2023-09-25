@@ -77,12 +77,15 @@ function ProductDetails() {
                     </div>
 
                     <div className='productDetailsCard'>
-                        <div>
+                        <div className='productImage'>
                             <img className='photoProduct' src={product?.image_front_url} />
                         </div>
+                        <br />
                         <div className='principalInformation'>
                             <div>{product?.abbreviated_product_name || product?.generic_name}</div>
+                            <br />
                             <div>Quantité: {productReceive?.quantity}</div>
+                            <br />
                             <div className='nutriscore'>Nutri-score:
                                 {(product?.nutriscore_grade) === 'a' &&
                                     <img className='photoNutriscore' src={a} />
@@ -100,10 +103,18 @@ function ProductDetails() {
                                     <img className='photoNutriscore' src={e} />
                                 }
                             </div>
+                            <br />
                             <div >
                                 {t('Ingredients')} :
-                                <div className='descriptionProduct'>{product?.ingredients_text}</div>
+                                <br/>
+                                <div>{product?.ingredients_text}</div>
                             </div>
+                            <br />
+                            <div >
+                                {t('Nutritional value')} :
+                                <img className='nutritionImage' src={product?.image_nutrition_url} />
+                            </div>
+                            <br />
                             <div >
                                 {t('Expiration date')} :
                                 <DateFormater date={productReceive?.expirationDate} />

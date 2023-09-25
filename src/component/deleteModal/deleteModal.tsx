@@ -87,7 +87,8 @@ const DeleteModal: React.FC<deleteModalProps> = ({
 
             if (removeProduct.code === 200) {
                 setError(false);
-                navigate(-1);
+                let id = containerId;
+                navigate('/containerDetails', { state: { id } });
             } else {
                 setError(true);
                 setErrorMessage(removeProduct.dataGroup);

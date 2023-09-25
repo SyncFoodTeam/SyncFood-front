@@ -67,7 +67,15 @@ function ModifyProduct() {
         let updateSuccess = await UpdateProductService(body);
         console.log(updateSuccess);
         if (updateSuccess) {
-            navigate(-1);
+            let product = {
+                barCode: productReceive.barCode,
+                creationDate: productReceive.creationDate,
+                expirationDate: productReceive.expirationDate,
+                id: productReceive.id,
+                price: productReceive.price,
+                quantity: body.quantity
+            }
+            navigate('/productDetails', { state: { product, containerId } });
         } else {
             console.log("Erreur lors de la connexion");
         }
@@ -95,20 +103,10 @@ function ModifyProduct() {
                     </div>
                     <br />
                     <div>
-                        <label>{t('Price')} :</label>
-                        <input type="number" name="price" min="1" required defaultValue={productReceive.price} onChange={(e) => setPrice(e.target.value)} className='inputAddProduct'></input>
-                    </div>
-                    <br />
-                    <div>
                         <label>{t('Quantity')} :</label>
                         <input type="number" name="quantity" min="1" required defaultValue={productReceive.quantity} onChange={(e) => setQuantity(e.target.value)} className='inputAddProduct'></input>
                     </div>
                     <br />
-                    <div>
-                        <label>{t('Expiration date')}:</label>
-                        <input type="date" name="datePeremption" className='datePeremption' defaultValue={productReceive.expirationDate} required onChange={(e) => setDatePeremption(e.target.value)}></input>
-                        {wrongDate && <p style={{ color: "red" }}>{wrongDate}</p>}
-                    </div>
 
                     <div className='creationDate'>
                         {t('Creation date')}: <DateFormater date={productReceive?.creationDate} />

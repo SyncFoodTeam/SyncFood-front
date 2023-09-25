@@ -16,7 +16,6 @@ import IProducts from '../../../interface/product/products.interface';
 
 
 function ContainerDetails() {
-    const [user, setUser] = useState<IUserPublic>({});
     const [container, setContainer] = useState<IFoodContainers>({});
     const [noData, setNoData] = useState(false);
     const navigate = useNavigate();
@@ -44,7 +43,7 @@ function ContainerDetails() {
     async function getContainer(containerId: number) {
         console.log("getContainer(containerId)");
         let myContainers = await GetContainerService(containerId);
-
+        console.log({myContainers});
         if (myContainers) {
             console.log("j'ai des container:")
             setContainer(myContainers);
@@ -87,9 +86,9 @@ function ContainerDetails() {
 
 
     return (
-        <div className="App">
+        <div>
             {!loading &&
-                <div>
+                <div className="page">
                     <Header />
                     <div>
                         <GoBack name={container.name} />
@@ -97,11 +96,11 @@ function ContainerDetails() {
 
                     {products?.length > 0 &&
                         <div className='product-container'>
-                            {products.slice(0, 6).map((product, index) => (
+                            {products.map((product, index) => (
                                 <div key={index} className='product' onClick={() => goToProduct(container.products[index], container.id)}>
 
                                     <div className='productCard'>
-                                        <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                        <img className='imageProductInContainerView' src={product.product.image_front_small_url} alt={product.product.abbreviated_product_name} />
                                         <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
                                     </div>
 
@@ -115,7 +114,7 @@ function ContainerDetails() {
 
                     <div className='divButton'>
                         <div className='divButtonModifyGroups'>
-                            <button onClick={() => modifyContainers(container.id)}  className='modifyButton'>{t('Modify')}</button>
+                            <button onClick={() => modifyContainers(container.id)} className='modifyButton'>{t('Modify')}</button>
                         </div>
 
                         <div className='divButtonDelete'>
@@ -127,11 +126,13 @@ function ContainerDetails() {
 
 
 
-                    <Menu />
                 </div>
             }
             {loading &&
                 <Loader />
+            }
+            {!loading &&
+                <Menu />
             }
 
         </div>
