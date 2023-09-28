@@ -4,7 +4,7 @@ import React, {
 import config from "./config.json";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
-
+import './scanner.css';
 
 const Scanner = (props) => {
   const {
@@ -17,7 +17,6 @@ const Scanner = (props) => {
 
 
   useEffect(() => {
-    console.log(isCameraActive)
     if (isCameraActive && !quaggaIsRunning) {
       console.log("J'active la caméra");
       Quagga.init(config, err => {
@@ -32,10 +31,10 @@ const Scanner = (props) => {
         };
       });
     } if (!isCameraActive && quaggaIsRunning) {
-      console.log("Je désactive la caméra");
+      console.warn("Je désactive la caméra");
       Quagga.stop();
       setQuaggaIsRunning(false);
-    }else{
+    } else {
       console.warn('La caméra n est pas activé');
     }
 
@@ -118,11 +117,14 @@ const Scanner = (props) => {
   };
 
   return (
-    <div>
+    <div className="scanner">
       <div id="interactive" className="viewport"></div>
-      <button onClick={toggleCamera}>
-        {isCameraActive ? "Arrêter la caméra" : "Démarrer la caméra"}
-      </button>
+      <div className="divActiveCam">
+        <button className='btnActiveCam' onClick={toggleCamera}>
+          {isCameraActive ? "Arrêter la caméra" : "Démarrer la caméra"}
+        </button>
+
+      </div>
     </div>
   );
 };

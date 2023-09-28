@@ -105,7 +105,21 @@ function AddProductCam() {
             {(loading && statusVerbose === '') &&
                 <Loader />
             }
+
+            {/* Product not Found */}
             {status === 0 &&
+                <div className='productAdd'>
+                    <div className='productFound'>
+                        {t(`${statusVerbose}`)}
+                    </div>
+                    <div className='productButton'>
+                        <button className='buttonProductNotFound' onClick={retryAddProductCam}>{t('Retry')}</button>
+                    </div>
+                </div>
+            }
+
+            {/* Product Found */}
+            {(status === 1 && !addProduct) &&
                 <div className='productAdd'>
                     <div className='productFound'>
                         {t(`${statusVerbose}`)}
@@ -116,18 +130,6 @@ function AddProductCam() {
                             </div>
                             <div>{product?.abbreviated_product_name || product?.generic_name || product?.product_name}</div>
                         </div>
-                    </div>
-                    <div className='productButton'>
-                        <button className='buttonProductNotFound' onClick={retryAddProductCam}>{t('Retry')}</button>
-                    </div>
-                </div>
-            }
-
-            {(status === 1 && !addProduct) &&
-                <div className='productAdd'>
-                    <div className='productFound'>
-                        {t(`${statusVerbose}`)}
-                        <br />
                         {t('Add Product')} ?
                     </div>
 
