@@ -98,7 +98,7 @@ function ProductList() {
                                 <div key={index} onClick={() => goToProduct(product.product.code)}>
                                     <div>
                                         <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
-                                        <h3 className='title'>{product.product.abbreviated_product_name || product.product.generic_name} </h3>
+                                        <h3 className='title'>{product?.product?.abbreviated_product_name || product?.product?.generic_name || product?.product?.product_name} </h3>
                                     </div>
 
                                 </div>
