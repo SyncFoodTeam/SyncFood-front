@@ -50,9 +50,6 @@ const ContainerList: React.FC<goBackProps> = ({
 
                     containers.push(container);
 
-                    console.log('TATA')
-                    console.log({ containers });
-
                     if (container.products.length) {
                         console.log(container.id)
                         console.log("mon container n'est pas vide j'ai des produits")
@@ -133,26 +130,25 @@ const ContainerList: React.FC<goBackProps> = ({
                                     <img className='containerLogoImg' src={congelateur} />
                                 }
                             </div>
-                            <div>
 
-                            </div>
-                            <div className='productList-container'>
+                            <div className='containerProduct'>
                                 {/* Permet de boucler sur les produits présent dans les containers */}
-                                {containers.find((e) => e.id === container.id)?.products?.slice(0, 2).map((productInArray: any, index) => (
-                                    <div key={index}>
+                                {containers.find((e) => e.id === container.id)?.products?.slice(0, 1).map((productInArray: any, index) => (
+                                    <div key={index} className='productList-container'>
                                         {/* Permet d'afficher les produits */}
-                                        {products.filter((e) => e.barCode === productInArray.code).map((product, index) => (
-                                            <div key={index}>
+                                        {products.filter((e) => e.barCode === productInArray.code).slice(0, 3).map((product, index2) => (
+                                            <div key={index2}>
                                                 <div className='productCard'>
-                                                    <img className='imageProductInContainerView' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
-                                                    <h3 className='title'> {product.product.abbreviated_product_name || product.product?.generic_name} </h3>
+                                                    <div className='productImage'>
+                                                        <img className='imageProductInContainerList' src={product.product.image_front_thumb_url} alt={product.product.abbreviated_product_name} />
+                                                    </div>
+                                                    <h3 className='title productTitle'>{product?.product?.abbreviated_product_name || product?.product?.generic_name || product?.product?.product_name} </h3>
                                                 </div>
                                             </div>
                                         ))}
 
                                     </div>
                                 ))}
-
                             </div>
                             <div className='seeMoreProductDiv'>
                                 <div className="seeMoreProduct" onClick={() => goToContainer(container.id)}>
