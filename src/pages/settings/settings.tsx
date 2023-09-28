@@ -23,12 +23,14 @@ function Settings() {
     const [loading, setLoading] = useState(false);
     const [isModify, setIsModify] = useState(false);
     const [memberSince, setMemberSince] = useState('');
-    const { t } = useTranslation();
-
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [informationMe, setInformationMe] = useState<IUser>({});
-
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<IError>({})
+    const [errorMessage, setErrorMessage] = useState<IError>({});
+    const [wrongPassword, setWrongPassword] = useState(false);
+    const [passwordChange, setPasswordChange] = useState(false);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -56,23 +58,28 @@ function Settings() {
         event.preventDefault();
 
         console.log(event);
+        if (password === passwordConfirm) {
+            setWrongPassword(false);
+            let body = {
+                userName: userName || informationMe?.userName,
+                email: email || null,
+                password: password || informationMe?.password
+            };
 
-        let body = {
-            userName: userName || informationMe?.userName,
-            email: email || null,
-            password: password || informationMe?.password
-        };
-
-        console.log("J'envoie mes données à la route adéquat");
-        let modifySuccess = await UpdateInformationMe(body);
-        console.log(modifySuccess);
-        if (modifySuccess.code === 200) {
-            setError(false);
-            navigate('/');
+            console.log("J'envoie mes données à la route adéquat");
+            let modifySuccess = await UpdateInformationMe(body);
+            console.log(modifySuccess);
+            if (modifySuccess.code === 200) {
+                setError(false);
+                navigate('/');
+            } else {
+                console.log("Erreur lors de la modification");
+                setErrorMessage(modifySuccess.dataUser);
+                setError(true);
+            }
         } else {
-            console.log("Erreur lors de la modification");
-            setErrorMessage(modifySuccess.dataUser);
-            setError(true);
+            console.log("Le mot de passe n'est pas le même");
+            setWrongPassword(true);
         }
     };
 
@@ -88,6 +95,14 @@ function Settings() {
         event.preventDefault();
 
         setIsModify(true);
+    };
+
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        // Faites quelque chose avec le nouveau mot de passe, par exemple :
+        console.log("Nouveau mot de passe :", newPassword);
+        setPassword(newPassword);
+        setPasswordChange(true);
     };
 
     return (
@@ -155,15 +170,33 @@ function Settings() {
                                             <br />
                                             <input type="password" name="password"
                                                 defaultValue={'**********'}
-                                                onChange={(e) => setPassword(e.target.value)}
+                                                onChange={handlePasswordChange}
                                                 className="settingsFormInput"></input>
                                         </div>
+                                        <br />
+                                        {passwordChange && <div>
+                                            <label className="label">{t('Confirm password')} :</label>
+                                            <br />
+                                            <input type="password" name="passwordConfrim"
+                                                required
+                                                className="settingsFormInput"
+                                                onChange={(e) => setPasswordConfirm(e.target.value)}
+                                            ></input>
+                                        </div>}
 
+                                        {wrongPassword &&
+                                            <h4 className='errorMessage'>{t('Passwords are not similar')}</h4>
+                                        }
+
+                                        {error &&
+                                            <ErrorComponent name={errorMessage.name} value={errorMessage.value} resourceNotFound={errorMessage.resourceNotFound} searchedLocation={errorMessage.searchedLocation} />
+                                        }
                                         <br />
                                     </form>
                                     <div className="centerDiv">
                                         <button className="modifyButton" onClick={handleSubmit}>{t('Modify')}</button>
                                     </div>
+
                                 </div>
                             }
                         </div>
@@ -174,9 +207,7 @@ function Settings() {
                             </div>
                         }
 
-                        {error &&
-                            <ErrorComponent name={errorMessage.name} value={errorMessage.value} resourceNotFound={errorMessage.resourceNotFound} searchedLocation={errorMessage.searchedLocation} />
-                        }
+
 
                     </div>
                 }
