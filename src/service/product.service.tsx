@@ -1,4 +1,4 @@
-import { DeleteProductDao, UpdateProductDao, addProductToContainerServiceWithCamDao, getProductCamDao } from "../dao/product.dao";
+import { DeleteProductDao, UpdateProductDao, addProductToContainerServiceWithCamDao, getProductFromOpenFood } from "../dao/product.dao";
 import IProductAdd from "../interface/product/productAdd.interface";
 import { IProduct, IProductOpenFood } from "../interface/product/productOpenFood.interface";
 
@@ -6,7 +6,7 @@ export async function getProductCamService(codeBarre: string) {
     console.log("getProductCamService(" + codeBarre + ")");
 
     try {
-        const resp = await getProductCamDao(codeBarre);
+        const resp = await getProductFromOpenFood(codeBarre);
         return resp;
     } catch (e) {
         console.log("Erreur", e);

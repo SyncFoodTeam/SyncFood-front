@@ -105,6 +105,8 @@ function AddProductCam() {
             {(loading && statusVerbose === '') &&
                 <Loader />
             }
+
+            {/* Product not Found */}
             {status === 0 &&
                 <div className='productAdd'>
                     <div className='productFound'>
@@ -116,11 +118,18 @@ function AddProductCam() {
                 </div>
             }
 
+            {/* Product Found */}
             {(status === 1 && !addProduct) &&
                 <div className='productAdd'>
                     <div className='productFound'>
                         {t(`${statusVerbose}`)}
-                        <br />
+                        <br /><br />
+                        <div className='productFoundNameAndPhoto'>
+                            <div className='photoProductDiv'>
+                                <img className='photoProduct' src={product?.image_front_url} />
+                            </div>
+                            <div>{product?.abbreviated_product_name || product?.generic_name || product?.product_name}</div>
+                        </div>
                         {t('Add Product')} ?
                     </div>
 
