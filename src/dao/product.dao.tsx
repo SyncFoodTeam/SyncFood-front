@@ -3,8 +3,8 @@ import { IProductOpenFood } from "../interface/product/productOpenFood.interface
 import RedirectService from "../service/redirect.service";
 import { routeService } from "../service/route.service";
 
-export async function getProductCamDao(codeBarre: string): Promise<IProductOpenFood> {
-    console.log("getProductCamDao(", { codeBarre }, ")");
+export async function getProductFromOpenFood(codeBarre: string): Promise<IProductOpenFood> {
+    console.log("getProductFromOpenFood(", { codeBarre }, ")");
 
     const data = await fetch(`https://fr.openfoodfacts.org/api/2/product/${codeBarre}`, {
         method: 'GET',

@@ -109,6 +109,13 @@ function AddProductCam() {
                 <div className='productAdd'>
                     <div className='productFound'>
                         {t(`${statusVerbose}`)}
+                        <br /><br />
+                        <div className='productFoundNameAndPhoto'>
+                            <div className='photoProductDiv'>
+                                <img className='photoProduct' src={product?.image_front_url} />
+                            </div>
+                            <div>{product?.abbreviated_product_name || product?.generic_name || product?.product_name}</div>
+                        </div>
                     </div>
                     <div className='productButton'>
                         <button className='buttonProductNotFound' onClick={retryAddProductCam}>{t('Retry')}</button>

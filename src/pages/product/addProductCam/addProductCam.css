@@ -43,7 +43,7 @@ video.drawingBuffer {
   min-height: 46px;
   align-items: center;
   text-align: center;
-  display: flex;
+  /* display: flex; */
   width: 157px;
   padding: 8px 32px;
   justify-content: center;
@@ -127,4 +127,16 @@ video.drawingBuffer {
   text-align: center;
   border: none;
   padding: 10px;
+}
+
+.photoProductDiv {
+  text-align: -webkit-center
+}
+
+.productFoundNameAndPhoto{
+  border-radius: 30px;
+  border: 1px solid #F8E7AF;
+  background: #FFF;
+  padding: 8px 32px;
+
 }
