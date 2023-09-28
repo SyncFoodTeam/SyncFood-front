@@ -14,6 +14,7 @@ const Scanner = (props) => {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [detectionDone, setDetectionDone] = useState(false);
   const [quaggaIsRunning, setQuaggaIsRunning] = useState(false);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -116,14 +117,30 @@ const Scanner = (props) => {
     setIsCameraActive((prev) => !prev);
   };
 
-  return (
-    <div className="scanner">
-      <div id="interactive" className="viewport"></div>
-      <div className="divActiveCam">
-        <button className='btnActiveCam' onClick={toggleCamera}>
-          {isCameraActive ? "Arrêter la caméra" : "Démarrer la caméra"}
-        </button>
+  const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+    console.log("goBack()");
+    event.preventDefault();
 
+    console.log(event);
+    Quagga.stop();
+    navigate(-1);
+  }
+
+  return (
+    <div>
+      <div className='goBackWithName'>
+        <div >
+          <button onClick={goBack} className="returnToLastPage"><i className="fa-solid fa-arrow-left fa-xl"></i></button>
+        </div>
+      </div>
+      <div className="scanner">
+        <div id="interactive" className="viewport"></div>
+        <div className="divActiveCam">
+          <button className='btnActiveCam' onClick={toggleCamera}>
+            {isCameraActive ? "Arrêter la caméra" : "Démarrer la caméra"}
+          </button>
+
+        </div>
       </div>
     </div>
   );

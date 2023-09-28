@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import GoBack from '../../../component/goBack/goBack';
 import ContainerList from '../../container/list/containerList';
 
-
 function GroupDetails() {
     const navigate = useNavigate();
 

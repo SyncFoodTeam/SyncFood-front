@@ -69,7 +69,7 @@ function AddProductCam() {
         if (moment(datePeremption).format() <= moment(currentDate).format()) {
             setWrongDate("La date de péremption doit être postérieure à la date actuelle.")
         } else {
-            console.log({price});
+            console.log({ price });
             let body: IProductAdd = {
                 barcode: productCode,
                 price: parseFloat(price),
@@ -83,7 +83,7 @@ function AddProductCam() {
             await addProductToContainerServiceWithCam(body);
             setLoading(false);
             // navigate('/containerDetails', { state: { containerId } });
-            // navigate(-1);
+            navigate(-1);
         }
 
     };
@@ -92,9 +92,7 @@ function AddProductCam() {
         <div className="App">
 
             {(!loading && statusVerbose === '') && <div>
-                <div>
-                    <GoBack />
-                </div>
+
                 <div className="container">
                     {codeBarre === '' &&
                         <Scanner onDetected={onDetected} />
