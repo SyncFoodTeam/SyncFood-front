@@ -47,12 +47,11 @@ function AddProductManual() {
         } else {
             console.log("La date est correct");
             let product = await getProductCamService(codeBarre);
-
             if (product.status === 1) {
                 console.log("Le produit existe");
                 let body: IProductAdd = {
                     barcode: codeBarre,
-                    price: parseInt(price),
+                    price: parseFloat(price),
                     expirationdate: moment(datePeremption).format().split('+')[0],
                     quantity: parseInt(quantity),
                     foodcontainerid: containerId
@@ -63,7 +62,7 @@ function AddProductManual() {
                 await addProductToContainerServiceWithCam(body);
                 setLoading(false);
                 setProductDoesntExist(false);
-                navigate(-1);
+                // navigate(-1);
             } else {
                 console.log("Le produit n'existe pas");
                 setLoading(false);
@@ -93,7 +92,7 @@ function AddProductManual() {
                         <br />
                         <div>
                             <label className="label">{t('Price')} :</label>
-                            <input type="number" name="price" min="1" required onChange={(e) => setPrice(e.target.value)} className='inputAddProduct'></input>
+                            <input type="number" name="price" min="0.01" step="0.01" required onChange={(e) => setPrice(e.target.value)} className='inputAddProduct'></input>
                         </div>
                         <br />
                         <div>

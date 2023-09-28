@@ -28,11 +28,11 @@ const Header: React.FC<barCodeScannerIsTrueProps> = ({
         <header>
 
             <div className='headerMenu'>
-                {barCodeScannerIsTrue &&
+                {/* {barCodeScannerIsTrue &&
                     <div className='codeScanner' onClick={addProduct}>
                         <img src={barCodeScanner} alt='barCode' />
                     </div>
-                }
+                } */}
                 <div className="logo" onClick={goToHome}>
                     <img src={logo} alt='logo' />
                 </div>

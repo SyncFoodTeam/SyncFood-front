@@ -11,10 +11,10 @@ const GoBack: React.FC<goBackProps> = ({
     const navigate = useNavigate();
 
     const goBack = async (event: React.MouseEvent<HTMLElement>) => {
+        console.log("goBack()");
         event.preventDefault();
 
         console.log(event);
-
         navigate(-1);
     }
 
