@@ -102,7 +102,7 @@ function CreateContainer() {
                 </div>
             </div>
             <div>
-                <button type="submit" className='boutonAjoutGroupe' onClick={submitContainer}>{t('Add the container')}</button>
+                <button type="submit" className='boutonAjoutContainer' onClick={submitContainer}>{t('Add the container')}</button>
             </div>
             {createError &&
                 <h4 className='errorMessage'>{t('The name is not specified')}</h4>

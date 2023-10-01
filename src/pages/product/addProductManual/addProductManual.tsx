@@ -62,7 +62,7 @@ function AddProductManual() {
                 await addProductToContainerServiceWithCam(body);
                 setLoading(false);
                 setProductDoesntExist(false);
-                // navigate(-1);
+                navigate(-1);
             } else {
                 console.log("Le produit n'existe pas");
                 setLoading(false);
@@ -79,7 +79,7 @@ function AddProductManual() {
             }
 
             {!loading &&
-                <GoBack name={t('Add Product Page Manual')} />
+                <GoBack />
             }
 
             {!loading &&

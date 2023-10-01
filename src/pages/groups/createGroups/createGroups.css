@@ -26,7 +26,8 @@
 
 .boutonAjoutGroupe {
     position: absolute;
-    bottom: 12%;
+    /* bottom: 12%; */
+    margin-top: 150px;
     right: 8%;
     background: #27D4A9;
     border: none;

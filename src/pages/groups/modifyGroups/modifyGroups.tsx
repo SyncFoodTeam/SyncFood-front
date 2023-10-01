@@ -191,7 +191,7 @@ function ModifyGroups() {
 
                                 <div>
                                     <ul>
-                                        <li>{foodContainers.name} </li>
+                                        <li>{t(foodContainers.name)} </li>
                                     </ul>
                                 </div>
                             </div>

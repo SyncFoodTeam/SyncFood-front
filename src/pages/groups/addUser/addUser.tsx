@@ -66,6 +66,7 @@ function AddUser({ idGroup }: Props) {
 
                     if (usersInGroup?.code === 200) {
                         console.log("Ajout réussi");
+                        window.location.reload();
                     } else {
                         console.error("Erreur lors de l'ajout de l'utilisateur au groupe");
                         setaddError(true);

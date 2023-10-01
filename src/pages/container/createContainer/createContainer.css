@@ -17,3 +17,13 @@
 .modifyDiv {
     margin-bottom: 13px;
 }
+
+.boutonAjoutContainer{
+    position: absolute;
+    margin-top: 50px;
+    right: 8%;
+    background: #27D4A9;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+}
