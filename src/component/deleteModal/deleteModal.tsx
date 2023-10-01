@@ -65,7 +65,7 @@ const DeleteModal: React.FC<deleteModalProps> = ({
 
             if (removeSomeone.code === 200) {
                 setError(false);
-                // navigate('/');
+                window.location.reload();
             } else {
                 setError(true);
                 setErrorMessage(removeSomeone.dataGroup);

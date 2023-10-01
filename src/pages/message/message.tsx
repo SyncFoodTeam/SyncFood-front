@@ -3,6 +3,7 @@ import Header from '../../component/header/header';
 import Menu from '../../component/menu/menu';
 import './message.css';
 import React from 'react'
+import GoBack from '../../component/goBack/goBack';
 
 
 function Messages() {
@@ -13,10 +14,9 @@ function Messages() {
 
             <Header barCodeScannerIsTrue={true} />
 
+            <GoBack name={t('Message Pages')} />
 
-            <h1>{t('Message Pages')}</h1>
-
-            <div>{t('This function is not yet implemented in the application')}</div>
+            <div className='messagePage'>{t('This function is not yet implemented in the application')}</div>
 
             <Menu />
         </div>

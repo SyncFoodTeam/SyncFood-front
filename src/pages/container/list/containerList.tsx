@@ -136,7 +136,7 @@ const ContainerList: React.FC<goBackProps> = ({
                                 {containers.find((e) => e.id === container.id)?.products?.slice(0, 1).map((productInArray: any, index) => (
                                     <div key={index} className='productList-container'>
                                         {/* Permet d'afficher les produits */}
-                                        {products.filter((e) => e.barCode === productInArray.code).slice(0, 3).map((product, index2) => (
+                                        {products.filter((e) => e.barCode === productInArray.code).slice(0, 2).map((product, index2) => (
                                             <div key={index2}>
                                                 <div className='productCard'>
                                                     <div className='productImage'>
