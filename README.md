@@ -18,7 +18,7 @@ git clone https://github.com/SyncFoodTeam/SyncFood-front
 
 ### Installer les dépendances
 ```
-npm install --save typescript @types/node @types/react @types/react-dom @types/websocket
+npm i --legacy-peer-deps
 ```
 ### Lancer l'application en mode développement
 
@@ -30,7 +30,10 @@ Dans le cas contraire accédez à l'url [http://localhost:3000](http://localhost
 
 ## Mise en production de l'application
 
-````
+```
+npm i --legacy-peer-deps
+```
+```
 npm run build
 ````
 Le dossier build contient la version optimisé de l'application, prête à être mise en production via un serveur web adequat (ex: apache ou nginx)
